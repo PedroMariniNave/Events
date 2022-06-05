@@ -6,6 +6,7 @@ import com.zpedroo.voltzevents.hooks.PlaceholderAPIHook;
 import com.zpedroo.voltzevents.managers.DataManager;
 import com.zpedroo.voltzevents.objects.*;
 import com.zpedroo.voltzevents.tasks.AnnounceTask;
+import com.zpedroo.voltzevents.tasks.VoidCheckTask;
 import com.zpedroo.voltzevents.utils.FileUtils;
 import com.zpedroo.voltzevents.utils.actionbar.ActionBarAPI;
 import com.zpedroo.voltzevents.utils.config.Messages;
@@ -41,6 +42,7 @@ public abstract class Event {
     private final int winnersAmount;
     private final int minimumPlayers;
     private final boolean savePlayerInventory;
+    private final boolean additionalVoidChecker;
     private EventItems eventItems;
     private EventData eventData;
     private EventPhase eventPhase = EventPhase.INACTIVE;
@@ -48,7 +50,7 @@ public abstract class Event {
     private Location joinLocation;
     private Location exitLocation;
 
-    public Event(String name, FileUtils.Files file, String winnerTag, HashMap<String, List<String>> messages, Map<Integer, String> winnersPosition, int winnersAmount, int minimumPlayers, boolean savePlayerInventory, EventItems eventItems, Location joinLocation, Location exitLocation) {
+    public Event(String name, FileUtils.Files file, String winnerTag, HashMap<String, List<String>> messages, Map<Integer, String> winnersPosition, int winnersAmount, int minimumPlayers, boolean savePlayerInventory, boolean additionalVoidChecker, EventItems eventItems, Location joinLocation, Location exitLocation) {
         this.name = name;
         this.file = file;
         this.winnerTag = winnerTag;
@@ -57,6 +59,7 @@ public abstract class Event {
         this.winnersAmount = winnersAmount;
         this.minimumPlayers = minimumPlayers;
         this.savePlayerInventory = savePlayerInventory;
+        this.additionalVoidChecker = additionalVoidChecker;
         this.eventItems = eventItems;
         this.joinLocation = joinLocation;
         this.exitLocation = exitLocation;
@@ -238,6 +241,11 @@ public abstract class Event {
         updateAllParticipantsView();
         player.teleport(joinLocation);
         if (!player.hasPermission(Settings.ADMIN_PERMISSION)) player.setFlying(false);
+
+        if (additionalVoidChecker) {
+            VoidCheckTask voidCheckTask = new VoidCheckTask(this, player);
+            voidCheckTask.startTask();
+        }
     }
 
     public void leave(Player player, boolean checkParticipantsAmount, boolean checkWinner) {

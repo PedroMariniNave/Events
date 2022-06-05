@@ -24,12 +24,8 @@ public abstract class ArenaEvent extends Event {
     private Player player1;
     private Player player2;
 
-    public ArenaEvent(String eventName, FileUtils.Files file, String winnerTag, HashMap<String, List<String>> messages, Map<Integer, String> winnersPosition, int winnersAmount, int minimumPlayers, Location joinLocation, Location exitLocation) {
-        this(eventName, file, winnerTag, messages, winnersPosition, winnersAmount, minimumPlayers, true, null, joinLocation, exitLocation, null);
-    }
-
-    public ArenaEvent(String eventName, FileUtils.Files file, String winnerTag, HashMap<String, List<String>> messages, Map<Integer, String> winnersPosition, int winnersAmount, int minimumPlayers, boolean savePlayerInventory, EventItems eventItems, Location joinLocation, Location exitLocation, Location arenaLocation) {
-        super(eventName, file, winnerTag, messages, winnersPosition, winnersAmount, minimumPlayers, savePlayerInventory, eventItems, joinLocation, exitLocation);
+    public ArenaEvent(String eventName, FileUtils.Files file, String winnerTag, HashMap<String, List<String>> messages, Map<Integer, String> winnersPosition, int winnersAmount, int minimumPlayers, boolean savePlayerInventory, boolean additionalVoidChecker, EventItems eventItems, Location joinLocation, Location exitLocation, Location arenaLocation) {
+        super(eventName, file, winnerTag, messages, winnersPosition, winnersAmount, minimumPlayers, savePlayerInventory, additionalVoidChecker, eventItems, joinLocation, exitLocation);
 
         this.arenaLocation = arenaLocation;
     }

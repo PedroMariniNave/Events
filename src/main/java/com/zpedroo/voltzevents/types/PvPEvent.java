@@ -25,8 +25,8 @@ public abstract class PvPEvent extends Event {
     private Player player1;
     private Player player2;
 
-    public PvPEvent(String eventName, FileUtils.Files file, String winnerTag, HashMap<String, List<String>> messages, Map<Integer, String> winnersPosition, int winnersAmount, int minimumPlayers, boolean savePlayerInventory, EventItems eventItems, Location joinLocation, Location exitLocation, Location pos1Location, Location pos2Location) {
-        super(eventName, file, winnerTag, messages, winnersPosition, winnersAmount, minimumPlayers, savePlayerInventory, eventItems, joinLocation, exitLocation);
+    public PvPEvent(String eventName, FileUtils.Files file, String winnerTag, HashMap<String, List<String>> messages, Map<Integer, String> winnersPosition, int winnersAmount, int minimumPlayers, boolean savePlayerInventory, boolean additionalVoidChecker, EventItems eventItems, Location joinLocation, Location exitLocation, Location pos1Location, Location pos2Location) {
+        super(eventName, file, winnerTag, messages, winnersPosition, winnersAmount, minimumPlayers, savePlayerInventory, additionalVoidChecker, eventItems, joinLocation, exitLocation);
 
         this.pos1Location = pos1Location;
         this.pos2Location = pos2Location;

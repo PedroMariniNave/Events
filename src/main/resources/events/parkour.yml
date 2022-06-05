@@ -7,6 +7,10 @@ Settings:
   announces-amount: 2
   announces-delay: 15 # segundos
   save-player-inventory: true
+  # Se ativado, o plugin irá criar uma task verificando se o jogador caiu no void
+  # Essa opção é um adicional caso não queira que o jogador espere levar dano do void
+  # para voltar ao checkpoint ou spawn do evento.
+  additional-void-checker: true
 
 Special-Items: # Nome da config.yml : slot
   - 'VISIBILITY:1'

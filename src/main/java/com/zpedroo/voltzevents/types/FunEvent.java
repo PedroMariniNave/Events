@@ -14,7 +14,7 @@ public abstract class FunEvent extends Event {
     }
 
     public FunEvent(String eventName, FileUtils.Files file, String winnerTag, HashMap<String, List<String>> messages, Map<Integer, String> winnersPosition, int winnersAmount, boolean savePlayerInventory, EventItems eventItems) {
-        super(eventName, file, winnerTag, messages, winnersPosition, winnersAmount, 0, savePlayerInventory, eventItems, null, null);
+        super(eventName, file, winnerTag, messages, winnersPosition, winnersAmount, 0, savePlayerInventory, false, eventItems, null, null);
     }
 
     @Override

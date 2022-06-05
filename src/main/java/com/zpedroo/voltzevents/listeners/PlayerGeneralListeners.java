@@ -1,6 +1,7 @@
 package com.zpedroo.voltzevents.listeners;
 
 import com.zpedroo.voltzevents.managers.DataManager;
+import com.zpedroo.voltzevents.types.ArenaEvent;
 import com.zpedroo.voltzevents.types.Event;
 import com.zpedroo.voltzevents.utils.config.Settings;
 import org.bukkit.entity.Player;
@@ -16,6 +17,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class PlayerGeneralListeners implements Listener {
 
@@ -89,6 +91,31 @@ public class PlayerGeneralListeners implements Listener {
 
         Player player = (Player) event.getEntity();
         Event participatingEvent = DataManager.getInstance().getPlayerParticipatingEvent(player);
+        if (participatingEvent != null && !participatingEvent.isStarted()) event.setCancelled(true);
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onVoidDamage(EntityDamageEvent event) {
+        if (!(event.getEntity() instanceof Player)) return;
+        if (event.getCause() != EntityDamageEvent.DamageCause.VOID) return;
+
+        Player player = (Player) event.getEntity();
+        Event participatingEvent = DataManager.getInstance().getPlayerParticipatingEvent(player);
+        if (participatingEvent == null) return;
+
+        event.setCancelled(true);
+
+        if (participatingEvent instanceof ArenaEvent && participatingEvent.isStarted()) {
+            ArenaEvent arenaEvent = (ArenaEvent) participatingEvent;
+            player.teleport(arenaEvent.getArenaLocation());
+        } else {
+            player.teleport(participatingEvent.getJoinLocation());
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onTeleport(PlayerTeleportEvent event) {
+        Event participatingEvent = DataManager.getInstance().getPlayerParticipatingEvent(event.getPlayer());
         if (participatingEvent != null && !participatingEvent.isStarted()) event.setCancelled(true);
     }
 
