@@ -1,0 +1,114 @@
+Settings:
+  command: spleef
+  aliases: []
+  tag: '&b[S]'
+  winners-amount: 3
+  minimum-players: 2
+  announces-amount: 5
+  announces-delay: 30 # segundos
+  start-time: 15 # segundos
+  save-player-inventory: true
+
+Auto-Start:
+  enabled: false
+  schedules: # DAY:HOUR:MINUTE
+    - 'EVERYDAY:10:00'
+    - 'EVERYDAY:12:00'
+
+Messages:
+  event-starting:
+    - ''
+    - ' &b&lSpleef'
+    - ''
+    - ' &7Para participar, digite &b/spleef&7!'
+    - ' &7Prêmio total: &2$&a55k &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &b{players}'
+    - ' &7Anúncio &b{announces_now} &7de &b{announces_amount}'
+    - ''
+  event-started:
+    - ''
+    - ' &b&lSpleef'
+    - ''
+    - ' &7O evento foi iniciado!'
+    - ' &7Prêmio total: &2$&a55k &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &b{players}'
+    - ''
+  insufficient-players:
+    - ''
+    - ' &b&lSpleef'
+    - ''
+    - ' &bO evento não teve participantes suficientes.'
+    - ''
+  event-finished:
+    - ''
+    - ' &b&lSpleef'
+    - ''
+    - ' &7O evento foi finalizado!'
+    - ''
+    - '{winners}'
+    - ''
+  event-cancelled:
+    - ''
+    - ' &b&lSpleef'
+    - ''
+    - ' &cO evento foi cancelado!'
+    - ''
+
+Scoreboard:
+  enabled: true
+  title: '  &b&lSpleef  '
+  lines:
+    - ''
+    - ' &b▎ &fParticipantes: &7{participants}'
+    - ' &b▎ &fTempo decorrido: &7{timer}'
+    - ''
+    - '  &bwww.voltzmc.com'
+
+Titles:
+  eliminated:
+    title: ''
+    subtitle: '&cVocê foi eliminado!'
+
+Whitelisted-Commands:
+  - '/g'
+  - '/tell'
+  - '/sc'
+  - '/r'
+  - '/w'
+  - '/.'
+  - '/ally'
+
+Winner-Settings:
+  1:
+    display: ' &f{position}º &8- &f{player} &2$&a35k'
+    winner-messages:
+      - ''
+      - ' &b&lSpleef'
+      - ''
+      - ' &7Parabéns! Você venceu o evento em &f1º&7!'
+      - ' &7Sua recompensa: &2$&a35k &7+ tag {tag}&7.'
+      - ''
+    rewards:
+      - 'money give {player} 35k'
+  2:
+    display: ' &f{position}º &8- &f{player} &2$&a15k'
+    winner-messages:
+      - ''
+      - ' &b&lSpleef'
+      - ''
+      - ' &7Você finalizou o evento em &f2º&7!'
+      - ' &7Sua recompensa: &2$&a15k&7.'
+      - ''
+    rewards:
+      - 'money give {player} 15k'
+  3:
+    display: ' &f{position}º &8- &f{player} &2$&a5k'
+    winner-messages:
+      - ''
+      - ' &b&lSpleef'
+      - ''
+      - ' &7Você finalizou o evento em &f3º&7!'
+      - ' &7Sua recompensa: &2$&a5k&7.'
+      - ''
+    rewards:
+      - 'money give {player} 5k'

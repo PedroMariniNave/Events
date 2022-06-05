@@ -1,0 +1,133 @@
+Settings:
+  command: corrida
+  aliases: []
+  tag: '&b[C]'
+  winners-amount: 3
+  minimum-players: 2
+  announces-amount: 5
+  announces-delay: 30 # segundos
+  save-player-inventory: true
+
+Special-Items: # Nome da config.yml : slot
+  - 'VISIBILITY:2'
+  - 'LEAVE:6'
+
+Auto-Start:
+  enabled: false
+  schedules: # DAY:HOUR:MINUTE
+    - 'EVERYDAY:10:00'
+    - 'EVERYDAY:12:00'
+
+Messages:
+  event-starting:
+    - ''
+    - ' &b&lCorrida'
+    - ''
+    - ' &7Para participar, digite &b/corrida&7!'
+    - ' &7Prêmio total: &2$&a55k &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &b{players}'
+    - ' &7Anúncio &b{announces_now} &7de &b{announces_amount}'
+    - ''
+  event-started:
+    - ''
+    - ' &b&lCorrida'
+    - ''
+    - ' &7O evento foi iniciado!'
+    - ' &7Prêmio total: &2$&a55k &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &b{players}'
+    - ''
+  insufficient-players:
+    - ''
+    - ' &b&lCorrida'
+    - ''
+    - ' &cO evento não teve participantes suficientes.'
+    - ''
+  event-finished:
+    - ''
+    - ' &b&lCorrida'
+    - ''
+    - ' &7O evento foi finalizado!'
+    - ''
+    - '{winners}'
+    - ''
+  event-cancelled:
+    - ''
+    - ' &b&lCorrida'
+    - ''
+    - ' &cO evento foi cancelado!'
+    - ''
+
+Scoreboard:
+  enabled: true
+  title: '  &b&lCorrida  '
+  lines:
+    - ''
+    - ' &b▎ &fParticipantes: &7{participants}'
+    - ' &b▎ &fTempo decorrido: &7{timer}'
+    - ''
+    - '  &bwww.voltzmc.com'
+
+Whitelisted-Commands:
+  - '/g'
+  - '/tell'
+  - '/sc'
+  - '/r'
+  - '/w'
+  - '/.'
+  - '/ally'
+
+Winner-Settings:
+  1:
+    display: ' &f{position}º &8- &f{player} &7(&f{time}&7) &2$&a35k'
+    winner-messages:
+      - ''
+      - ' &b&lCorrida'
+      - ''
+      - ' &7Parabéns! Você venceu o evento em &f1º&7!'
+      - ' &7Tempo necessário: &f{time}&7.'
+      - ' &7Sua recompensa: &2$&a35k &7+ tag {tag}&7.'
+      - ''
+    participants-messages:
+      - ''
+      - ' &b&lCorrida'
+      - ''
+      - ' &7O jogador &f{player} &7venceu o evento em &f1º&7!'
+      - ''
+    rewards:
+      - 'money give {player} 35k'
+  2:
+    display: ' &f{position}º &8- &f{player} &7(&f{time}&7) &2$&a15k'
+    winner-messages:
+      - ''
+      - ' &b&lCorrida'
+      - ''
+      - ' &7Você finalizou o evento em &f2º&7!'
+      - ' &7Tempo necessário: &f{time}&7.'
+      - ' &7Sua recompensa: &2$&a15k&7.'
+      - ''
+    participants-messages:
+      - ''
+      - ' &b&lCorrida'
+      - ''
+      - ' &7O jogador &f{player} &7finalizou o evento em &f2º&7!'
+      - ''
+    rewards:
+      - 'money give {player} 15k'
+  3:
+    display: ' &f{position}º &8- &f{player} &7(&f{time}&7) &2$&a5k'
+    winner-messages:
+      - ''
+      - ' &b&lCorrida'
+      - ''
+      - ' &7Você finalizou o evento em &f3º&7!'
+      - ' &7Tempo necessário: &f{time}&7.'
+      - ' &7Sua recompensa: &2$&a5k&7.'
+      - ''
+    participants-messages:
+      - ''
+      - ' &b&lCorrida'
+      - ''
+      - ' &7O jogador &f{player} &7finalizou o evento em &f3º&7!'
+      - ''
+    rewards:
+      - 'money give {player} 5k'

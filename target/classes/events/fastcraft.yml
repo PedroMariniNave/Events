@@ -1,0 +1,92 @@
+Settings:
+  command: fastcraft
+  aliases: [fc]
+  tag: '&6[FC]'
+  winners-amount: 3
+  max-announces: 5
+  announces-delay: 30 # segundos
+
+Auto-Start:
+  enabled: false
+  schedules: # DAY:HOUR:MINUTE
+    - 'EVERYDAY:10:00'
+    - 'EVERYDAY:12:00'
+
+Messages:
+  event-started:
+    - ''
+    - ' &6&lFastCraft'
+    - ''
+    - ' &7Evento iniciado!'
+    - ' &7Os &f3 &7primeiros que craftarem'
+    - ' &7o item vencem o evento!'
+    - ' &7Prêmio total: &2$&a16k &7+ tag {tag}&7!'
+    - ''
+    - ' &7Item: &f{item}'
+    - ''
+  event-happening:
+    - ''
+    - ' &6&lFastCraft'
+    - ''
+    - ' &7O evento está ocorrendo!'
+    - ' &7Os &f3 &7primeiros que craftarem'
+    - ' &7o item vencem o evento!'
+    - ' &7Prêmio total: &2$&a16k &7+ tag {tag}&7!'
+    - ''
+    - ' &7Item: &f{item}'
+    - ''
+  event-finished:
+    - ''
+    - ' &6&lFastCraft'
+    - ''
+    - ' &7O evento foi finalizado!'
+    - ''
+    - '{winners}'
+    - ''
+  event-cancelled:
+    - ''
+    - ' &6&lFastCraft'
+    - ''
+    - ' &cO evento foi cancelado!'
+    - ''
+
+Craftable-Items: # MATERIAL,TRADUÇÃO
+  - 'FURNACE,Fornalha'
+  - 'BED,Cama'
+  - 'SIGN,Placa'
+  - 'ARMOR_STAND,Suporte de armaduras'
+
+Winner-Settings:
+  1:
+    display: ' &f{position}º &8- &f{player} &2$&a10k'
+    winner-messages:
+      - ''
+      - ' &6&lFastCraft'
+      - ''
+      - ' &7Parabéns! Você venceu o evento em &f1º&7!'
+      - ' &7Sua recompensa: &2$&a10k &7+ tag {tag}&7.'
+      - ''
+    rewards:
+      - 'money give {player} 10k'
+  2:
+    display: ' &f{position}º &8- &f{player} &2$&a5k'
+    winner-messages:
+      - ''
+      - ' &6&lFastCraft'
+      - ''
+      - ' &7Você finalizou o evento em &f2º&7!'
+      - ' &7Sua recompensa: &2$&a5k&7.'
+      - ''
+    rewards:
+      - 'money give {player} 5k'
+  3:
+    display: ' &f{position}º &8- &f{player} &2$&a1k'
+    winner-messages:
+      - ''
+      - ' &6&lFastCraft'
+      - ''
+      - ' &7Você finalizou o evento em &f2º&7!'
+      - ' &7Sua recompensa: &2$&a1k&7.'
+      - ''
+    rewards:
+      - 'money give {player} 1k'

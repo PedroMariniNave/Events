@@ -1,0 +1,127 @@
+Settings:
+  command: fight
+  aliases: []
+  tag: '&5[&l⚔&5]'
+  winners-amount: 3
+  minimum-players: 2
+  announces-amount: 5
+  announces-delay: 30 # segundos
+  teleport-delay: 2 # delay entre uma batalha e outra em segundos
+  save-player-inventory: true
+
+Special-Items: # Nome da config.yml : slot
+  - 'VISIBILITY:2'
+  - 'LEAVE:6'
+
+Auto-Start:
+  enabled: false
+  schedules: # DAY:HOUR:MINUTE
+    - 'EVERYDAY:10:00'
+    - 'EVERYDAY:12:00'
+
+Messages:
+  event-starting:
+    - ''
+    - ' &5&lFight'
+    - ''
+    - ' &7Para participar, digite &5/fight&7!'
+    - ' &7Prêmio total: &2$&a100k &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &5{players}'
+    - ' &7Anúncio &5{announces_now} &7de &5{announces_amount}'
+    - ''
+  event-started:
+    - ''
+    - ' &5&lFight'
+    - ''
+    - ' &7O evento foi iniciado!'
+    - ' &7Prêmio total: &2$&a100k &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &5{players}'
+    - ''
+  insufficient-players:
+    - ''
+    - ' &5&lFight'
+    - ''
+    - ' &cO evento não teve participantes suficientes.'
+    - ''
+  event-finished:
+    - ''
+    - ' &5&lFight'
+    - ''
+    - ' &7O evento foi finalizado!'
+    - ''
+    - '{winners}'
+    - ''
+  event-cancelled:
+    - ''
+    - ' &5&lFight'
+    - ''
+    - ' &cO evento foi cancelado!'
+    - ''
+
+Scoreboard:
+  enabled: true
+  title: '  &5&lFight  '
+  lines:
+    - ''
+    - ' &5▎ &fParticipantes: &7{participants}'
+    - ' &5▎ &fTempo decorrido: &7{timer}'
+    - ''
+    - '  &5www.voltzmc.com'
+
+Titles:
+  winner:
+    title: ''
+    subtitle: '&7Vencedor: &5{winner}'
+  fighters:
+    title: ''
+    subtitle: '&5{player1} &7vs &5{player2}'
+  eliminated:
+    title: ''
+    subtitle: '&cVocê foi eliminado!'
+
+Whitelisted-Commands:
+  - '/g'
+  - '/tell'
+  - '/sc'
+  - '/r'
+  - '/w'
+  - '/.'
+  - '/ally'
+
+Winner-Settings:
+  1:
+    display: ' &f{position}º &8- &f{player} &7(&f{kills} &7vitórias) &2$&a50k'
+    winner-messages:
+      - ''
+      - ' &5&lFight'
+      - ''
+      - ' &7Parabéns! Você venceu o evento em &f1º&7!'
+      - ' &7Vitórias: &f{kills}&7.'
+      - ' &7Sua recompensa: &2$&a50k &7+ tag {tag}&7.'
+      - ''
+    rewards:
+      - 'money give {player} 50k'
+  2:
+    display: ' &f{position}º &8- &f{player} &7(&f{kills} &7vitórias) &2$&a35k'
+    winner-messages:
+      - ''
+      - ' &5&lFight'
+      - ''
+      - ' &7Você finalizou o evento em &f2º&7!'
+      - ' &7Vitórias: &f{kills}&7.'
+      - ' &7Sua recompensa: &2$&a35k&7.'
+      - ''
+    rewards:
+      - 'money give {player} 35k'
+  3:
+    display: ' &f{position}º &8- &f{player} &7(&f{kills} &7vitórias) &2$&a15k'
+    winner-messages:
+      - ''
+      - ' &5&lFight'
+      - ''
+      - ' &7Você finalizou o evento em &f3º&7!'
+      - ' &7Vitórias: &f{kills}&7.'
+      - ' &7Sua recompensa: &2$&a15k&7.'
+      - ''
+    rewards:
+      - 'money give {player} 15k'

@@ -1,0 +1,166 @@
+Settings:
+  command: batataquente
+  aliases: [hotpotato]
+  tag: '&6[BC]'
+  winners-amount: 3
+  minimum-players: 8
+  hot-potatoes:
+    # A cada quantos participantes 1 batata-quente será adicionada
+    #
+    # RECOMENDO NÃO MEXER NESSA OPÇÃO
+    #
+    proportion: 3
+    max: 4 # limite de batatas-quentes
+  announces-amount: 5
+  announces-delay: 30 # segundos
+  round-delay: 5 # segundos
+  round-duration: 20 # segundos
+  save-player-inventory: true
+
+Special-Items: # Nome da config.yml : slot
+  - 'LEAVE:8'
+
+Auto-Start:
+  enabled: false
+  schedules: # DAY:HOUR:MINUTE
+    - 'EVERYDAY:10:00'
+    - 'EVERYDAY:12:00'
+
+Messages:
+  round-started:
+    - ''
+    - ' &6&lBatata-Quente'
+    - ''
+    - ' &7Rodada iniciada!'
+    - ' &7A batata está com os jogadores: &f{players}&7.'
+    - ''
+  round-finished:
+    - ''
+    - ' &6&lBatata-Quente'
+    - ''
+    - ' &f{amount} &7jogadores foram eliminados!'
+    - ' &7Iniciando nova rodada em &f{round_delay} &7segundos.'
+    - ''
+  event-starting:
+    - ''
+    - ' &6&lBatata-Quente'
+    - ''
+    - ' &7Para participar, digite &6/batataquente&7!'
+    - ' &7Prêmio total: &2$&a160k &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &6{players}'
+    - ' &7Anúncio &6{announces_now} &7de &6{announces_amount}'
+    - ''
+  event-started:
+    - ''
+    - ' &6&lBatata-Quente'
+    - ''
+    - ' &7O evento foi iniciado!'
+    - ' &7Prêmio total: &2$&a160k &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &6{players}'
+    - ''
+  insufficient-players:
+    - ''
+    - ' &6&lBatata-Quente'
+    - ''
+    - ' &cO evento não teve participantes suficientes.'
+    - ''
+  event-finished:
+    - ''
+    - ' &6&lBatata-Quente'
+    - ''
+    - ' &7O evento foi finalizado!'
+    - ''
+    - '{winners}'
+    - ''
+  event-cancelled:
+    - ''
+    - ' &6&lBatata-Quente'
+    - ''
+    - ' &cO evento foi cancelado!'
+    - ''
+
+Action-Bars:
+  tagged: '&cPasse a batata para outro jogador!'
+  untagged: '&aCorra!'
+  warmup: '&eIniciando rodada em {timer} segundos!'
+
+Scoreboard:
+  enabled: true
+  title: '  &6&lBatata-Quente  '
+  lines:
+    - ''
+    - ' &6▎ &fParticipantes: &7{participants}'
+    - ' &6▎ &fTempo decorrido: &7{timer}'
+    - ''
+    - ' &6▎ &fRodada: &7{round}'
+    - ''
+    - '  &6www.voltzmc.com'
+
+Titles:
+  tagged:
+    title: ''
+    subtitle: '&cPasse a batata para outro jogador!'
+  untagged:
+    title: ''
+    subtitle: '&aCorra!'
+  eliminated:
+    title: ''
+    subtitle: '&cVocê foi eliminado!'
+
+Potions:
+  tagged:
+    enabled: true
+    type: SPEED
+    level: 4
+  untagged:
+    enabled: true
+    type: SPEED
+    level: 2
+
+Hot-Potato-Item:
+  type: POTATO_ITEM
+  name: '&cBatata-Quente'
+
+Whitelisted-Commands:
+  - '/g'
+  - '/tell'
+  - '/sc'
+  - '/r'
+  - '/w'
+  - '/.'
+  - '/ally'
+
+Winner-Settings:
+  1:
+    display: ' &f{position}º &8- &f{player} &2$&a75k'
+    winner-messages:
+      - ''
+      - ' &6&lBatata-Quente'
+      - ''
+      - ' &7Parabéns! Você venceu o evento em &f1º&7!'
+      - ' &7Sua recompensa: &2$&a75k &7+ tag {tag}&7.'
+      - ''
+    rewards:
+      - 'money give {player} 75k'
+  2:
+    display: ' &f{position}º &8- &f{player} &2$&a50k'
+    winner-messages:
+      - ''
+      - ' &6&lBatata-Quente'
+      - ''
+      - ' &7Você finalizou o evento em &f2º&7!'
+      - ' &7Sua recompensa: &2$&a50k&7.'
+      - ''
+    rewards:
+      - 'money give {player} 50k'
+  3:
+    display: ' &f{position}º &8- &f{player} &2$&a35k'
+    winner-messages:
+      - ''
+      - ' &6&lBatata-Quente'
+      - ''
+      - ' &7Você finalizou o evento em &f3º&7!'
+      - ' &7Sua recompensa: &2$&a35k&7.'
+      - ''
+    rewards:
+      - 'money give {player} 35k'

@@ -1,0 +1,131 @@
+Settings:
+  command: paintball
+  aliases: []
+  tag: '&9[PB]'
+  winners-amount: 3
+  minimum-players: 2
+  announces-amount: 5
+  announces-delay: 30 # segundos
+  max-ammo-amount: 30
+  reloading-time: 3 # segundos
+  shot-damage: 10 # dano do tiro
+  warmup-duration: 15 # segundos
+  save-player-inventory: true
+
+Auto-Start:
+  enabled: false
+  schedules: # DAY:HOUR:MINUTE
+    - 'EVERYDAY:10:00'
+    - 'EVERYDAY:12:00'
+
+Messages:
+  event-starting:
+    - ''
+    - ' &9&lPaintball'
+    - ''
+    - ' &7Para participar, digite &9/paintball&7!'
+    - ' &7Prêmio total: &2$&a100k &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &9{players}'
+    - ' &7Anúncio &9{announces_now} &7de &9{announces_amount}'
+    - ''
+  event-started:
+    - ''
+    - ' &9&lPaintball'
+    - ''
+    - ' &7O evento foi iniciado!'
+    - ' &7Prêmio total: &2$&a100k &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &9{players}'
+    - ''
+  insufficient-players:
+    - ''
+    - ' &9&lPaintball'
+    - ''
+    - ' &cO evento não teve participantes suficientes.'
+    - ''
+  event-finished:
+    - ''
+    - ' &9&lPaintball'
+    - ''
+    - ' &7O evento foi finalizado!'
+    - ''
+    - '{winners}'
+    - ''
+  event-cancelled:
+    - ''
+    - ' &9&lPaintball'
+    - ''
+    - ' &cO evento foi cancelado!'
+    - ''
+
+Action-Bars:
+  warmup: '&cLiberando combate em {timer} segundos!'
+
+Scoreboard:
+  enabled: true
+  title: '  &9&lPaintball  '
+  lines:
+    - ''
+    - ' &9▎ &fParticipantes: &7{participants}'
+    - ' &9▎ &fTempo decorrido: &7{timer}'
+    - ''
+    - '  &9www.voltzmc.com'
+
+Titles:
+  eliminated:
+    title: ''
+    subtitle: '&cVocê foi eliminado!'
+
+Gun-Item:
+  type: DIAMOND_BARDING
+  name: '&9Paintball &8(&f{ammo}&7 &8| &f{max}&8)'
+
+Reloading-Gun-Item:
+  type: DIAMOND_BARDING
+  name: '&9Paintball &8(&f{ammo}&7 &8| &f{max}&8)&fᴿ'
+
+Whitelisted-Commands:
+  - '/g'
+  - '/tell'
+  - '/sc'
+  - '/r'
+  - '/w'
+  - '/.'
+  - '/ally'
+
+Winner-Settings:
+  1:
+    display: ' &f{position}º &8- &f{player} &7(&f{kills} &7kills) &2$&a50k'
+    winner-messages:
+      - ''
+      - ' &9&lPaintball'
+      - ''
+      - ' &7Parabéns! Você venceu o evento em &f1º&7!'
+      - ' &7Kills: &f{kills}&7.'
+      - ' &7Sua recompensa: &2$&a50k &7+ tag {tag}&7.'
+      - ''
+    rewards:
+      - 'money give {player} 50k'
+  2:
+    display: ' &f{position}º &8- &f{player} &7(&f{kills} &7kills) &2$&a35k'
+    winner-messages:
+      - ''
+      - ' &9&lPaintball'
+      - ''
+      - ' &7Você finalizou o evento em &f2º&7!'
+      - ' &7Kills: &f{kills}&7.'
+      - ' &7Sua recompensa: &2$&a35k&7.'
+      - ''
+    rewards:
+      - 'money give {player} 35k'
+  3:
+    display: ' &f{position}º &8- &f{player} &7(&f{kills} &7kills) &2$&a15k'
+    winner-messages:
+      - ''
+      - ' &9&lPaintball'
+      - ''
+      - ' &7Você finalizou o evento em &f3º&7!'
+      - ' &7Kills: &f{kills}&7.'
+      - ' &7Sua recompensa: &2$&a15k&7.'
+      - ''
+    rewards:
+      - 'money give {player} 15k'

@@ -1,0 +1,123 @@
+Settings:
+  command: killer
+  aliases: []
+  tag: '&4[&l⚔&4]'
+  winners-amount: 3
+  minimum-players: 2
+  announces-amount: 5
+  announces-delay: 30 # segundos
+  warmup-duration: 15 # segundos
+  finish-time: 30 # segundos
+  save-player-inventory: false
+
+Auto-Start:
+  enabled: false
+  schedules: # DAY:HOUR:MINUTE
+    - 'EVERYDAY:10:00'
+    - 'EVERYDAY:12:00'
+
+Messages:
+  event-starting:
+    - ''
+    - ' &4&lKiller'
+    - ''
+    - ' &7Para participar, digite &4/killer&7!'
+    - ' &7Prêmio total: &2$&a100k &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &4{players}'
+    - ' &7Anúncio &4{announces_now} &7de &4{announces_amount}'
+    - ''
+  event-started:
+    - ''
+    - ' &4&lKiller'
+    - ''
+    - ' &7O evento foi iniciado!'
+    - ' &7Prêmio total: &2$&a100k &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &4{players}'
+    - ''
+  insufficient-players:
+    - ''
+    - ' &4&lKiller'
+    - ''
+    - ' &4O evento não teve participantes suficientes.'
+    - ''
+  event-finished:
+    - ''
+    - ' &4&lKiller'
+    - ''
+    - ' &7O evento foi finalizado!'
+    - ''
+    - '{winners}'
+    - ''
+  event-cancelled:
+    - ''
+    - ' &4&lKiller'
+    - ''
+    - ' &cO evento foi cancelado!'
+    - ''
+
+Action-Bars:
+  warmup: '&cLiberando combate em {timer} segundos!'
+
+Scoreboard:
+  enabled: true
+  title: '  &4&lKiller  '
+  lines:
+    - ''
+    - ' &4▎ &fParticipantes: &7{participants}'
+    - ' &4▎ &fTempo decorrido: &7{timer}'
+    - ''
+    - '  &4www.voltzmc.com'
+
+Titles:
+  eliminated:
+    title: ''
+    subtitle: '&cVocê foi eliminado!'
+
+Whitelisted-Commands:
+  - '/g'
+  - '/tell'
+  - '/sc'
+  - '/r'
+  - '/w'
+  - '/.'
+  - '/ally'
+
+Winner-Settings:
+  1:
+    display: ' &f{position}º &8- &f{player} &7(&f{kills} &7kills) &2$&a50k'
+    winner-messages:
+      - ''
+      - ' &4&lKiller'
+      - ''
+      - ' &7Parabéns! Você venceu o evento em &f1º&7!'
+      - ' &7Kills: &f{kills}&7.'
+      - ' &7Sua recompensa: &2$&a50k &7+ tag {tag}&7.'
+      - ''
+      - ' &7Você será &fteleportado &7para o &fspawn &7em &f30 &7segundos.'
+      - ''
+    rewards:
+      - 'money give {player} 50k'
+  2:
+    display: ' &f{position}º &8- &f{player} &7(&f{kills} &7kills) &2$&a35k'
+    winner-messages:
+      - ''
+      - ' &4&lKiller'
+      - ''
+      - ' &7Você finalizou o evento em &f2º&7!'
+      - ' &7Kills: &f{kills}&7.'
+      - ' &7Sua recompensa: &2$&a35k&7.'
+      - ''
+    rewards:
+      - 'money give {player} 35k'
+  3:
+    display: ' &f{position}º &8- &f{player} &7(&f{kills} &7kills) &2$&a15k'
+    winner-messages:
+      - ''
+      - ' &4&lKiller'
+      - ''
+      - ' &7Você finalizou o evento em &f3º&7!'
+      - ' &7Kills: &f{kills}&7.'
+      - ' &7Sua recompensa: &2$&a15k&7.'
+      - ''
+    rewards:
+      - 'money give {player} 15k'

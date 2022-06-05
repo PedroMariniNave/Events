@@ -1,0 +1,33 @@
+Inventory:
+  title: "Eventos"
+  size: 27
+  items:
+    1:
+      type: SKULL_ITEM
+      owner: "{player}"
+      name: "&e{player}"
+      lore:
+        - '&7Abaixo estão suas informações:'
+        - ''
+        - ' &8▶ &7Vitórias: &f{wins}'
+        - ' &8▶ &7Participações: &f{participations}'
+        - ' &8▶ &7Taxa de vitórias: &f{win_rate}%'
+      slot: 11
+    2:
+      action: EVENTS
+      type: SKULL_ITEM
+      owner: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDJlZjQ0MGE2MzIzNWVkNDExN2NlYmY3MTg2MDAxYmRiMzY3M2NkMjlhMDRmMGJkMDg0ZDdkZGEyOGExZmYyZCJ9fX0=
+      name: "&eEventos"
+      lore:
+        - '&7Clique para ver a lista'
+        - '&7de eventos e horários!'
+      slot: 13
+    3:
+      action: TOP
+      type: SKULL_ITEM
+      owner: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjRhZjhkNTc1ZjBhNTI0ZWY2NmEyMTU3M2U4YTRhOGFjN2Q2NDBiMDBkOThlMmU5Mzc0ZTYwNDcwZTdjODZmMCJ9fX0=
+      name: "&eTop Vitórias"
+      lore:
+        - '&7Clique para ver os jogadores'
+        - '&7que mais venceram eventos!'
+      slot: 15

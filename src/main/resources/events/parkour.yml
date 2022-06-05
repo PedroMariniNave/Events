@@ -1,0 +1,134 @@
+Settings:
+  command: parkour
+  aliases: []
+  tag: '&e[P]'
+  winners-amount: 3
+  minimum-players: 1
+  announces-amount: 2
+  announces-delay: 15 # segundos
+  save-player-inventory: true
+
+Special-Items: # Nome da config.yml : slot
+  - 'VISIBILITY:1'
+  - 'CHECKPOINT:4'
+  - 'LEAVE:7'
+
+Auto-Start:
+  enabled: false
+  schedules: # DAY:HOUR:MINUTE
+    - 'EVERYDAY:10:00'
+    - 'EVERYDAY:12:00'
+
+Messages:
+  event-starting:
+    - ''
+    - ' &e&lParkour'
+    - ''
+    - ' &7Para participar, digite &e/parkour&7!'
+    - ' &7Prêmio total: &2$&a55k &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &e{players}'
+    - ' &7Anúncio &e{announces_now} &7de &e{announces_amount}'
+    - ''
+  event-started:
+    - ''
+    - ' &e&lParkour'
+    - ''
+    - ' &7O evento foi iniciado!'
+    - ' &7Prêmio total: &2$&a55k &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &e{players}'
+    - ''
+  insufficient-players:
+    - ''
+    - ' &e&lParkour'
+    - ''
+    - ' &cO evento não teve participantes suficientes.'
+    - ''
+  event-finished:
+    - ''
+    - ' &e&lParkour'
+    - ''
+    - ' &7O evento foi finalizado!'
+    - ''
+    - '{winners}'
+    - ''
+  event-cancelled:
+    - ''
+    - ' &e&lParkour'
+    - ''
+    - ' &cO evento foi cancelado!'
+    - ''
+
+Scoreboard:
+  enabled: true
+  title: '  &e&lParkour  '
+  lines:
+    - ''
+    - ' &e▎ &fParticipantes: &7{participants}'
+    - ' &e▎ &fTempo decorrido: &7{timer}'
+    - ''
+    - '  &ewww.voltzmc.com'
+
+Whitelisted-Commands:
+  - '/g'
+  - '/tell'
+  - '/sc'
+  - '/r'
+  - '/w'
+  - '/.'
+  - '/ally'
+
+Winner-Settings:
+  1:
+    display: ' &f{position}º &8- &f{player} &7(&f{time}&7) &2$&a35k'
+    winner-messages:
+      - ''
+      - ' &e&lParkour'
+      - ''
+      - ' &7Parabéns! Você venceu o evento em &f1º&7!'
+      - ' &7Tempo necessário: &f{time}&7.'
+      - ' &7Sua recompensa: &2$&a35k &7+ tag {tag}&7.'
+      - ''
+    participants-messages:
+      - ''
+      - ' &e&lParkour'
+      - ''
+      - ' &7O jogador &f{player} &7venceu o evento em &f1º&7!'
+      - ''
+    rewards:
+      - 'money give {player} 35k'
+  2:
+    display: ' &f{position}º &8- &f{player} &7(&f{time}&7) &2$&a15k'
+    winner-messages:
+      - ''
+      - ' &e&lParkour'
+      - ''
+      - ' &7Você finalizou o evento em &f2º&7!'
+      - ' &7Tempo necessário: &f{time}&7.'
+      - ' &7Sua recompensa: &2$&a15k&7.'
+      - ''
+    participants-messages:
+      - ''
+      - ' &e&lParkour'
+      - ''
+      - ' &7O jogador &f{player} &7finalizou o evento em &f2º&7!'
+      - ''
+    rewards:
+      - 'money give {player} 15k'
+  3:
+    display: ' &f{position}º &8- &f{player} &7(&f{time}&7) &2$&a5k'
+    winner-messages:
+      - ''
+      - ' &e&lParkour'
+      - ''
+      - ' &7Você finalizou o evento em &f3º&7!'
+      - ' &7Tempo necessário: &f{time}&7.'
+      - ' &7Sua recompensa: &2$&a5k&7.'
+      - ''
+    participants-messages:
+      - ''
+      - ' &e&lParkour'
+      - ''
+      - ' &7O jogador &f{player} &7finalizou o evento em &f3º&7!'
+      - ''
+    rewards:
+      - 'money give {player} 5k'
