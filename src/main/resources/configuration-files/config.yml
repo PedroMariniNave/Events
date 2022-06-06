@@ -33,6 +33,7 @@ Messages:
   already-started: '&cEsse evento já foi iniciado!'
   not-started: '&cEsse evento não está ocorrendo!'
   not-participating: '&cVocê não está participando do evento!'
+  already-participating: '&cVocê já está participando de um evento!'
   invalid-location: '&cEsse evento não possui todas localizações definidas!'
   invalid-position: '&cVocê ainda não definiu todas posições!'
   invalid-checkpoint: '&cVocê ainda não possui nenhum checkpoint!'

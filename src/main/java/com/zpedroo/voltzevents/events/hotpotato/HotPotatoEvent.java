@@ -7,7 +7,7 @@ import com.zpedroo.voltzevents.events.hotpotato.tasks.HotPotatoTask;
 import com.zpedroo.voltzevents.managers.CommandManager;
 import com.zpedroo.voltzevents.managers.DataManager;
 import com.zpedroo.voltzevents.managers.ListenerManager;
-import com.zpedroo.voltzevents.objects.EventItems;
+import com.zpedroo.voltzevents.objects.player.EventItems;
 import com.zpedroo.voltzevents.tasks.AnnounceTask;
 import com.zpedroo.voltzevents.types.ArenaEvent;
 import com.zpedroo.voltzevents.utils.FileUtils;
@@ -40,9 +40,9 @@ public class HotPotatoEvent extends ArenaEvent {
     public static HotPotatoEvent getInstance() { return instance; }
 
     private final ItemStack hotPotatoItem = ItemBuilder.build(FileUtils.get().getFile(FileUtils.Files.HOT_POTATO).get(), "Hot-Potato-Item").build();
-    private int roundTimer = 0;
-    private int newRoundTimer = ROUND_DELAY;
     private final List<String> hotPotatoesNames = new ArrayList<>(getHotPotatoesSpawnAmount());
+
+    private HotPotatoTask hotPotatoTask = null;
 
     public HotPotatoEvent(Plugin plugin) {
         super("HotPotato", FileUtils.Files.HOT_POTATO, TAG, new HashMap<String, List<String>>() {{
@@ -79,7 +79,7 @@ public class HotPotatoEvent extends ArenaEvent {
     @Override
     public void startEventMethods() {
         this.setEventPhase(EventPhase.WARMUP);
-        HotPotatoTask hotPotatoTask = new HotPotatoTask(this);
+        hotPotatoTask = new HotPotatoTask(this);
         hotPotatoTask.startTask();
     }
 
@@ -90,8 +90,6 @@ public class HotPotatoEvent extends ArenaEvent {
 
     @Override
     public void resetAllValues() {
-        this.roundTimer = 0;
-        this.newRoundTimer = ROUND_DELAY;
         this.hotPotatoesNames.clear();
     }
 
@@ -129,12 +127,16 @@ public class HotPotatoEvent extends ArenaEvent {
         return hotPotatoesAmount;
     }
 
-    public int getRoundTimer() {
-        return roundTimer;
+    public int getRound() {
+        return hotPotatoTask.getRound();
+    }
+
+    public int getBurnTimer() {
+        return hotPotatoTask.getBurnTimer();
     }
 
     public int getNewRoundTimer() {
-        return newRoundTimer;
+        return hotPotatoTask.getNewRoundTimer();
     }
 
     public void explodeHotPotato(Player player) {
@@ -170,14 +172,6 @@ public class HotPotatoEvent extends ArenaEvent {
         hotPotatoesNames.add(player.getName());
         player.getInventory().setHelmet(new ItemStack(Material.TNT));
         player.getInventory().addItem(hotPotatoItem);
-    }
-
-    public void setRoundTimer(int roundTimer) {
-        this.roundTimer = roundTimer;
-    }
-
-    public void setNewRoundTimer(int newRoundTimer) {
-        this.newRoundTimer = newRoundTimer;
     }
 
     public boolean isHotPotato(Player player) {

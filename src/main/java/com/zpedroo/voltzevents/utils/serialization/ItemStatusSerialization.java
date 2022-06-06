@@ -1,7 +1,7 @@
 package com.zpedroo.voltzevents.utils.serialization;
 
 import com.zpedroo.voltzevents.managers.DataManager;
-import com.zpedroo.voltzevents.objects.SpecialItem;
+import com.zpedroo.voltzevents.objects.event.SpecialItem;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,5 +1,6 @@
-package com.zpedroo.voltzevents.objects;
+package com.zpedroo.voltzevents.objects.player;
 
+import com.zpedroo.voltzevents.objects.event.SpecialItem;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang.StringUtils;

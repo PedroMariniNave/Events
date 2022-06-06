@@ -1,6 +1,6 @@
 package com.zpedroo.voltzevents.managers;
 
-import com.zpedroo.voltzevents.objects.WinRegionBuilder;
+import com.zpedroo.voltzevents.objects.event.WinRegionBuilder;
 import com.zpedroo.voltzevents.types.ArenaEvent;
 import com.zpedroo.voltzevents.utils.FileUtils;
 import com.zpedroo.voltzevents.utils.builder.ItemBuilder;

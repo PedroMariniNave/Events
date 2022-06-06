@@ -102,7 +102,7 @@ public class FastCraftEvent extends FunEvent {
         
         public static final String TAG = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.FASTCRAFT, "Settings.tag"));
 
-        public static final Map<Integer, String> WINNERS = DataManager.getInstance().getWinnersFromFile("Fight");
+        public static final Map<Integer, String> WINNERS = DataManager.getInstance().getWinnersFromFile("FastCraft");
 
         public static final int WINNERS_AMOUNT = FileUtils.get().getInt(FileUtils.Files.FASTCRAFT, "Settings.winners-amount", 1);
 

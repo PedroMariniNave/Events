@@ -62,15 +62,49 @@ Messages:
     - ' &cO evento foi cancelado!'
     - ''
 
-Scoreboard:
-  enabled: true
-  title: '  &c&lSumo  '
-  lines:
-    - ''
-    - ' &c▎ &fParticipantes: &7{participants}'
-    - ' &c▎ &fTempo decorrido: &7{timer}'
-    - ''
-    - '  &cwww.voltzmc.com'
+Scoreboards:
+  1:
+    display-phase: WAITING_PLAYERS
+    update-time: 10
+    title: ' &c&lSUMO'
+    lines:
+      - ''
+      - ' &c▎&fJogadores: &7%sumo_players%'
+      - ' &c▎&fIniciando em: &7%sumo_time%'
+      - ''
+      - '  &cwww.voltzmc.com'
+  2:
+    display-phase: WARMUP
+    update-time: 10
+    title: ' &c&lSUMO'
+    lines:
+      - ''
+      - ' &c▎&fJogadores: &7%sumo_players%'
+      - ' &c▎&fVitórias: &7%sumo_kills%'
+      - ''
+      - ' &c▎&7Selecionando jogadores'
+      - ''
+      - ' &c▎&f1º &8- &7%sumo_winner:1%'
+      - ' &c▎&f2º &8- &7%sumo_winner:2%'
+      - ' &c▎&f3º &8- &7%sumo_winner:3%'
+      - ''
+      - '  &cwww.voltzmc.com'
+  3:
+    display-phase: STARTED
+    update-time: 10
+    title: ' &c&lSUMO'
+    lines:
+      - ''
+      - ' &c▎&fJogadores: &7%sumo_players%'
+      - ' &c▎&fVitórias: &7%sumo_kills%'
+      - ''
+      - ' &c▎&7%sumo_player1% &fvs &7%sumo_player2%'
+      - ''
+      - ' &c▎&f1º &8- &7%sumo_winner:1%'
+      - ' &c▎&f2º &8- &7%sumo_winner:2%'
+      - ' &c▎&f3º &8- &7%sumo_winner:3%'
+      - ''
+      - '  &cwww.voltzmc.com'
 
 Titles:
   winner:

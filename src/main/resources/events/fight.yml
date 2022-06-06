@@ -62,15 +62,49 @@ Messages:
     - ' &cO evento foi cancelado!'
     - ''
 
-Scoreboard:
-  enabled: true
-  title: '  &5&lFight  '
-  lines:
-    - ''
-    - ' &5▎ &fParticipantes: &7{participants}'
-    - ' &5▎ &fTempo decorrido: &7{timer}'
-    - ''
-    - '  &5www.voltzmc.com'
+Scoreboards:
+  1:
+    display-phase: WAITING_PLAYERS
+    update-time: 10
+    title: ' &5&lFIGHT'
+    lines:
+      - ''
+      - ' &5▎&fJogadores: &7%fight_players%'
+      - ' &5▎&fIniciando em: &7%fight_time%'
+      - ''
+      - '  &5www.voltzmc.com'
+  2:
+    display-phase: WARMUP
+    update-time: 10
+    title: ' &5&lFIGHT'
+    lines:
+      - ''
+      - ' &5▎&fJogadores: &7%fight_players%'
+      - ' &5▎&fVitórias: &7%fight_kills%'
+      - ''
+      - ' &5▎&7Selecionando jogadores'
+      - ''
+      - ' &5▎&f1º &8- &7%fight_winner:1%'
+      - ' &5▎&f2º &8- &7%fight_winner:2%'
+      - ' &5▎&f3º &8- &7%fight_winner:3%'
+      - ''
+      - '  &5www.voltzmc.com'
+  3:
+    display-phase: STARTED
+    update-time: 10
+    title: ' &5&lFIGHT'
+    lines:
+      - ''
+      - ' &5▎&fJogadores: &7%fight_players%'
+      - ' &5▎&fVitórias: &7%fight_kills%'
+      - ''
+      - ' &5▎&7%fight_player1% &fvs &7%fight_player2%'
+      - ''
+      - ' &5▎&f1º &8- &7%fight_winner:1%'
+      - ' &5▎&f2º &8- &7%fight_winner:2%'
+      - ' &5▎&f3º &8- &7%fight_winner:3%'
+      - ''
+      - '  &5www.voltzmc.com'
 
 Titles:
   winner:

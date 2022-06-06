@@ -1,8 +1,8 @@
 package com.zpedroo.voltzevents.listeners;
 
 import com.zpedroo.voltzevents.managers.DataManager;
-import com.zpedroo.voltzevents.objects.PlayerData;
-import com.zpedroo.voltzevents.objects.SpecialItem;
+import com.zpedroo.voltzevents.objects.player.PlayerData;
+import com.zpedroo.voltzevents.objects.event.SpecialItem;
 import com.zpedroo.voltzevents.types.ArenaEvent;
 import com.zpedroo.voltzevents.types.Event;
 import com.zpedroo.voltzevents.utils.config.Messages;

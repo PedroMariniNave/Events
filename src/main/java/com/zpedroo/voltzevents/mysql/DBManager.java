@@ -1,7 +1,7 @@
 package com.zpedroo.voltzevents.mysql;
 
-import com.zpedroo.voltzevents.objects.PlayerData;
-import com.zpedroo.voltzevents.objects.SpecialItem;
+import com.zpedroo.voltzevents.objects.player.PlayerData;
+import com.zpedroo.voltzevents.objects.event.SpecialItem;
 import com.zpedroo.voltzevents.utils.serialization.ItemStatusSerialization;
 import org.bukkit.entity.Player;
 

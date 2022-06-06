@@ -1,8 +1,10 @@
 package com.zpedroo.voltzevents.events.sumo.tasks;
 
 import com.zpedroo.voltzevents.VoltzEvents;
+import com.zpedroo.voltzevents.enums.EventPhase;
 import com.zpedroo.voltzevents.events.sumo.SumoEvent;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class PlayerCheckTask extends BukkitRunnable {
@@ -35,9 +37,12 @@ public class PlayerCheckTask extends BukkitRunnable {
 
         player.sendTitle(SumoEvent.Titles.ELIMINATED[0], SumoEvent.Titles.ELIMINATED[1]);
 
+        sumoEvent.setEventPhase(EventPhase.WARMUP);
         sumoEvent.setPlayer1(null);
         sumoEvent.setPlayer2(null);
 
+        winner.getInventory().clear();
+        winner.getInventory().setArmorContents(new ItemStack[4]);
         sumoEvent.getEventData().addPlayerKills(winner, 1);
         sumoEvent.leave(player, false, true);
 

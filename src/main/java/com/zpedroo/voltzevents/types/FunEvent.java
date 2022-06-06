@@ -1,6 +1,6 @@
 package com.zpedroo.voltzevents.types;
 
-import com.zpedroo.voltzevents.objects.EventItems;
+import com.zpedroo.voltzevents.objects.player.EventItems;
 import com.zpedroo.voltzevents.utils.FileUtils;
 
 import java.util.HashMap;

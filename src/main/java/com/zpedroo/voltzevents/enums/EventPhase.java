@@ -1,7 +1,7 @@
 package com.zpedroo.voltzevents.enums;
 
 public enum EventPhase {
-    ANNOUNCE,
+    WAITING_PLAYERS,
     WARMUP,
     STARTED,
     INACTIVE

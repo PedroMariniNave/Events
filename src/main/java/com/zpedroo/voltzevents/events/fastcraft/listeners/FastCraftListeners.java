@@ -2,7 +2,7 @@ package com.zpedroo.voltzevents.events.fastcraft.listeners;
 
 import com.zpedroo.voltzevents.events.fastcraft.FastCraftEvent;
 import com.zpedroo.voltzevents.managers.DataManager;
-import com.zpedroo.voltzevents.objects.PlayerData;
+import com.zpedroo.voltzevents.objects.player.PlayerData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

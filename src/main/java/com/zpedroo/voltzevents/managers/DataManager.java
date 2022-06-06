@@ -1,17 +1,21 @@
 package com.zpedroo.voltzevents.managers;
 
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
+import com.zpedroo.voltzevents.enums.EventPhase;
 import com.zpedroo.voltzevents.managers.cache.DataCache;
 import com.zpedroo.voltzevents.mysql.DBConnection;
-import com.zpedroo.voltzevents.objects.EventItems;
-import com.zpedroo.voltzevents.objects.PlayerData;
-import com.zpedroo.voltzevents.objects.SpecialItem;
-import com.zpedroo.voltzevents.objects.WinnerSettings;
+import com.zpedroo.voltzevents.objects.event.SpecialItem;
+import com.zpedroo.voltzevents.objects.event.WinnerSettings;
+import com.zpedroo.voltzevents.objects.player.EventItems;
+import com.zpedroo.voltzevents.objects.player.PlayerData;
 import com.zpedroo.voltzevents.types.ArenaEvent;
 import com.zpedroo.voltzevents.types.Event;
 import com.zpedroo.voltzevents.types.PvPEvent;
 import com.zpedroo.voltzevents.utils.FileUtils;
 import com.zpedroo.voltzevents.utils.color.Colorize;
 import com.zpedroo.voltzevents.utils.region.CuboidRegion;
+import com.zpedroo.voltzevents.utils.scoreboard.objects.Scoreboard;
 import com.zpedroo.voltzevents.utils.serialization.Base64Encoder;
 import com.zpedroo.voltzevents.utils.serialization.LocationSerialization;
 import org.bukkit.Location;
@@ -22,6 +26,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class DataManager {
 
@@ -46,10 +51,6 @@ public class DataManager {
 
     public Event getPlayerParticipatingEvent(Player player) {
         return dataCache.getPlayersParticipating().get(player);
-    }
-
-    public WinnerSettings getWinnerSettings(Event event, int position) {
-        return dataCache.getWinnerSettings().get(event, position);
     }
 
     public SpecialItem getSpecialItem(String identifier) {
@@ -145,6 +146,43 @@ public class DataManager {
 
             String translation = Colorize.getColored(split[1]);
             ret.put(material, translation);
+        }
+
+        return ret;
+    }
+
+    public Map<EventPhase, Scoreboard> getScoreboardsFromFile(FileUtils.Files file) {
+        Map<EventPhase, Scoreboard> ret = new HashMap<>(4);
+
+        if (FileUtils.get().getFile(file).get().contains("Scoreboards")) {
+            for (String str : FileUtils.get().getSection(file, "Scoreboards")) {
+                String title = Colorize.getColored(FileUtils.get().getString(file, "Scoreboards." + str + ".title"));
+                List<String> lines = Colorize.getColored(FileUtils.get().getStringList(file, "Scoreboards." + str + ".lines"));
+                EventPhase eventPhase = EventPhase.valueOf(FileUtils.get().getString(file, "Scoreboards." + str + ".display-phase"));
+                int updateTime = FileUtils.get().getInt(file, "Scoreboards." + str + ".update-time");
+
+                ret.put(eventPhase, new Scoreboard(title, lines, eventPhase, updateTime));
+            }
+        }
+
+        return ret;
+    }
+
+    public Map<Integer, WinnerSettings> getWinnerSettingsFromFile(FileUtils.Files file) {
+        Map<Integer, WinnerSettings> ret = new HashMap<>(4);
+
+        Set<String> positions = FileUtils.get().getSection(file, "Winner-Settings");
+        if (positions == null) return ret;
+
+        for (String position : positions) {
+            int pos = Integer.parseInt(position);
+
+            String display = Colorize.getColored(FileUtils.get().getString(file, "Winner-Settings." + position + ".display"));
+            List<String> winnerMessages = Colorize.getColored(FileUtils.get().getStringList(file, "Winner-Settings." + position + ".winner-messages"));
+            List<String> participantsMessages = Colorize.getColored(FileUtils.get().getStringList(file, "Winner-Settings." + position + ".participants-messages"));
+            List<String> rewards = FileUtils.get().getStringList(file, "Winner-Settings." + position + ".rewards");
+
+            ret.put(pos, new WinnerSettings(display, winnerMessages, participantsMessages, rewards));
         }
 
         return ret;

@@ -4,7 +4,12 @@ import com.zpedroo.voltzevents.api.PlayerLeaveEvent;
 import com.zpedroo.voltzevents.enums.EventPhase;
 import com.zpedroo.voltzevents.hooks.PlaceholderAPIHook;
 import com.zpedroo.voltzevents.managers.DataManager;
-import com.zpedroo.voltzevents.objects.*;
+import com.zpedroo.voltzevents.objects.event.SpecialItem;
+import com.zpedroo.voltzevents.objects.event.WinnerData;
+import com.zpedroo.voltzevents.objects.event.WinnerSettings;
+import com.zpedroo.voltzevents.objects.player.EventData;
+import com.zpedroo.voltzevents.objects.player.EventItems;
+import com.zpedroo.voltzevents.objects.player.PlayerData;
 import com.zpedroo.voltzevents.tasks.AnnounceTask;
 import com.zpedroo.voltzevents.tasks.VoidCheckTask;
 import com.zpedroo.voltzevents.utils.FileUtils;
@@ -12,6 +17,8 @@ import com.zpedroo.voltzevents.utils.actionbar.ActionBarAPI;
 import com.zpedroo.voltzevents.utils.config.Messages;
 import com.zpedroo.voltzevents.utils.config.Settings;
 import com.zpedroo.voltzevents.utils.formatter.TimeFormatter;
+import com.zpedroo.voltzevents.utils.scoreboard.manager.ScoreboardManager;
+import com.zpedroo.voltzevents.utils.scoreboard.objects.Scoreboard;
 import com.zpedroo.voltzevents.utils.storer.ExpStorer;
 import com.zpedroo.voltzevents.utils.storer.InventoryStorer;
 import lombok.Data;
@@ -27,7 +34,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Data
 public abstract class Event {
@@ -38,6 +48,8 @@ public abstract class Event {
     private final HashMap<String, List<String>> messages;
     private final Map<Integer, String> winnersPosition;
     private Map<SpecialItem, Integer> specialItems;
+    private final Map<EventPhase, Scoreboard> scoreboards;
+    private final Map<Integer, WinnerSettings> winnerSettings;
     private final String winnerTag;
     private final int winnersAmount;
     private final int minimumPlayers;
@@ -64,11 +76,9 @@ public abstract class Event {
         this.joinLocation = joinLocation;
         this.exitLocation = exitLocation;
         this.specialItems = DataManager.getInstance().getSpecialItemsFromFile(file);
+        this.scoreboards = DataManager.getInstance().getScoreboardsFromFile(file);
+        this.winnerSettings = DataManager.getInstance().getWinnerSettingsFromFile(file);
         new PlaceholderAPIHook(this);
-    }
-
-    public Map<SpecialItem, Integer> getSpecialItems() {
-        return specialItems;
     }
 
     public int getPlayersParticipatingAmount() {
@@ -79,11 +89,15 @@ public abstract class Event {
         return messages.get(message);
     }
 
+    public WinnerSettings getWinnerSettings(int position) {
+        return winnerSettings.get(position);
+    }
+
     private String getListedWinners() {
         StringBuilder builder = new StringBuilder();
 
         for (int position = 1; position <= winnersAmount; ++position) {
-            WinnerSettings winnerSettings = DataManager.getInstance().getWinnerSettings(this, position);
+            WinnerSettings winnerSettings = getWinnerSettings(position);
             if (winnerSettings == null) continue;
             if (builder.length() > 0) builder.append("\n");
 
@@ -165,6 +179,10 @@ public abstract class Event {
         });
     }
 
+    public Scoreboard getScoreboard() {
+        return scoreboards.get(eventPhase);
+    }
+
     public boolean isHappening() {
         return eventPhase != EventPhase.INACTIVE;
     }
@@ -178,7 +196,7 @@ public abstract class Event {
     }
 
     public boolean canJoin() {
-        return eventPhase == EventPhase.ANNOUNCE;
+        return eventPhase == EventPhase.WAITING_PLAYERS;
     }
 
     public boolean isParticipating(Player player) {
@@ -225,6 +243,12 @@ public abstract class Event {
             return;
         }
 
+        Event participatingEvent = DataManager.getInstance().getPlayerParticipatingEvent(player);
+        if (participatingEvent != null) {
+            player.sendMessage(Messages.ALREADY_PARTICIPATING);
+            return;
+        }
+
         DataManager.getInstance().setPlayerParticipatingEvent(player, this);
         if (savePlayerInventory || eventItems != null) {
             InventoryStorer.storePlayerInventory(player);
@@ -234,10 +258,12 @@ public abstract class Event {
 
         if (!(this instanceof PvPEvent)) {
             if (eventItems != null) addEventItemsToPlayer(player);
-            if (specialItems != null) setPlayerSpecialItems(player);
         }
 
+        if (specialItems != null) setPlayerSpecialItems(player);
+
         playersParticipating.add(player);
+        setScoreboard(player);
         updateAllParticipantsView();
         player.teleport(joinLocation);
         if (!player.hasPermission(Settings.ADMIN_PERMISSION)) player.setFlying(false);
@@ -277,11 +303,20 @@ public abstract class Event {
         }
 
         playersParticipating.remove(player);
+        removeScoreboard(player);
         player.teleport(exitLocation);
 
         if (checkParticipantsAmount) {
             checkParticipantsAmount();
         }
+    }
+
+    public void setScoreboard(Player player) {
+        ScoreboardManager.setScoreboard(player, this);
+    }
+
+    public void removeScoreboard(Player player) {
+        ScoreboardManager.removeScoreboard(player);
     }
 
     public void addEventItemsToPlayer(Player player) {
@@ -323,7 +358,7 @@ public abstract class Event {
     }
 
     private void checkParticipantsAmount() {
-        if (getPlayersParticipatingAmount() <= 0 && eventPhase != EventPhase.ANNOUNCE) {
+        if (getPlayersParticipatingAmount() <= 0 && eventPhase != EventPhase.WAITING_PLAYERS) {
             if (!winnersPosition.isEmpty()) {
                 this.finishEvent(true);
             } else {
@@ -336,7 +371,7 @@ public abstract class Event {
         if (isHappening()) return;
 
         this.winnersPosition.clear();
-        this.eventPhase = EventPhase.ANNOUNCE;
+        this.eventPhase = EventPhase.WAITING_PLAYERS;
         this.eventData = new EventData();
         this.announceTask.startTask();
     }
@@ -348,7 +383,7 @@ public abstract class Event {
         this.announceTask.cancelTask();
         this.eventPhase = EventPhase.INACTIVE;
 
-        sendCanceledMessages();
+        sendCancelledMessages();
     }
 
     public void finishEvent(boolean sendFinishMessages) {
@@ -360,7 +395,7 @@ public abstract class Event {
         if (sendFinishMessages) sendFinishMessages();
     }
 
-    public void sendCanceledMessages() {
+    public void sendCancelledMessages() {
         for (String msg : getMessage("CANCELLED")) {
             Bukkit.broadcastMessage(replaceFinishedEventPlaceholders(msg));
         }
@@ -377,7 +412,7 @@ public abstract class Event {
 
         setWinner(player.getName(), position);
 
-        WinnerSettings winnerSettings = DataManager.getInstance().getWinnerSettings(this, position);
+        WinnerSettings winnerSettings = getWinnerSettings(position);
         if (winnerSettings != null) {
             for (String msg : winnerSettings.getWinnerMessages()) {
                 player.sendMessage(replacePlayerPlaceholders(player, msg));
@@ -411,8 +446,8 @@ public abstract class Event {
         playersParticipating.forEach(this::updatePlayerView);
     }
 
-    public void hidePlayer(Player viewer, Player target) {
-        if (!viewer.canSee(target)) return;
+    public void hidePlayer(@NotNull Player viewer, @NotNull Player target) {
+        if (viewer.equals(target) || !viewer.canSee(target)) return;
         if (this instanceof PvPEvent) {
             PvPEvent event = (PvPEvent) Event.this;
             if (event.isFighting(target)) return;
@@ -422,21 +457,21 @@ public abstract class Event {
         sendTabPacket((CraftPlayer) viewer, ((CraftPlayer) target).getHandle());
     }
 
-    public void showPlayer(Player viewer, Player target) {
-        if (viewer.canSee(target)) return;
+    public void showPlayer(@NotNull Player viewer, @NotNull Player target) {
+        if (viewer.equals(target) || viewer.canSee(target)) return;
 
         viewer.showPlayer(target);
     }
 
-    public void showPlayerToAllParticipants(Player target) {
+    public void showPlayerToAllParticipants(@NotNull Player target) {
         playersParticipating.forEach(viewer -> showPlayer(viewer, target));
     }
 
-    public void hideAllParticipants(Player viewer) {
+    public void hideAllParticipants(@NotNull Player viewer) {
         playersParticipating.forEach(target -> hidePlayer(viewer, target));
     }
 
-    public void showAllParticipants(Player viewer) {
+    public void showAllParticipants(@NotNull Player viewer) {
         playersParticipating.forEach(target -> showPlayer(viewer, target));
     }
 
@@ -455,12 +490,12 @@ public abstract class Event {
 
     public void sendMessageToAllParticipants(List<String> messages) {
         for (String message : messages) {
-            this.sendMessageToAllParticipants(message);
+            sendMessageToAllParticipants(message);
         }
     }
 
     public void sendMessageToAllParticipants(String message, String[] placeholders, String[] replacers) {
-        this.sendMessageToAllParticipants(StringUtils.replaceEach(message, placeholders, replacers));
+        sendMessageToAllParticipants(StringUtils.replaceEach(message, placeholders, replacers));
     }
 
     public void sendMessageToAllParticipants(List<String> messages, String[] placeholders, String[] replacers) {
@@ -469,7 +504,7 @@ public abstract class Event {
             replacedMessages.add(StringUtils.replaceEach(message, placeholders, replacers));
         }
 
-        this.sendMessageToAllParticipants(replacedMessages);
+        sendMessageToAllParticipants(replacedMessages);
     }
 
     public void sendTitleToAllParticipants(String title, String subtitle) {
@@ -477,7 +512,7 @@ public abstract class Event {
     }
 
     public void sendTitleToAllParticipants(String title, String subtitle, String[] placeholders, String[] replacers) {
-        this.sendTitleToAllParticipants(StringUtils.replaceEach(title, placeholders, replacers), StringUtils.replaceEach(subtitle, placeholders, replacers));
+        sendTitleToAllParticipants(StringUtils.replaceEach(title, placeholders, replacers), StringUtils.replaceEach(subtitle, placeholders, replacers));
     }
 
     public void sendActionBarToAllParticipants(String text) {
@@ -485,7 +520,7 @@ public abstract class Event {
     }
 
     public void sendActionBarToAllParticipants(String text, String[] placeholders, String[] replacers) {
-        this.sendActionBarToAllParticipants(StringUtils.replaceEach(text, placeholders, replacers));
+        sendActionBarToAllParticipants(StringUtils.replaceEach(text, placeholders, replacers));
     }
 
     public void playSoundToAllParticipants(Sound sound) {

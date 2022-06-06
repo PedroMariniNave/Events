@@ -11,6 +11,8 @@ public class Messages {
 
     public static final String NOT_PARTICIPATING = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.CONFIG, "Messages.not-participating"));
 
+    public static final String ALREADY_PARTICIPATING = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.CONFIG, "Messages.already-participating"));
+
     public static final String INVALID_LOCATION = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.CONFIG, "Messages.invalid-location"));
 
     public static final String INVALID_POSITION = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.CONFIG, "Messages.invalid-position"));

@@ -64,15 +64,31 @@ Messages:
 Action-Bars:
   warmup: '&cLiberando combate em {timer} segundos!'
 
-Scoreboard:
-  enabled: true
-  title: '  &9&lPaintball  '
-  lines:
-    - ''
-    - ' &9▎ &fParticipantes: &7{participants}'
-    - ' &9▎ &fTempo decorrido: &7{timer}'
-    - ''
-    - '  &9www.voltzmc.com'
+Scoreboards:
+  1:
+    display-phase: WAITING_PLAYERS
+    update-time: 10
+    title: ' &9&lPAINTBALL'
+    lines:
+      - ''
+      - ' &9▎&fJogadores: &7%paintball_players%'
+      - ' &9▎&fIniciando em: &7%paintball_time%'
+      - ''
+      - '  &9www.voltzmc.com'
+  2:
+    display-phase: STARTED
+    update-time: 10
+    title: ' &9&lPAINTBALL'
+    lines:
+      - ''
+      - ' &9▎&fJogadores: &7%paintball_players%'
+      - ' &9▎&fKills: &7%paintball_kills%'
+      - ''
+      - ' &9▎&f1º &8- &7%paintball_winner:1%'
+      - ' &9▎&f2º &8- &7%paintball_winner:2%'
+      - ' &9▎&f3º &8- &7%paintball_winner:3%'
+      - ''
+      - '  &9www.voltzmc.com'
 
 Titles:
   eliminated:

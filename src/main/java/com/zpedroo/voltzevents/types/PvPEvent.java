@@ -1,7 +1,7 @@
 package com.zpedroo.voltzevents.types;
 
 import com.zpedroo.voltzevents.managers.DataManager;
-import com.zpedroo.voltzevents.objects.EventItems;
+import com.zpedroo.voltzevents.objects.player.EventItems;
 import com.zpedroo.voltzevents.utils.FileUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,6 +33,8 @@ public abstract class PvPEvent extends Event {
     }
 
     public boolean isFighting(Player player) {
+        if (player1 == null || player2 == null) return false;
+
         return player1.equals(player) || player2.equals(player);
     }
 

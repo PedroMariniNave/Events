@@ -1,21 +1,25 @@
 package com.zpedroo.voltzevents.events.fight;
 
+import com.zpedroo.voltzevents.VoltzEvents;
 import com.zpedroo.voltzevents.commands.PvPEventCmd;
 import com.zpedroo.voltzevents.enums.EventPhase;
 import com.zpedroo.voltzevents.events.fight.listeners.FightListeners;
 import com.zpedroo.voltzevents.managers.CommandManager;
 import com.zpedroo.voltzevents.managers.DataManager;
 import com.zpedroo.voltzevents.managers.ListenerManager;
-import com.zpedroo.voltzevents.objects.EventItems;
+import com.zpedroo.voltzevents.objects.player.EventItems;
 import com.zpedroo.voltzevents.tasks.AnnounceTask;
 import com.zpedroo.voltzevents.types.PvPEvent;
 import com.zpedroo.voltzevents.utils.FileUtils;
 import com.zpedroo.voltzevents.utils.color.Colorize;
 import com.zpedroo.voltzevents.utils.serialization.LocationSerialization;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,6 +70,8 @@ public class FightEvent extends PvPEvent {
     }
 
     public void selectPlayersAndExecuteEventActions() {
+        setEventPhase(EventPhase.STARTED);
+
         Player player1 = getPlayersParticipating().stream().findAny().get();
         Player player2 = getPlayersParticipating().stream().filter(player -> player.getUniqueId() != player1.getUniqueId()).findAny().get();
 
@@ -75,8 +81,13 @@ public class FightEvent extends PvPEvent {
         addEventItemsToPlayer(player1);
         addEventItemsToPlayer(player2);
 
-        showPlayerToAllParticipants(player1);
-        showPlayerToAllParticipants(player2);
+        new BukkitRunnable() { // sync
+            @Override
+            public void run() {
+                showPlayerToAllParticipants(player1);
+                showPlayerToAllParticipants(player2);
+            }
+        }.runTaskLater(VoltzEvents.get(), 0L);
 
         player1.teleport(getPos1Location());
         player2.teleport(getPos2Location());

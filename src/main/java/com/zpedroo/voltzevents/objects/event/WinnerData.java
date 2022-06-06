@@ -1,4 +1,4 @@
-package com.zpedroo.voltzevents.objects;
+package com.zpedroo.voltzevents.objects.event;
 
 import com.zpedroo.voltzevents.utils.config.Settings;
 import lombok.Data;

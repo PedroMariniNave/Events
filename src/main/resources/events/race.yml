@@ -61,15 +61,31 @@ Messages:
     - ' &cO evento foi cancelado!'
     - ''
 
-Scoreboard:
-  enabled: true
-  title: '  &b&lCorrida  '
-  lines:
-    - ''
-    - ' &b▎ &fParticipantes: &7{participants}'
-    - ' &b▎ &fTempo decorrido: &7{timer}'
-    - ''
-    - '  &bwww.voltzmc.com'
+Scoreboards:
+  1:
+    display-phase: WAITING_PLAYERS
+    update-time: 10
+    title: ' &b&lCORRIDA'
+    lines:
+      - ''
+      - ' &b▎&fJogadores: &7%race_players%'
+      - ' &b▎&fIniciando em: &7%race_time%'
+      - ''
+      - '  &bwww.voltzmc.com'
+  2:
+    display-phase: STARTED
+    update-time: 10
+    title: ' &b&lCORRIDA'
+    lines:
+      - ''
+      - ' &b▎&fJogadores: &7%race_players%'
+      - ' &b▎&fTempo: &7%race_time%'
+      - ''
+      - ' &b▎&f1º &8- &7%race_winner:1%'
+      - ' &b▎&f2º &8- &7%race_winner:2%'
+      - ' &b▎&f3º &8- &7%race_winner:3%'
+      - ''
+      - '  &bwww.voltzmc.com'
 
 Whitelisted-Commands:
   - '/g'

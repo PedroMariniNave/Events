@@ -1,6 +1,7 @@
 package com.zpedroo.voltzevents.hooks;
 
 import com.zpedroo.voltzevents.VoltzEvents;
+import com.zpedroo.voltzevents.events.hotpotato.HotPotatoEvent;
 import com.zpedroo.voltzevents.types.Event;
 import com.zpedroo.voltzevents.types.PvPEvent;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
@@ -40,8 +41,9 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
         }
 
         Player target = null;
+        HotPotatoEvent hotPotatoEvent = null;
         switch (identifier.toUpperCase()) {
-            case "PARTICIPANTS":
+            case "PLAYERS":
                 return String.valueOf(event.getPlayersParticipatingAmount());
             case "PLAYER1":
                 if (!(event instanceof PvPEvent)) break;
@@ -55,8 +57,23 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
                 return target == null ? "???" : target.getName();
             case "KILLS":
                 return String.valueOf(event.getPlayerKills(player));
+            case "ROUND":
+                if (!(event instanceof HotPotatoEvent)) break;
+
+                hotPotatoEvent = (HotPotatoEvent) event;
+                return String.valueOf(hotPotatoEvent.getRound());
             case "TIME":
                 return event.getFormattedTime();
+            case "BURN_TIME":
+                if (!(event instanceof HotPotatoEvent)) break;
+
+                hotPotatoEvent = (HotPotatoEvent) event;
+                return String.valueOf(hotPotatoEvent.getBurnTimer());
+            case "NEW_ROUND_TIME":
+                if (!(event instanceof HotPotatoEvent)) break;
+
+                hotPotatoEvent = (HotPotatoEvent) event;
+                return String.valueOf(hotPotatoEvent.getNewRoundTimer());
         }
 
         return null;

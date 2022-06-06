@@ -1,29 +1,20 @@
-package com.zpedroo.voltzevents.objects;
+package com.zpedroo.voltzevents.objects.player;
 
+import com.zpedroo.voltzevents.objects.event.WinnerData;
 import com.zpedroo.voltzevents.utils.formatter.TimeFormatter;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Getter
 public class EventData {
 
     private long startTimestamp = -1;
     private final Map<Integer, WinnerData> winnersData = new HashMap<>(4);
     private final Map<Player, Integer> playerKills = new HashMap<>(16);
-
-    public long getStartTimestamp() {
-        return startTimestamp;
-    }
-
-    public Map<Integer, WinnerData> getWinnersData() {
-        return winnersData;
-    }
-
-    public Map<Player, Integer> getPlayerKills() {
-        return playerKills;
-    }
 
     public WinnerData getWinnerData(int position) {
         return winnersData.get(position);

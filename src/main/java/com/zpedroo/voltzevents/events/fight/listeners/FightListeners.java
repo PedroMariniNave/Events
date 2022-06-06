@@ -1,6 +1,7 @@
 package com.zpedroo.voltzevents.events.fight.listeners;
 
 import com.zpedroo.voltzevents.VoltzEvents;
+import com.zpedroo.voltzevents.enums.EventPhase;
 import com.zpedroo.voltzevents.events.fight.FightEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class FightListeners implements Listener {
@@ -25,9 +27,12 @@ public class FightListeners implements Listener {
 
         player.sendTitle(FightEvent.Titles.ELIMINATED[0], FightEvent.Titles.ELIMINATED[1]);
 
+        fightEvent.setEventPhase(EventPhase.WARMUP);
         fightEvent.setPlayer1(null);
         fightEvent.setPlayer2(null);
 
+        killer.getInventory().clear();
+        killer.getInventory().setArmorContents(new ItemStack[4]);
         fightEvent.getEventData().addPlayerKills(killer, 1);
         fightEvent.leave(player, false, true);
 

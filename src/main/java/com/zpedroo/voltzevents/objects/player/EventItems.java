@@ -1,4 +1,4 @@
-package com.zpedroo.voltzevents.objects;
+package com.zpedroo.voltzevents.objects.player;
 
 import lombok.Data;
 import org.bukkit.inventory.ItemStack;

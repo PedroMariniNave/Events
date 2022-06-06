@@ -13,8 +13,8 @@ Settings:
     max: 4 # limite de batatas-quentes
   announces-amount: 5
   announces-delay: 30 # segundos
-  round-delay: 5 # segundos
-  round-duration: 20 # segundos
+  round-delay: 10 # segundos
+  round-duration: 50 # segundos
   save-player-inventory: true
   # Se ativado, o plugin irá criar uma task verificando se o jogador caiu no void
   # Essa opção é um adicional caso não queira que o jogador espere levar dano do void
@@ -88,17 +88,41 @@ Action-Bars:
   untagged: '&aCorra!'
   warmup: '&eIniciando rodada em {timer} segundos!'
 
-Scoreboard:
-  enabled: true
-  title: '  &6&lBatata-Quente  '
-  lines:
-    - ''
-    - ' &6▎ &fParticipantes: &7{participants}'
-    - ' &6▎ &fTempo decorrido: &7{timer}'
-    - ''
-    - ' &6▎ &fRodada: &7{round}'
-    - ''
-    - '  &6www.voltzmc.com'
+Scoreboards:
+  1:
+    display-phase: WAITING_PLAYERS
+    update-time: 10
+    title: ' &6&lBATATA-QUENTE'
+    lines:
+      - ''
+      - ' &6▎&fJogadores: &7%hotpotato_players%'
+      - ' &6▎&fIniciando em: &7%hotpotato_time%'
+      - ''
+      - '  &6www.voltzmc.com'
+  2:
+    display-phase: STARTED
+    update-time: 10
+    title: ' &6&lBATATA-QUENTE'
+    lines:
+      - ''
+      - ' &6▎&fParticipantes: &7%hotpotato_players%'
+      - ' &6▎&fQueimando em: &7%hotpotato_burn_time%s'
+      - ''
+      - ' &6▎&fRodada: &7#%hotpotato_round%'
+      - ''
+      - '  &6www.voltzmc.com'
+  3:
+    display-phase: WARMUP
+    update-time: 10
+    title: ' &6&lBATATA-QUENTE'
+    lines:
+      - ''
+      - ' &6▎&fParticipantes: &7%hotpotato_players%'
+      - ' &6▎&fIniciando em: &7%hotpotato_new_round_time%s'
+      - ''
+      - ' &6▎&fRodada: &7#%hotpotato_round%'
+      - ''
+      - '  &6www.voltzmc.com'
 
 Titles:
   tagged:

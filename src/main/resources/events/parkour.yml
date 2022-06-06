@@ -62,15 +62,31 @@ Messages:
     - ' &cO evento foi cancelado!'
     - ''
 
-Scoreboard:
-  enabled: true
-  title: '  &e&lParkour  '
-  lines:
-    - ''
-    - ' &e▎ &fParticipantes: &7{participants}'
-    - ' &e▎ &fTempo decorrido: &7{timer}'
-    - ''
-    - '  &ewww.voltzmc.com'
+Scoreboards:
+  1:
+    display-phase: WAITING_PLAYERS
+    update-time: 10
+    title: ' &e&lPARKOUR'
+    lines:
+      - ''
+      - ' &e▎&fJogadores: &7%parkour_players%'
+      - ' &e▎&fIniciando em: &7%parkour_time%'
+      - ''
+      - '  &ewww.voltzmc.com'
+  2:
+    display-phase: STARTED
+    update-time: 10
+    title: ' &e&lPARKOUR'
+    lines:
+      - ''
+      - ' &e▎&fJogadores: &7%parkour_players%'
+      - ' &e▎&fTempo: &7%parkour_time%'
+      - ''
+      - ' &e▎&f1º &8- &7%parkour_winner:1%'
+      - ' &e▎&f2º &8- &7%parkour_winner:2%'
+      - ' &e▎&f3º &8- &7%parkour_winner:3%'
+      - ''
+      - '  &ewww.voltzmc.com'
 
 Whitelisted-Commands:
   - '/g'

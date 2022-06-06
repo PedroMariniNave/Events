@@ -1,4 +1,4 @@
-package com.zpedroo.voltzevents.objects;
+package com.zpedroo.voltzevents.objects.event;
 
 import de.tr7zw.nbtapi.NBTItem;
 import lombok.Data;

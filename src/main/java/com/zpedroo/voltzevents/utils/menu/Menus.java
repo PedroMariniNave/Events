@@ -1,7 +1,7 @@
 package com.zpedroo.voltzevents.utils.menu;
 
 import com.zpedroo.voltzevents.managers.DataManager;
-import com.zpedroo.voltzevents.objects.PlayerData;
+import com.zpedroo.voltzevents.objects.player.PlayerData;
 import com.zpedroo.voltzevents.utils.FileUtils;
 import com.zpedroo.voltzevents.utils.builder.InventoryBuilder;
 import com.zpedroo.voltzevents.utils.builder.InventoryUtils;

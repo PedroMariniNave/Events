@@ -5,7 +5,7 @@ import com.zpedroo.voltzevents.events.paintball.listeners.PaintballListeners;
 import com.zpedroo.voltzevents.managers.CommandManager;
 import com.zpedroo.voltzevents.managers.DataManager;
 import com.zpedroo.voltzevents.managers.ListenerManager;
-import com.zpedroo.voltzevents.objects.EventItems;
+import com.zpedroo.voltzevents.objects.player.EventItems;
 import com.zpedroo.voltzevents.tasks.AnnounceTask;
 import com.zpedroo.voltzevents.tasks.WarmupTask;
 import com.zpedroo.voltzevents.types.ArenaEvent;
