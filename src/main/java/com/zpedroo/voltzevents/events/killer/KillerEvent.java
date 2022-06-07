@@ -52,17 +52,17 @@ public class KillerEvent extends ArenaEvent {
     }
 
     @Override
-    public void checkWinner(Player player) {
-        if (getPlayersParticipatingAmount() > WINNERS_AMOUNT) return;
+    public void checkIfPlayerIsWinner(Player player, int participantsAmount) {
+        if (participantsAmount > WINNERS_AMOUNT) return;
 
-        int position = getPlayersParticipatingAmount();
-        winEvent(player, position, true);
+        int position = participantsAmount;
+        winEvent(player, position);
 
         if (getPlayersParticipatingAmount() <= 1) {
             Player winner = getPlayersParticipating().size() == 1 ? getPlayersParticipating().get(0) : null;
             if (winner == null) return;
 
-            winEvent(winner, 1, false);
+            winEvent(winner, 1);
             sendFinishMessages();
 
             new BukkitRunnable() {

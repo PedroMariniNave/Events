@@ -24,14 +24,20 @@ public class ScoreboardUpdater extends BukkitRunnable {
 
     @Override
     public void run() {
-        if (player == null || !player.isOnline() || event.getEventPhase() != scoreboard.getDisplayPhase()) {
-            scoreboardHandler.delete();
+        if (player == null || !player.isOnline() || !event.isParticipating(player)) {
+            ScoreboardManager.removeScoreboard(player);
+            cancelTask();
+            return;
+        }
 
+        if (event.getEventPhase() != scoreboard.getDisplayPhase()) {
+            ScoreboardManager.removeScoreboard(player);
             Scoreboard newScoreboard = event.getScoreboard();
             if (newScoreboard != null) {
                 ScoreboardManager.setScoreboard(player, event, newScoreboard);
             }
-            this.cancel();
+
+            cancelTask();
             return;
         }
 
@@ -40,5 +46,9 @@ public class ScoreboardUpdater extends BukkitRunnable {
 
     public void startTask() {
         this.runTaskTimerAsynchronously(VoltzEvents.get(), scoreboard.getUpdateTime(), scoreboard.getUpdateTime());
+    }
+
+    private void cancelTask() {
+        this.cancel();
     }
 }

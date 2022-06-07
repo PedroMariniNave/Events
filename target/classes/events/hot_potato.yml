@@ -91,7 +91,7 @@ Action-Bars:
 Scoreboards:
   1:
     display-phase: WAITING_PLAYERS
-    update-time: 10
+    update-time: 5
     title: ' &6&lBATATA-QUENTE'
     lines:
       - ''
@@ -101,7 +101,7 @@ Scoreboards:
       - '  &6www.voltzmc.com'
   2:
     display-phase: STARTED
-    update-time: 10
+    update-time: 5
     title: ' &6&lBATATA-QUENTE'
     lines:
       - ''
@@ -113,7 +113,7 @@ Scoreboards:
       - '  &6www.voltzmc.com'
   3:
     display-phase: WARMUP
-    update-time: 10
+    update-time: 5
     title: ' &6&lBATATA-QUENTE'
     lines:
       - ''

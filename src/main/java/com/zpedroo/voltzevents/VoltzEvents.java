@@ -9,10 +9,7 @@ import com.zpedroo.voltzevents.events.paintball.PaintballEvent;
 import com.zpedroo.voltzevents.events.parkour.ParkourEvent;
 import com.zpedroo.voltzevents.events.race.RaceEvent;
 import com.zpedroo.voltzevents.events.sumo.SumoEvent;
-import com.zpedroo.voltzevents.listeners.PlayerGeneralListeners;
-import com.zpedroo.voltzevents.listeners.SpecialItemListeners;
-import com.zpedroo.voltzevents.listeners.TagListeners;
-import com.zpedroo.voltzevents.listeners.WinRegionSetListeners;
+import com.zpedroo.voltzevents.listeners.*;
 import com.zpedroo.voltzevents.managers.CommandManager;
 import com.zpedroo.voltzevents.managers.DataManager;
 import com.zpedroo.voltzevents.managers.WinRegionManager;
@@ -97,6 +94,7 @@ public class VoltzEvents extends JavaPlugin {
     }
 
     private void registerListeners() {
+        getServer().getPluginManager().registerEvents(new EventListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerGeneralListeners(), this);
         getServer().getPluginManager().registerEvents(new SpecialItemListeners(), this);
         getServer().getPluginManager().registerEvents(new WinRegionSetListeners(), this);

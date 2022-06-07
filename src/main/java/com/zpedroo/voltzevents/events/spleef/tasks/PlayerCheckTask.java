@@ -1,6 +1,7 @@
 package com.zpedroo.voltzevents.events.spleef.tasks;
 
 import com.zpedroo.voltzevents.VoltzEvents;
+import com.zpedroo.voltzevents.enums.LeaveReason;
 import com.zpedroo.voltzevents.events.spleef.SpleefEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -34,6 +35,6 @@ public class PlayerCheckTask extends BukkitRunnable {
 
         player.sendTitle(title, subtitle);
 
-        spleefEvent.leave(player, false, true);
+        spleefEvent.leave(player, LeaveReason.ELIMINATED, false);
     }
 }

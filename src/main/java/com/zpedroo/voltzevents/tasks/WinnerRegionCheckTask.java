@@ -25,6 +25,6 @@ public class WinnerRegionCheckTask extends BukkitRunnable {
 
         if (!event.getWinRegion().isOnRegion(player)) return;
 
-        event.checkWinner(player);
+        event.checkIfPlayerIsWinner(player, event.getPlayersParticipatingAmount());
     }
 }

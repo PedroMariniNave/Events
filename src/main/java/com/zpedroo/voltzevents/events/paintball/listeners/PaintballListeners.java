@@ -2,6 +2,7 @@ package com.zpedroo.voltzevents.events.paintball.listeners;
 
 import com.zpedroo.voltzevents.VoltzEvents;
 import com.zpedroo.voltzevents.enums.EventPhase;
+import com.zpedroo.voltzevents.enums.LeaveReason;
 import com.zpedroo.voltzevents.events.paintball.PaintballEvent;
 import de.tr7zw.nbtapi.NBTItem;
 import org.bukkit.Material;
@@ -23,7 +24,7 @@ public class PaintballListeners implements Listener {
 
     private final PaintballEvent paintballEvent = PaintballEvent.getInstance();
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onDeath(PlayerDeathEvent event) {
         if (!paintballEvent.isHappening() || !paintballEvent.isParticipating(event.getEntity())) return;
 
@@ -36,7 +37,7 @@ public class PaintballListeners implements Listener {
         player.sendTitle(PaintballEvent.Titles.ELIMINATED[0], PaintballEvent.Titles.ELIMINATED[1]);
 
         paintballEvent.getEventData().addPlayerKills(killer, 1);
-        paintballEvent.leave(player, false, true);
+        paintballEvent.leave(player, LeaveReason.ELIMINATED, false);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)

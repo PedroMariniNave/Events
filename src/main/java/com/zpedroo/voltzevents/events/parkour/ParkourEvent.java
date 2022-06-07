@@ -2,6 +2,7 @@ package com.zpedroo.voltzevents.events.parkour;
 
 import com.zpedroo.voltzevents.commands.ArenaEventCmd;
 import com.zpedroo.voltzevents.enums.EventPhase;
+import com.zpedroo.voltzevents.enums.LeaveReason;
 import com.zpedroo.voltzevents.managers.CommandManager;
 import com.zpedroo.voltzevents.managers.DataManager;
 import com.zpedroo.voltzevents.objects.player.EventItems;
@@ -49,8 +50,8 @@ public class ParkourEvent extends ArenaEvent {
     }
 
     @Override
-    public void checkWinner(Player player) {
-        if (getPlayersParticipatingAmount() > WINNERS_AMOUNT) return;
+    public void checkIfPlayerIsWinner(Player player, int participantsAmount) {
+        if (participantsAmount > WINNERS_AMOUNT) return;
 
         int position = 1;
         for (int pos = 1; pos <= WINNERS_AMOUNT; ++pos) {
@@ -60,7 +61,9 @@ public class ParkourEvent extends ArenaEvent {
             }
         }
 
-        winEvent(player, position, true);
+        winEvent(player, position);
+        leave(player, LeaveReason.WINNER, false);
+
         if (position == WINNERS_AMOUNT || getPlayersParticipatingAmount() <= 0) {
             finishEvent(true);
         }

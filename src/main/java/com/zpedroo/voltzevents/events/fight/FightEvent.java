@@ -3,6 +3,7 @@ package com.zpedroo.voltzevents.events.fight;
 import com.zpedroo.voltzevents.VoltzEvents;
 import com.zpedroo.voltzevents.commands.PvPEventCmd;
 import com.zpedroo.voltzevents.enums.EventPhase;
+import com.zpedroo.voltzevents.enums.LeaveReason;
 import com.zpedroo.voltzevents.events.fight.listeners.FightListeners;
 import com.zpedroo.voltzevents.managers.CommandManager;
 import com.zpedroo.voltzevents.managers.DataManager;
@@ -13,13 +14,11 @@ import com.zpedroo.voltzevents.types.PvPEvent;
 import com.zpedroo.voltzevents.utils.FileUtils;
 import com.zpedroo.voltzevents.utils.color.Colorize;
 import com.zpedroo.voltzevents.utils.serialization.LocationSerialization;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,15 +49,15 @@ public class FightEvent extends PvPEvent {
     }
 
     @Override
-    public void checkWinner(Player player) {
-        if (getPlayersParticipatingAmount() > WINNERS_AMOUNT) return;
+    public void checkIfPlayerIsWinner(Player player, int participantsAmount) {
+        if (participantsAmount > WINNERS_AMOUNT) return;
 
-        int position = getPlayersParticipatingAmount();
-        winEvent(player, position, true);
+        int position = participantsAmount;
+        winEvent(player, position);
 
         if (getPlayersParticipatingAmount() <= 1) {
             Player winner = getPlayersParticipating().size() == 1 ? getPlayersParticipating().get(0) : null;
-            if (winner != null) leave(winner, false, true);
+            if (winner != null) leave(winner, LeaveReason.WINNER, false);
             finishEvent(true);
         }
     }

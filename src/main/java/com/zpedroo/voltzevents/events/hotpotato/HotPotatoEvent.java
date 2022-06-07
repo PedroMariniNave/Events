@@ -2,6 +2,7 @@ package com.zpedroo.voltzevents.events.hotpotato;
 
 import com.zpedroo.voltzevents.commands.ArenaEventCmd;
 import com.zpedroo.voltzevents.enums.EventPhase;
+import com.zpedroo.voltzevents.enums.LeaveReason;
 import com.zpedroo.voltzevents.events.hotpotato.listeners.HotPotatoListeners;
 import com.zpedroo.voltzevents.events.hotpotato.tasks.HotPotatoTask;
 import com.zpedroo.voltzevents.managers.CommandManager;
@@ -63,15 +64,15 @@ public class HotPotatoEvent extends ArenaEvent {
     }
 
     @Override
-    public void checkWinner(Player player) {
-        if (getPlayersParticipatingAmount() > WINNERS_AMOUNT) return;
+    public void checkIfPlayerIsWinner(Player player, int participantsAmount) {
+        if (participantsAmount > WINNERS_AMOUNT) return;
 
-        int position = getPlayersParticipatingAmount();
-        winEvent(player, position, true);
+        int position = participantsAmount;
+        winEvent(player, position);
 
         if (getPlayersParticipatingAmount() <= 1) {
             Player winner = getPlayersParticipating().size() == 1 ? getPlayersParticipating().get(0) : null;
-            if (winner != null) leave(winner, false, true);
+            if (winner != null) leave(winner, LeaveReason.WINNER, false);
             finishEvent(true);
         }
     }
@@ -151,7 +152,7 @@ public class HotPotatoEvent extends ArenaEvent {
         player.getWorld().createExplosion(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ(), 5, false, false);
         player.sendTitle(Titles.ELIMINATED[0], Titles.ELIMINATED[1]);
 
-        leave(player, false, true);
+        leave(player, LeaveReason.ELIMINATED, false);
     }
 
     public void explodeAllHotPotatoes() {

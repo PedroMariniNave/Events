@@ -33,6 +33,6 @@ public class FastCraftListeners implements Listener {
             }
         }
 
-        fastCraftEvent.winEvent(player, position, false);
+        fastCraftEvent.winEvent(player, position);
     }
 }

@@ -65,7 +65,7 @@ Messages:
 Scoreboards:
   1:
     display-phase: WAITING_PLAYERS
-    update-time: 10
+    update-time: 5
     title: ' &c&lSUMO'
     lines:
       - ''
@@ -75,14 +75,14 @@ Scoreboards:
       - '  &cwww.voltzmc.com'
   2:
     display-phase: WARMUP
-    update-time: 10
+    update-time: 20
     title: ' &c&lSUMO'
     lines:
       - ''
       - ' &c▎&fJogadores: &7%sumo_players%'
       - ' &c▎&fVitórias: &7%sumo_kills%'
       - ''
-      - ' &c▎&7Selecionando jogadores'
+      - ' &c▎&fSelecionando jogadores'
       - ''
       - ' &c▎&f1º &8- &7%sumo_winner:1%'
       - ' &c▎&f2º &8- &7%sumo_winner:2%'
@@ -91,7 +91,7 @@ Scoreboards:
       - '  &cwww.voltzmc.com'
   3:
     display-phase: STARTED
-    update-time: 10
+    update-time: 20
     title: ' &c&lSUMO'
     lines:
       - ''

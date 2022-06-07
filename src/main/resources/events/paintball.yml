@@ -67,7 +67,7 @@ Action-Bars:
 Scoreboards:
   1:
     display-phase: WAITING_PLAYERS
-    update-time: 10
+    update-time: 5
     title: ' &9&lPAINTBALL'
     lines:
       - ''
@@ -77,7 +77,7 @@ Scoreboards:
       - '  &9www.voltzmc.com'
   2:
     display-phase: STARTED
-    update-time: 10
+    update-time: 20
     title: ' &9&lPAINTBALL'
     lines:
       - ''

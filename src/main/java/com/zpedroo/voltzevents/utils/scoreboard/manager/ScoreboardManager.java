@@ -44,6 +44,8 @@ public class ScoreboardManager {
     }
 
     public static void removeScoreboard(Player player) {
+        if (player == null) return;
+
         ScoreboardHandler scoreboard = scoreboards.remove(player);
         if (scoreboard != null) {
             scoreboard.delete();

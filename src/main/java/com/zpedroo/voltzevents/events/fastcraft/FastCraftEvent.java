@@ -62,7 +62,7 @@ public class FastCraftEvent extends FunEvent {
     }
 
     @Override
-    public void checkWinner(Player player) {
+    public void checkIfPlayerIsWinner(Player player, int participantsAmount) {
     }
 
     @Override

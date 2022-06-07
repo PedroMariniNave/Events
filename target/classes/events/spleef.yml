@@ -61,7 +61,7 @@ Messages:
 Scoreboards:
   1:
     display-phase: WAITING_PLAYERS
-    update-time: 10
+    update-time: 5
     title: ' &b&lSPLEEF'
     lines:
       - ''

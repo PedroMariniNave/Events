@@ -2,6 +2,7 @@ package com.zpedroo.voltzevents.events.fight.listeners;
 
 import com.zpedroo.voltzevents.VoltzEvents;
 import com.zpedroo.voltzevents.enums.EventPhase;
+import com.zpedroo.voltzevents.enums.LeaveReason;
 import com.zpedroo.voltzevents.events.fight.FightEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,7 +18,7 @@ public class FightListeners implements Listener {
 
     private final FightEvent fightEvent = FightEvent.getInstance();
     
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onDeath(PlayerDeathEvent event) {
         if (!fightEvent.isHappening() || !fightEvent.isParticipating(event.getEntity())) return;
 
@@ -34,7 +35,7 @@ public class FightListeners implements Listener {
         killer.getInventory().clear();
         killer.getInventory().setArmorContents(new ItemStack[4]);
         fightEvent.getEventData().addPlayerKills(killer, 1);
-        fightEvent.leave(player, false, true);
+        fightEvent.leave(player, LeaveReason.ELIMINATED, false);
 
         fightEvent.sendTitleToAllParticipants(FightEvent.Titles.WINNER[0], FightEvent.Titles.WINNER[1], new String[]{
                 "{winner}",
@@ -75,6 +76,7 @@ public class FightListeners implements Listener {
         Player player = event.getPlayer();
         if (!fightEvent.isFighting(player)) return;
 
-        player.damage(9999);
+        Player winner = fightEvent.getPlayer1().equals(player) ? fightEvent.getPlayer2() : fightEvent.getPlayer1();
+        player.damage(9999, winner);
     }
 }

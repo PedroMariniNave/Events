@@ -1,6 +1,7 @@
 package com.zpedroo.voltzevents.commands;
 
 import com.zpedroo.voltzevents.enums.CommandKeys;
+import com.zpedroo.voltzevents.enums.LeaveReason;
 import com.zpedroo.voltzevents.types.PvPEvent;
 import com.zpedroo.voltzevents.utils.config.Messages;
 import com.zpedroo.voltzevents.utils.config.Settings;
@@ -82,7 +83,11 @@ public class PvPEventCmd implements CommandExecutor {
             }
         }
 
-        event.join(player);
+        if (!event.isParticipating(player)) {
+            event.join(player);
+        } else {
+            event.leave(player, LeaveReason.QUIT, true);
+        }
         return false;
     }
 }

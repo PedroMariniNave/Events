@@ -1,6 +1,7 @@
 package com.zpedroo.voltzevents.commands;
 
 import com.zpedroo.voltzevents.enums.CommandKeys;
+import com.zpedroo.voltzevents.enums.LeaveReason;
 import com.zpedroo.voltzevents.managers.WinRegionManager;
 import com.zpedroo.voltzevents.types.ArenaEvent;
 import com.zpedroo.voltzevents.utils.config.Messages;
@@ -87,7 +88,11 @@ public class ArenaEventCmd implements CommandExecutor {
             }
         }
 
-        event.join(player);
+        if (!event.isParticipating(player)) {
+            event.join(player);
+        } else {
+            event.leave(player, LeaveReason.QUIT, true);
+        }
         return false;
     }
 }

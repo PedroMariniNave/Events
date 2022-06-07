@@ -1,5 +1,6 @@
 package com.zpedroo.voltzevents.events.killer.listeners;
 
+import com.zpedroo.voltzevents.enums.LeaveReason;
 import com.zpedroo.voltzevents.events.killer.KillerEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,7 +13,7 @@ public class KillerListeners implements Listener {
 
     private final KillerEvent killerEvent = KillerEvent.getInstance();
     
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onDeath(PlayerDeathEvent event) {
         if (!killerEvent.isHappening() || !killerEvent.isParticipating(event.getEntity())) return;
 
@@ -23,7 +24,7 @@ public class KillerListeners implements Listener {
         player.sendTitle(KillerEvent.Titles.ELIMINATED[0], KillerEvent.Titles.ELIMINATED[1]);
 
         killerEvent.getEventData().addPlayerKills(killer, 1);
-        killerEvent.leave(player, false, true);
+        killerEvent.leave(player, LeaveReason.ELIMINATED, false);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)

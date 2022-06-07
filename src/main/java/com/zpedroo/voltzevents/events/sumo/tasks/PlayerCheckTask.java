@@ -2,6 +2,7 @@ package com.zpedroo.voltzevents.events.sumo.tasks;
 
 import com.zpedroo.voltzevents.VoltzEvents;
 import com.zpedroo.voltzevents.enums.EventPhase;
+import com.zpedroo.voltzevents.enums.LeaveReason;
 import com.zpedroo.voltzevents.events.sumo.SumoEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -32,7 +33,7 @@ public class PlayerCheckTask extends BukkitRunnable {
     private void selectWinner() {
         this.cancel();
 
-        Player winner = sumoEvent.getPlayer1().getUniqueId() == player.getUniqueId() ? sumoEvent.getPlayer2() : sumoEvent.getPlayer1();
+        Player winner = sumoEvent.getPlayer1().equals(player) ? sumoEvent.getPlayer2() : sumoEvent.getPlayer1();
         if (winner == null) return;
 
         player.sendTitle(SumoEvent.Titles.ELIMINATED[0], SumoEvent.Titles.ELIMINATED[1]);
@@ -44,7 +45,7 @@ public class PlayerCheckTask extends BukkitRunnable {
         winner.getInventory().clear();
         winner.getInventory().setArmorContents(new ItemStack[4]);
         sumoEvent.getEventData().addPlayerKills(winner, 1);
-        sumoEvent.leave(player, false, true);
+        sumoEvent.leave(player, LeaveReason.ELIMINATED, false);
 
         sumoEvent.sendTitleToAllParticipants(SumoEvent.Titles.WINNER[0], SumoEvent.Titles.WINNER[1], new String[]{
                 "{winner}",

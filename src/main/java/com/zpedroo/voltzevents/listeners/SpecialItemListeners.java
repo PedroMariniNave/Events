@@ -1,5 +1,6 @@
 package com.zpedroo.voltzevents.listeners;
 
+import com.zpedroo.voltzevents.enums.LeaveReason;
 import com.zpedroo.voltzevents.managers.DataManager;
 import com.zpedroo.voltzevents.objects.player.PlayerData;
 import com.zpedroo.voltzevents.objects.event.SpecialItem;
@@ -57,7 +58,7 @@ public class SpecialItemListeners implements Listener {
                 player.teleport(arenaEvent.getArenaLocation());
                 break;
             case "LEAVE":
-                participatingEvent.leave(player, true, false);
+                participatingEvent.leave(player, LeaveReason.QUIT, true);
                 return;
         }
 

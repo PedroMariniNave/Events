@@ -1,5 +1,6 @@
 package com.zpedroo.voltzevents.listeners;
 
+import com.zpedroo.voltzevents.enums.LeaveReason;
 import com.zpedroo.voltzevents.managers.DataManager;
 import com.zpedroo.voltzevents.types.ArenaEvent;
 import com.zpedroo.voltzevents.types.Event;
@@ -26,7 +27,7 @@ public class PlayerGeneralListeners implements Listener {
         Player player = event.getPlayer();
         DataManager.getInstance().savePlayerData(player);
         Event participatingEvent = DataManager.getInstance().getPlayerParticipatingEvent(player);
-        if (participatingEvent != null) participatingEvent.leave(player, true, false);
+        if (participatingEvent != null) participatingEvent.leave(player, LeaveReason.QUIT, true);
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)

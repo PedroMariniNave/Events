@@ -2,6 +2,7 @@ package com.zpedroo.voltzevents.types;
 
 import com.zpedroo.voltzevents.api.PlayerLeaveEvent;
 import com.zpedroo.voltzevents.enums.EventPhase;
+import com.zpedroo.voltzevents.enums.LeaveReason;
 import com.zpedroo.voltzevents.hooks.PlaceholderAPIHook;
 import com.zpedroo.voltzevents.managers.DataManager;
 import com.zpedroo.voltzevents.objects.event.SpecialItem;
@@ -34,10 +35,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Data
 public abstract class Event {
@@ -203,6 +201,10 @@ public abstract class Event {
         return playersParticipating.contains(player);
     }
 
+    public boolean isWinner(Player player) {
+        return getWinnerPosition(player) != -1;
+    }
+
     public int getPlayerKills(Player player) {
         return eventData == null ? 0 : eventData.getPlayerKills(player);
     }
@@ -233,11 +235,7 @@ public abstract class Event {
     }
 
     public void join(Player player) {
-        if (isParticipating(player)) {
-            leave(player, true, false);
-            return;
-        }
-
+        if (isParticipating(player)) return;
         if (!canJoin()) {
             player.sendMessage(Messages.NOT_STARTED);
             return;
@@ -274,21 +272,12 @@ public abstract class Event {
         }
     }
 
-    public void leave(Player player, boolean checkParticipantsAmount, boolean checkWinner) {
-        if (!isParticipating(player)) {
-            player.sendMessage(Messages.NOT_PARTICIPATING);
-            return;
-        }
-
+    public void leave(Player player, LeaveReason leaveReason, boolean checkParticipantsAmount) {
+        if (!isParticipating(player)) return;
         if (!isHappening()) {
             player.sendMessage(Messages.NOT_STARTED);
             return;
         }
-
-        if (checkWinner) checkWinner(player);
-
-        PlayerLeaveEvent event = new PlayerLeaveEvent(player, this);
-        Bukkit.getPluginManager().callEvent(event);
 
         DataManager.getInstance().setPlayerParticipatingEvent(player, null);
         if (eventItems != null || specialItems != null) {
@@ -302,6 +291,8 @@ public abstract class Event {
             clearPotionEffects(player);
         }
 
+        final int participantsAmountWhenPlayerLeft = getPlayersParticipatingAmount();
+
         playersParticipating.remove(player);
         removeScoreboard(player);
         player.teleport(exitLocation);
@@ -309,6 +300,9 @@ public abstract class Event {
         if (checkParticipantsAmount) {
             checkParticipantsAmount();
         }
+
+        PlayerLeaveEvent event = new PlayerLeaveEvent(player, this, leaveReason, participantsAmountWhenPlayerLeft);
+        Bukkit.getPluginManager().callEvent(event);
     }
 
     public void setScoreboard(Player player) {
@@ -379,7 +373,7 @@ public abstract class Event {
     public void cancelEvent() {
         if (!isHappening()) return;
 
-        new ArrayList<>(playersParticipating).forEach(player -> leave(player, false, false));
+        new ArrayList<>(playersParticipating).forEach(player -> leave(player, LeaveReason.EVENT_FINISHED, false));
         this.announceTask.cancelTask();
         this.eventPhase = EventPhase.INACTIVE;
 
@@ -389,7 +383,7 @@ public abstract class Event {
     public void finishEvent(boolean sendFinishMessages) {
         if (!isHappening()) return;
 
-        new ArrayList<>(playersParticipating).forEach(player -> leave(player, false, false));
+        new ArrayList<>(playersParticipating).forEach(player -> leave(player, LeaveReason.EVENT_FINISHED, false));
         this.eventPhase = EventPhase.INACTIVE;
 
         if (sendFinishMessages) sendFinishMessages();
@@ -407,8 +401,8 @@ public abstract class Event {
         }
     }
 
-    public void winEvent(Player player, int position, boolean forceLeave) {
-        if (isParticipating(player) && forceLeave) leave(player, false, false);
+    public void winEvent(Player player, int position) {
+        if (isWinner(player)) return;
 
         setWinner(player.getName(), position);
 
@@ -419,7 +413,7 @@ public abstract class Event {
             }
 
             for (String msg : winnerSettings.getParticipantsMessages()) {
-                sendMessageToAllParticipants(replacePlayerPlaceholders(player, msg));
+                sendMessageToAllParticipants(replacePlayerPlaceholders(player, msg), Collections.singletonList(player));
             }
 
             for (String command : winnerSettings.getRewards()) {
@@ -484,18 +478,24 @@ public abstract class Event {
         playersParticipating.forEach(player -> player.setLevel(level));
     }
 
-    public void sendMessageToAllParticipants(String message) {
-        playersParticipating.forEach(player -> player.sendMessage(message));
+    public void sendMessageToAllParticipants(String message, List<Player> playersToIgnore) {
+        playersParticipating.stream().filter(participant -> playersToIgnore != null && !playersToIgnore.contains(participant)).forEach(player -> player.sendMessage(message));
     }
 
     public void sendMessageToAllParticipants(List<String> messages) {
         for (String message : messages) {
-            sendMessageToAllParticipants(message);
+            sendMessageToAllParticipants(message, null);
+        }
+    }
+
+    public void sendMessageToAllParticipants(List<String> messages, List<Player> playersToIgnore) {
+        for (String message : messages) {
+            sendMessageToAllParticipants(message, playersToIgnore);
         }
     }
 
     public void sendMessageToAllParticipants(String message, String[] placeholders, String[] replacers) {
-        sendMessageToAllParticipants(StringUtils.replaceEach(message, placeholders, replacers));
+        sendMessageToAllParticipants(StringUtils.replaceEach(message, placeholders, replacers), null);
     }
 
     public void sendMessageToAllParticipants(List<String> messages, String[] placeholders, String[] replacers) {
@@ -505,6 +505,15 @@ public abstract class Event {
         }
 
         sendMessageToAllParticipants(replacedMessages);
+    }
+
+    public void sendMessageToAllParticipants(List<String> messages, String[] placeholders, String[] replacers, List<Player> playersToIgnore) {
+        List<String> replacedMessages = new ArrayList<>(messages.size());
+        for (String message : messages) {
+            replacedMessages.add(StringUtils.replaceEach(message, placeholders, replacers));
+        }
+
+        sendMessageToAllParticipants(replacedMessages, playersToIgnore);
     }
 
     public void sendTitleToAllParticipants(String title, String subtitle) {
@@ -533,7 +542,7 @@ public abstract class Event {
         });
     }
 
-    public abstract void checkWinner(Player player);
+    public abstract void checkIfPlayerIsWinner(Player player, int participantsAmount);
 
     public abstract void startEventMethods();
 

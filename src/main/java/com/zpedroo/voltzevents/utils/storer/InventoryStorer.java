@@ -1,8 +1,10 @@
 package com.zpedroo.voltzevents.utils.storer;
 
+import com.zpedroo.voltzevents.VoltzEvents;
 import lombok.Data;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,11 +25,18 @@ public class InventoryStorer {
     public static void restorePlayerInventory(Player player) {
         StoredInventory storedInventory = storedInventories.remove(player);
         if (storedInventory == null) return;
-        if (player.isDead()) player.spigot().respawn();
+        if (player.isDead()) {
+            player.spigot().respawn();
+        }
 
-        player.getInventory().setContents(storedInventory.getInventoryContents());
-        player.getInventory().setArmorContents(storedInventory.getArmorContents());
-        player.updateInventory();
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                player.getInventory().setContents(storedInventory.getInventoryContents());
+                player.getInventory().setArmorContents(storedInventory.getArmorContents());
+                player.updateInventory();
+            }
+        }.runTaskLaterAsynchronously(VoltzEvents.get(), 2L);
     }
 
     @Data

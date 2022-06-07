@@ -3,6 +3,7 @@ package com.zpedroo.voltzevents.events.sumo;
 import com.zpedroo.voltzevents.VoltzEvents;
 import com.zpedroo.voltzevents.commands.PvPEventCmd;
 import com.zpedroo.voltzevents.enums.EventPhase;
+import com.zpedroo.voltzevents.enums.LeaveReason;
 import com.zpedroo.voltzevents.events.sumo.listeners.SumoListeners;
 import com.zpedroo.voltzevents.events.sumo.tasks.PlayerCheckTask;
 import com.zpedroo.voltzevents.managers.CommandManager;
@@ -51,15 +52,15 @@ public class SumoEvent extends PvPEvent {
     }
 
     @Override
-    public void checkWinner(Player player) {
-        if (getPlayersParticipatingAmount() > WINNERS_AMOUNT) return;
+    public void checkIfPlayerIsWinner(Player player, int participantsAmount) {
+        if (participantsAmount > WINNERS_AMOUNT) return;
 
-        int position = getPlayersParticipatingAmount();
-        winEvent(player, position, true);
+        int position = participantsAmount;
+        winEvent(player, position);
 
         if (getPlayersParticipatingAmount() <= 1) {
             Player winner = getPlayersParticipating().size() == 1 ? getPlayersParticipating().get(0) : null;
-            if (winner != null) leave(winner, false, true);
+            if (winner != null) leave(winner, LeaveReason.WINNER, false);
             finishEvent(true);
         }
     }
@@ -68,6 +69,14 @@ public class SumoEvent extends PvPEvent {
     public void startEventMethods() {
         this.setEventPhase(EventPhase.STARTED);
         this.selectPlayersAndExecuteEventActions();
+    }
+
+    @Override
+    public void teleportPlayersToArenaAndExecuteEventActions() {
+    }
+
+    @Override
+    public void resetAllValues() {
     }
 
     public void selectPlayersAndExecuteEventActions() {
@@ -103,14 +112,6 @@ public class SumoEvent extends PvPEvent {
                 player1.getName(),
                 player2.getName()
         });
-    }
-
-    @Override
-    public void teleportPlayersToArenaAndExecuteEventActions() {
-    }
-
-    @Override
-    public void resetAllValues() {
     }
 
     protected static class Locations {
