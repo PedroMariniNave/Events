@@ -34,13 +34,13 @@ public class SpleefEvent extends ArenaEvent {
     public static SpleefEvent getInstance() { return instance; }
 
     public SpleefEvent(Plugin plugin) {
-        super("Spleef", FileUtils.Files.SPLEEF, TAG, new HashMap<String, List<String>>() {{
+        super("Spleef", FileUtils.Files.SPLEEF, WHITELISTED_COMMANDS, TAG, new HashMap<String, List<String>>() {{
             put("STARTING", EVENT_STARTING);
             put("STARTED", EVENT_STARTED);
             put("CANCELLED", EVENT_CANCELLED);
             put("FINISHED", EVENT_FINISHED);
             put("INSUFFICIENT_PLAYERS", INSUFFICIENT_PLAYERS);
-        }}, WINNERS, WINNERS_AMOUNT, MINIMUM_PLAYERS, SAVE_PLAYER_INVENTORY, ADDITIONAL_VOID_CHECKER, EVENT_ITEMS, JOIN_LOCATION, EXIT_LOCATION, ARENA_LOCATION);
+        }}, WINNERS, WINNERS_AMOUNT, MINIMUM_PLAYERS_TO_START, MINIMUM_PLAYERS_AFTER_START, SAVE_PLAYER_INVENTORY, ADDITIONAL_VOID_CHECKER, EVENT_ITEMS, JOIN_LOCATION, EXIT_LOCATION, ARENA_LOCATION);
 
         instance = this;
         setAnnounceTask(new AnnounceTask(plugin, this, ANNOUNCES_DELAY, ANNOUNCES_AMOUNT));
@@ -56,9 +56,9 @@ public class SpleefEvent extends ArenaEvent {
         int position = participantsAmount;
         winEvent(player, position);
 
-        if (getPlayersParticipatingAmount() <= 1) {
+        if (getPlayersParticipatingAmount() <= MINIMUM_PLAYERS_AFTER_START) {
             Player winner = getPlayersParticipating().size() == 1 ? getPlayersParticipating().get(0) : null;
-            if (winner != null) leave(winner, LeaveReason.WINNER, false);
+            if (winner != null) leave(winner, LeaveReason.WINNER);
             finishEvent(true);
         }
     }
@@ -115,7 +115,9 @@ public class SpleefEvent extends ArenaEvent {
 
         public static final int WINNERS_AMOUNT = FileUtils.get().getInt(FileUtils.Files.SPLEEF, "Settings.winners-amount", 1);
 
-        public static final int MINIMUM_PLAYERS = FileUtils.get().getInt(FileUtils.Files.SPLEEF, "Settings.minimum-players");
+        public static final int MINIMUM_PLAYERS_TO_START = FileUtils.get().getInt(FileUtils.Files.SPLEEF, "Settings.minimum-players.to-start");
+
+        public static final int MINIMUM_PLAYERS_AFTER_START = FileUtils.get().getInt(FileUtils.Files.SPLEEF, "Settings.minimum-players.after-start");
 
         public static final int ANNOUNCES_DELAY = FileUtils.get().getInt(FileUtils.Files.SPLEEF, "Settings.announces-delay");
 
@@ -124,6 +126,8 @@ public class SpleefEvent extends ArenaEvent {
         public static final boolean SAVE_PLAYER_INVENTORY = FileUtils.get().getBoolean(FileUtils.Files.SPLEEF, "Settings.save-player-inventory");
 
         public static final boolean ADDITIONAL_VOID_CHECKER = FileUtils.get().getBoolean(FileUtils.Files.SPLEEF, "Settings.additional-void-checker");
+
+        public static final List<String> WHITELISTED_COMMANDS = FileUtils.get().getStringList(FileUtils.Files.SPLEEF, "Whitelisted-Commands");
     }
 
     public static class Messages {

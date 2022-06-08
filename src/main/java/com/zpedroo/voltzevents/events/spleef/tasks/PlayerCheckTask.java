@@ -35,6 +35,6 @@ public class PlayerCheckTask extends BukkitRunnable {
 
         player.sendTitle(title, subtitle);
 
-        spleefEvent.leave(player, LeaveReason.ELIMINATED, false);
+        spleefEvent.leave(player, LeaveReason.ELIMINATED);
     }
 }

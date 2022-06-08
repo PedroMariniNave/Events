@@ -86,7 +86,7 @@ public class PvPEventCmd implements CommandExecutor {
         if (!event.isParticipating(player)) {
             event.join(player);
         } else {
-            event.leave(player, LeaveReason.QUIT, true);
+            event.leave(player, LeaveReason.QUIT, true, true);
         }
         return false;
     }

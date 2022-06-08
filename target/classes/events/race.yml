@@ -3,7 +3,9 @@ Settings:
   aliases: []
   tag: '&b[C]'
   winners-amount: 3
-  minimum-players: 2
+  minimum-players:
+    to-start: 2
+    after-start: 0 # não mexa nessa opção
   announces-amount: 5
   announces-delay: 30 # segundos
   save-player-inventory: true
@@ -68,8 +70,8 @@ Scoreboards:
     title: ' &b&lCORRIDA'
     lines:
       - ''
-      - ' &b▎&fJogadores: &7%race_players%'
-      - ' &b▎&fIniciando em: &7%race_time%'
+      - ' &b▎ &fJogadores: &7%race_players%'
+      - ' &b▎ &fIniciando em: &7%race_time%'
       - ''
       - '  &bwww.voltzmc.com'
   2:
@@ -78,12 +80,12 @@ Scoreboards:
     title: ' &b&lCORRIDA'
     lines:
       - ''
-      - ' &b▎&fJogadores: &7%race_players%'
-      - ' &b▎&fTempo: &7%race_time%'
+      - ' &b▎ &fJogadores: &7%race_players%'
+      - ' &b▎ &fTempo: &7%race_time%'
       - ''
-      - ' &b▎&f1º &8- &7%race_winner:1%'
-      - ' &b▎&f2º &8- &7%race_winner:2%'
-      - ' &b▎&f3º &8- &7%race_winner:3%'
+      - ' &b▎ &f1º &8- &7%race_winner:1%'
+      - ' &b▎ &f2º &8- &7%race_winner:2%'
+      - ' &b▎ &f3º &8- &7%race_winner:3%'
       - ''
       - '  &bwww.voltzmc.com'
 

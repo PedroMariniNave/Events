@@ -13,18 +13,16 @@ import com.zpedroo.voltzevents.utils.FileUtils;
 import com.zpedroo.voltzevents.utils.color.Colorize;
 import com.zpedroo.voltzevents.utils.region.CuboidRegion;
 import com.zpedroo.voltzevents.utils.serialization.LocationSerialization;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.zpedroo.voltzevents.events.race.RaceEvent.Messages.*;
 import static com.zpedroo.voltzevents.events.race.RaceEvent.Locations.*;
+import static com.zpedroo.voltzevents.events.race.RaceEvent.Messages.*;
 import static com.zpedroo.voltzevents.events.race.RaceEvent.Settings.*;
 
 public class RaceEvent extends ArenaEvent {
@@ -35,13 +33,13 @@ public class RaceEvent extends ArenaEvent {
     private CuboidRegion winRegion = DataManager.getInstance().getWinRegionFromFile("Race");
 
     public RaceEvent(Plugin plugin) {
-        super("Race", FileUtils.Files.RACE, TAG, new HashMap<String, List<String>>() {{
+        super("Race", FileUtils.Files.RACE, WHITELISTED_COMMANDS, TAG, new HashMap<String, List<String>>() {{
             put("STARTING", EVENT_STARTING);
             put("STARTED", EVENT_STARTED);
             put("CANCELLED", EVENT_CANCELLED);
             put("FINISHED", EVENT_FINISHED);
             put("INSUFFICIENT_PLAYERS", INSUFFICIENT_PLAYERS);
-        }}, WINNERS, WINNERS_AMOUNT, MINIMUM_PLAYERS, SAVE_PLAYER_INVENTORY, ADDITIONAL_VOID_CHECKER, EVENT_ITEMS, JOIN_LOCATION, EXIT_LOCATION, ARENA_LOCATION);
+        }}, WINNERS, WINNERS_AMOUNT, MINIMUM_PLAYERS_TO_START, MINIMUM_PLAYERS_AFTER_START, SAVE_PLAYER_INVENTORY, ADDITIONAL_VOID_CHECKER, EVENT_ITEMS, JOIN_LOCATION, EXIT_LOCATION, ARENA_LOCATION);
 
         instance = this;
         setAnnounceTask(new AnnounceTask(plugin, this, ANNOUNCES_DELAY, ANNOUNCES_AMOUNT));
@@ -62,9 +60,9 @@ public class RaceEvent extends ArenaEvent {
         }
 
         winEvent(player, position);
-        leave(player, LeaveReason.WINNER, false);
+        leave(player, LeaveReason.WINNER);
 
-        if (position == WINNERS_AMOUNT || getPlayersParticipatingAmount() <= 0) {
+        if (position == WINNERS_AMOUNT || getPlayersParticipatingAmount() <= MINIMUM_PLAYERS_AFTER_START) {
             finishEvent(true);
         }
     }
@@ -120,7 +118,9 @@ public class RaceEvent extends ArenaEvent {
 
         public static final int WINNERS_AMOUNT = FileUtils.get().getInt(FileUtils.Files.RACE, "Settings.winners-amount", 1);
 
-        public static final int MINIMUM_PLAYERS = FileUtils.get().getInt(FileUtils.Files.RACE, "Settings.minimum-players");
+        public static final int MINIMUM_PLAYERS_TO_START = FileUtils.get().getInt(FileUtils.Files.RACE, "Settings.minimum-players.to-start");
+
+        public static final int MINIMUM_PLAYERS_AFTER_START = FileUtils.get().getInt(FileUtils.Files.RACE, "Settings.minimum-players.after-start");
 
         public static final int ANNOUNCES_DELAY = FileUtils.get().getInt(FileUtils.Files.RACE, "Settings.announces-delay");
 
@@ -129,6 +129,8 @@ public class RaceEvent extends ArenaEvent {
         public static final boolean SAVE_PLAYER_INVENTORY = FileUtils.get().getBoolean(FileUtils.Files.RACE, "Settings.save-player-inventory");
 
         public static final boolean ADDITIONAL_VOID_CHECKER = FileUtils.get().getBoolean(FileUtils.Files.RACE, "Settings.additional-void-checker");
+
+        public static final List<String> WHITELISTED_COMMANDS = FileUtils.get().getStringList(FileUtils.Files.RACE, "Whitelisted-Commands");
     }
 
     public static class Messages {

@@ -1,5 +1,6 @@
 package com.zpedroo.voltzevents.types;
 
+import com.zpedroo.voltzevents.VoltzEvents;
 import com.zpedroo.voltzevents.api.PlayerLeaveEvent;
 import com.zpedroo.voltzevents.enums.EventPhase;
 import com.zpedroo.voltzevents.enums.LeaveReason;
@@ -13,6 +14,7 @@ import com.zpedroo.voltzevents.objects.player.EventItems;
 import com.zpedroo.voltzevents.objects.player.PlayerData;
 import com.zpedroo.voltzevents.tasks.AnnounceTask;
 import com.zpedroo.voltzevents.tasks.VoidCheckTask;
+import com.zpedroo.voltzevents.tasks.WarmupTask;
 import com.zpedroo.voltzevents.utils.FileUtils;
 import com.zpedroo.voltzevents.utils.actionbar.ActionBarAPI;
 import com.zpedroo.voltzevents.utils.config.Messages;
@@ -33,6 +35,7 @@ import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -43,6 +46,7 @@ public abstract class Event {
     private final String name;
     private final FileUtils.Files file;
     private final List<Player> playersParticipating = new ArrayList<>(32);
+    private final List<String> whitelistedCommands;
     private final HashMap<String, List<String>> messages;
     private final Map<Integer, String> winnersPosition;
     private Map<SpecialItem, Integer> specialItems;
@@ -50,24 +54,28 @@ public abstract class Event {
     private final Map<Integer, WinnerSettings> winnerSettings;
     private final String winnerTag;
     private final int winnersAmount;
-    private final int minimumPlayers;
+    private final int minimumPlayersToStart;
+    private final int minimumPlayersAfterStart;
     private final boolean savePlayerInventory;
     private final boolean additionalVoidChecker;
     private EventItems eventItems;
     private EventData eventData;
     private EventPhase eventPhase = EventPhase.INACTIVE;
     private AnnounceTask announceTask;
+    private WarmupTask warmupTask;
     private Location joinLocation;
     private Location exitLocation;
 
-    public Event(String name, FileUtils.Files file, String winnerTag, HashMap<String, List<String>> messages, Map<Integer, String> winnersPosition, int winnersAmount, int minimumPlayers, boolean savePlayerInventory, boolean additionalVoidChecker, EventItems eventItems, Location joinLocation, Location exitLocation) {
+    public Event(String name, FileUtils.Files file, List<String> whitelistedCommands, String winnerTag, HashMap<String, List<String>> messages, Map<Integer, String> winnersPosition, int winnersAmount, int minimumPlayersToStart, int minimumPlayersAfterStart, boolean savePlayerInventory, boolean additionalVoidChecker, EventItems eventItems, Location joinLocation, Location exitLocation) {
         this.name = name;
         this.file = file;
+        this.whitelistedCommands = whitelistedCommands;
         this.winnerTag = winnerTag;
         this.messages = messages;
         this.winnersPosition = winnersPosition;
         this.winnersAmount = winnersAmount;
-        this.minimumPlayers = minimumPlayers;
+        this.minimumPlayersToStart = minimumPlayersToStart;
+        this.minimumPlayersAfterStart = minimumPlayersAfterStart;
         this.savePlayerInventory = savePlayerInventory;
         this.additionalVoidChecker = additionalVoidChecker;
         this.eventItems = eventItems;
@@ -205,6 +213,18 @@ public abstract class Event {
         return getWinnerPosition(player) != -1;
     }
 
+    private boolean isVisibilityToggleAllowed() {
+        if (specialItems != null) {
+            for (SpecialItem specialItem : specialItems.keySet()) {
+                if (!StringUtils.equalsIgnoreCase(specialItem.getAction(), "SWITCH_VISIBILITY")) continue;
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public int getPlayerKills(Player player) {
         return eventData == null ? 0 : eventData.getPlayerKills(player);
     }
@@ -213,6 +233,23 @@ public abstract class Event {
         if (eventData != null && eventData.getStartTimestamp() == -1) return announceTask == null ? "-/-" : TimeFormatter.format(announceTask.getCountdown());
 
         return eventData == null ? "-/-" : eventData.getFormattedStartTimestamp();
+    }
+
+    public Player getRandomParticipant() {
+        int randomIndex = new Random().nextInt(getPlayersParticipatingAmount());
+
+        return playersParticipating.get(randomIndex);
+    }
+
+    public Player getRandomParticipant(Player playerToIgnore) {
+        int randomIndex = new Random().nextInt(getPlayersParticipatingAmount());
+        int playerIndex = playersParticipating.indexOf(playerToIgnore);
+
+        while (randomIndex == playerIndex) {
+            randomIndex = new Random().nextInt(getPlayersParticipatingAmount());
+        }
+
+        return playersParticipating.get(randomIndex);
     }
 
     public void setWinner(String winnerName, int position) {
@@ -262,9 +299,16 @@ public abstract class Event {
 
         playersParticipating.add(player);
         setScoreboard(player);
-        updateAllParticipantsView();
+
+        if (isVisibilityToggleAllowed()) {
+            updateAllParticipantsView();
+        }
+
         player.teleport(joinLocation);
-        if (!player.hasPermission(Settings.ADMIN_PERMISSION)) player.setFlying(false);
+        if (!player.hasPermission(Settings.ADMIN_PERMISSION)) {
+            player.setAllowFlight(false);
+            player.setFlying(false);
+        }
 
         if (additionalVoidChecker) {
             VoidCheckTask voidCheckTask = new VoidCheckTask(this, player);
@@ -272,7 +316,11 @@ public abstract class Event {
         }
     }
 
-    public void leave(Player player, LeaveReason leaveReason, boolean checkParticipantsAmount) {
+    public void leave(Player player, LeaveReason leaveReason) {
+        leave(player, leaveReason, false, false);
+    }
+
+    public void leave(Player player, LeaveReason leaveReason, boolean checkParticipantsAmount, boolean checkTopOne) {
         if (!isParticipating(player)) return;
         if (!isHappening()) {
             player.sendMessage(Messages.NOT_STARTED);
@@ -298,7 +346,7 @@ public abstract class Event {
         player.teleport(exitLocation);
 
         if (checkParticipantsAmount) {
-            checkParticipantsAmount();
+            checkParticipantsAmount(checkTopOne);
         }
 
         PlayerLeaveEvent event = new PlayerLeaveEvent(player, this, leaveReason, participantsAmountWhenPlayerLeft);
@@ -351,13 +399,18 @@ public abstract class Event {
         }
     }
 
-    private void checkParticipantsAmount() {
-        if (getPlayersParticipatingAmount() <= 0 && eventPhase != EventPhase.WAITING_PLAYERS) {
-            if (!winnersPosition.isEmpty()) {
-                this.finishEvent(true);
-            } else {
-                this.cancelEvent();
-            }
+    private void checkParticipantsAmount(boolean checkTopOne) {
+        if (getPlayersParticipatingAmount() > minimumPlayersAfterStart || eventPhase == EventPhase.WAITING_PLAYERS) return;
+
+        if (checkTopOne) {
+            Player winner = playersParticipating.size() > 0 ? playersParticipating.get(0) : null;
+            if (winner != null) winEvent(winner, 1);
+        }
+
+        if (!winnersPosition.isEmpty()) {
+            this.finishEvent(true);
+        } else {
+            this.cancelEvent();
         }
     }
 
@@ -373,7 +426,7 @@ public abstract class Event {
     public void cancelEvent() {
         if (!isHappening()) return;
 
-        new ArrayList<>(playersParticipating).forEach(player -> leave(player, LeaveReason.EVENT_FINISHED, false));
+        new ArrayList<>(playersParticipating).forEach(player -> leave(player, LeaveReason.EVENT_FINISHED, false, false));
         this.announceTask.cancelTask();
         this.eventPhase = EventPhase.INACTIVE;
 
@@ -383,7 +436,7 @@ public abstract class Event {
     public void finishEvent(boolean sendFinishMessages) {
         if (!isHappening()) return;
 
-        new ArrayList<>(playersParticipating).forEach(player -> leave(player, LeaveReason.EVENT_FINISHED, false));
+        new ArrayList<>(playersParticipating).forEach(player -> leave(player, LeaveReason.EVENT_FINISHED, false, false));
         this.eventPhase = EventPhase.INACTIVE;
 
         if (sendFinishMessages) sendFinishMessages();
@@ -416,9 +469,14 @@ public abstract class Event {
                 sendMessageToAllParticipants(replacePlayerPlaceholders(player, msg), Collections.singletonList(player));
             }
 
-            for (String command : winnerSettings.getRewards()) {
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), replacePlayerPlaceholders(player, command));
-            }
+            new BukkitRunnable() { // sync command dispatch
+                @Override
+                public void run() {
+                    for (String command : winnerSettings.getRewards()) {
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), replacePlayerPlaceholders(player, command));
+                    }
+                }
+            }.runTaskLater(VoltzEvents.get(), 0L);
         }
 
         if (position == 1) {

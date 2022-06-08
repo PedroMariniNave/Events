@@ -47,13 +47,13 @@ public class PaintballEvent extends ArenaEvent {
     private final ItemStack reloadingGunItem = ItemBuilder.build(FileUtils.get().getFile(FileUtils.Files.PAINTBALL).get(), "Reloading-Gun-Item").build();
 
     public PaintballEvent(Plugin plugin) {
-        super("Paintball", FileUtils.Files.PAINTBALL, TAG, new HashMap<String, List<String>>() {{
+        super("Paintball", FileUtils.Files.PAINTBALL, WHITELISTED_COMMANDS, TAG, new HashMap<String, List<String>>() {{
             put("STARTING", EVENT_STARTING);
             put("STARTED", EVENT_STARTED);
             put("CANCELLED", EVENT_CANCELLED);
             put("FINISHED", EVENT_FINISHED);
             put("INSUFFICIENT_PLAYERS", INSUFFICIENT_PLAYERS);
-        }}, WINNERS, WINNERS_AMOUNT, MINIMUM_PLAYERS, SAVE_PLAYER_INVENTORY, ADDITIONAL_VOID_CHECKER, EVENT_ITEMS, JOIN_LOCATION, EXIT_LOCATION, ARENA_LOCATION);
+        }}, WINNERS, WINNERS_AMOUNT, MINIMUM_PLAYERS_TO_START, MINIMUM_PLAYERS_AFTER_START, SAVE_PLAYER_INVENTORY, ADDITIONAL_VOID_CHECKER, EVENT_ITEMS, JOIN_LOCATION, EXIT_LOCATION, ARENA_LOCATION);
 
         instance = this;
         setAnnounceTask(new AnnounceTask(plugin, this, ANNOUNCES_DELAY, ANNOUNCES_AMOUNT));
@@ -118,9 +118,9 @@ public class PaintballEvent extends ArenaEvent {
         int position = participantsAmount;
         winEvent(player, position);
 
-        if (getPlayersParticipatingAmount() <= 1) {
+        if (getPlayersParticipatingAmount() <= MINIMUM_PLAYERS_AFTER_START) {
             Player winner = getPlayersParticipating().size() == 1 ? getPlayersParticipating().get(0) : null;
-            if (winner != null) leave(winner, LeaveReason.WINNER, false);
+            if (winner != null) leave(winner, LeaveReason.WINNER);
             finishEvent(true);
         }
     }
@@ -129,6 +129,7 @@ public class PaintballEvent extends ArenaEvent {
     public void startEventMethods() {
         WarmupTask warmupTask = new WarmupTask(this, WARMUP_BAR, WARMUP_DURATION);
         warmupTask.startTask();
+        setWarmupTask(warmupTask);
     }
 
     @Override
@@ -198,7 +199,9 @@ public class PaintballEvent extends ArenaEvent {
 
         public static final int WINNERS_AMOUNT = FileUtils.get().getInt(FileUtils.Files.PAINTBALL, "Settings.winners-amount", 1);
 
-        public static final int MINIMUM_PLAYERS = FileUtils.get().getInt(FileUtils.Files.PAINTBALL, "Settings.minimum-players");
+        public static final int MINIMUM_PLAYERS_TO_START = FileUtils.get().getInt(FileUtils.Files.PAINTBALL, "Settings.minimum-players.to-start");
+
+        public static final int MINIMUM_PLAYERS_AFTER_START = FileUtils.get().getInt(FileUtils.Files.PAINTBALL, "Settings.minimum-players.after-start");
 
         public static final int ANNOUNCES_DELAY = FileUtils.get().getInt(FileUtils.Files.PAINTBALL, "Settings.announces-delay");
 
@@ -215,6 +218,8 @@ public class PaintballEvent extends ArenaEvent {
         public static final boolean SAVE_PLAYER_INVENTORY = FileUtils.get().getBoolean(FileUtils.Files.PAINTBALL, "Settings.save-player-inventory");
 
         public static final boolean ADDITIONAL_VOID_CHECKER = FileUtils.get().getBoolean(FileUtils.Files.PAINTBALL, "Settings.additional-void-checker");
+
+        public static final List<String> WHITELISTED_COMMANDS = FileUtils.get().getStringList(FileUtils.Files.PAINTBALL, "Whitelisted-Commands");
     }
 
     public static class Messages {

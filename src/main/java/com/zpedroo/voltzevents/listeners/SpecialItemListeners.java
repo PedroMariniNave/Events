@@ -58,7 +58,7 @@ public class SpecialItemListeners implements Listener {
                 player.teleport(arenaEvent.getArenaLocation());
                 break;
             case "LEAVE":
-                participatingEvent.leave(player, LeaveReason.QUIT, true);
+                participatingEvent.leave(player, LeaveReason.QUIT, true, true);
                 return;
         }
 

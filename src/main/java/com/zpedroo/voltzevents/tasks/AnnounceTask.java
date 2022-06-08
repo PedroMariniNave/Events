@@ -47,7 +47,7 @@ public class AnnounceTask extends BukkitRunnable {
         if (countdown <= 0) {
             this.cancelTask();
 
-            if (event.getPlayersParticipatingAmount() < event.getMinimumPlayers()) {
+            if (event.getPlayersParticipatingAmount() < event.getMinimumPlayersToStart()) {
                 for (String msg : event.getMessage("INSUFFICIENT_PLAYERS")) {
                     Bukkit.broadcastMessage(replacePlaceholders(msg));
                 }
@@ -83,6 +83,14 @@ public class AnnounceTask extends BukkitRunnable {
     }
 
     public void startTask() {
+        if (runningTask) {
+            // already started, let's create a new instance to fix some runnable bugs
+            AnnounceTask announceTask = new AnnounceTask(plugin, event, delayBetweenMessagesInSeconds, maxAnnouncesAmount);
+            announceTask.startTask();
+            event.setAnnounceTask(announceTask);
+            return;
+        }
+
         this.runTaskTimerAsynchronously(plugin, 0L, 20L);
     }
 
@@ -90,7 +98,6 @@ public class AnnounceTask extends BukkitRunnable {
         if (!runningTask) return;
 
         this.cancel();
-        this.event.setAnnounceTask(new AnnounceTask(plugin, event, delayBetweenMessagesInSeconds, maxAnnouncesAmount));
     }
 
     private void addParticipationToAllParticipants() {

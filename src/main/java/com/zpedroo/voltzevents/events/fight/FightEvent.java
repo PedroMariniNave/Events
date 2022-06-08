@@ -33,13 +33,13 @@ public class FightEvent extends PvPEvent {
     public static FightEvent getInstance() { return instance; }
 
     public FightEvent(Plugin plugin) {
-        super("Fight", FileUtils.Files.FIGHT, TAG,  new HashMap<String, List<String>>() {{
+        super("Fight", FileUtils.Files.FIGHT, WHITELISTED_COMMANDS, TAG,  new HashMap<String, List<String>>() {{
             put("STARTING", EVENT_STARTING);
             put("STARTED", EVENT_STARTED);
             put("CANCELLED", EVENT_CANCELLED);
             put("FINISHED", EVENT_FINISHED);
             put("INSUFFICIENT_PLAYERS", INSUFFICIENT_PLAYERS);
-        }}, WINNERS, WINNERS_AMOUNT, MINIMUM_PLAYERS, SAVE_PLAYER_INVENTORY, ADDITIONAL_VOID_CHECKER, EVENT_ITEMS, JOIN_LOCATION, EXIT_LOCATION, POS1_LOCATION, POS2_LOCATION);
+        }}, WINNERS, WINNERS_AMOUNT, MINIMUM_PLAYERS_TO_START, MINIMUM_PLAYERS_AFTER_START, SAVE_PLAYER_INVENTORY, ADDITIONAL_VOID_CHECKER, EVENT_ITEMS, JOIN_LOCATION, EXIT_LOCATION, POS1_LOCATION, POS2_LOCATION);
 
         instance = this;
         setAnnounceTask(new AnnounceTask(plugin, this, ANNOUNCES_DELAY, ANNOUNCES_AMOUNT));
@@ -55,9 +55,9 @@ public class FightEvent extends PvPEvent {
         int position = participantsAmount;
         winEvent(player, position);
 
-        if (getPlayersParticipatingAmount() <= 1) {
+        if (getPlayersParticipatingAmount() <= MINIMUM_PLAYERS_AFTER_START) {
             Player winner = getPlayersParticipating().size() == 1 ? getPlayersParticipating().get(0) : null;
-            if (winner != null) leave(winner, LeaveReason.WINNER, false);
+            if (winner != null) leave(winner, LeaveReason.WINNER);
             finishEvent(true);
         }
     }
@@ -71,8 +71,8 @@ public class FightEvent extends PvPEvent {
     public void selectPlayersAndExecuteEventActions() {
         setEventPhase(EventPhase.STARTED);
 
-        Player player1 = getPlayersParticipating().stream().findAny().get();
-        Player player2 = getPlayersParticipating().stream().filter(player -> player.getUniqueId() != player1.getUniqueId()).findAny().get();
+        Player player1 = getRandomParticipant();
+        Player player2 = getRandomParticipant(player1);
 
         setPlayer1(player1);
         setPlayer2(player2);
@@ -124,7 +124,7 @@ public class FightEvent extends PvPEvent {
         public static final String COMMAND = FileUtils.get().getString(FileUtils.Files.FIGHT, "Settings.command");
 
         public static final List<String> ALIASES = FileUtils.get().getStringList(FileUtils.Files.FIGHT, "Settings.aliases");
-        
+
         public static final String TAG = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.FIGHT, "Settings.tag"));
 
         public static final Map<Integer, String> WINNERS = DataManager.getInstance().getWinnersFromFile("Fight");
@@ -133,7 +133,9 @@ public class FightEvent extends PvPEvent {
 
         public static final int WINNERS_AMOUNT = FileUtils.get().getInt(FileUtils.Files.FIGHT, "Settings.winners-amount", 1);
 
-        public static final int MINIMUM_PLAYERS = FileUtils.get().getInt(FileUtils.Files.FIGHT, "Settings.minimum-players");
+        public static final int MINIMUM_PLAYERS_TO_START = FileUtils.get().getInt(FileUtils.Files.FIGHT, "Settings.minimum-players.to-start");
+
+        public static final int MINIMUM_PLAYERS_AFTER_START = FileUtils.get().getInt(FileUtils.Files.FIGHT, "Settings.minimum-players.after-start");
 
         public static final int ANNOUNCES_DELAY = FileUtils.get().getInt(FileUtils.Files.FIGHT, "Settings.announces-delay");
 
@@ -144,6 +146,8 @@ public class FightEvent extends PvPEvent {
         public static final boolean SAVE_PLAYER_INVENTORY = FileUtils.get().getBoolean(FileUtils.Files.FIGHT, "Settings.save-player-inventory");
 
         public static final boolean ADDITIONAL_VOID_CHECKER = FileUtils.get().getBoolean(FileUtils.Files.FIGHT, "Settings.additional-void-checker");
+
+        public static final List<String> WHITELISTED_COMMANDS = FileUtils.get().getStringList(FileUtils.Files.FIGHT, "Whitelisted-Commands");
     }
 
     public static class Messages {

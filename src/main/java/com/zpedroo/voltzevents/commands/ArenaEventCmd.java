@@ -2,6 +2,7 @@ package com.zpedroo.voltzevents.commands;
 
 import com.zpedroo.voltzevents.enums.CommandKeys;
 import com.zpedroo.voltzevents.enums.LeaveReason;
+import com.zpedroo.voltzevents.events.hotpotato.HotPotatoEvent;
 import com.zpedroo.voltzevents.managers.WinRegionManager;
 import com.zpedroo.voltzevents.types.ArenaEvent;
 import com.zpedroo.voltzevents.utils.config.Messages;
@@ -68,7 +69,7 @@ public class ArenaEventCmd implements CommandExecutor {
                             return true;
                         }
 
-                        if (event.getJoinLocation() == null || event.getExitLocation() == null || event.getArenaLocation() == null) {
+                        if (event.getJoinLocation() == null || event.getExitLocation() == null || (event.getArenaLocation() == null && !(event instanceof HotPotatoEvent))) {
                             sender.sendMessage(Messages.INVALID_LOCATION);
                             return true;
                         }
@@ -91,7 +92,7 @@ public class ArenaEventCmd implements CommandExecutor {
         if (!event.isParticipating(player)) {
             event.join(player);
         } else {
-            event.leave(player, LeaveReason.QUIT, true);
+            event.leave(player, LeaveReason.QUIT, true, true);
         }
         return false;
     }

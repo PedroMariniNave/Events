@@ -24,7 +24,7 @@ public class KillerListeners implements Listener {
         player.sendTitle(KillerEvent.Titles.ELIMINATED[0], KillerEvent.Titles.ELIMINATED[1]);
 
         killerEvent.getEventData().addPlayerKills(killer, 1);
-        killerEvent.leave(player, LeaveReason.ELIMINATED, false);
+        killerEvent.leave(player, LeaveReason.ELIMINATED);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)

@@ -36,8 +36,9 @@ public class PaintballListeners implements Listener {
 
         player.sendTitle(PaintballEvent.Titles.ELIMINATED[0], PaintballEvent.Titles.ELIMINATED[1]);
 
+        killer.setHealth(killer.getMaxHealth());
         paintballEvent.getEventData().addPlayerKills(killer, 1);
-        paintballEvent.leave(player, LeaveReason.ELIMINATED, false);
+        paintballEvent.leave(player, LeaveReason.ELIMINATED);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)

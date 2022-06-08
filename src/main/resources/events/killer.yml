@@ -3,7 +3,9 @@ Settings:
   aliases: []
   tag: '&4[&l⚔&4]'
   winners-amount: 3
-  minimum-players: 2
+  minimum-players:
+    to-start: 2
+    after-start: 1 # não mexa nessa opção
   announces-amount: 5
   announces-delay: 30 # segundos
   warmup-duration: 15 # segundos
@@ -69,8 +71,8 @@ Scoreboards:
     title: ' &4&lKILLER'
     lines:
       - ''
-      - ' &4▎&fJogadores: &7%killer_players%'
-      - ' &4▎&fIniciando em: &7%killer_time%'
+      - ' &4▎ &fJogadores: &7%killer_players%'
+      - ' &4▎ &fIniciando em: &7%killer_time%'
       - ''
       - '  &4www.voltzmc.com'
   2:
@@ -79,12 +81,12 @@ Scoreboards:
     title: ' &4&lKILLER'
     lines:
       - ''
-      - ' &4▎&fJogadores: &7%killer_players%'
-      - ' &4▎&fKills: &7%killer_kills%'
+      - ' &4▎ &fJogadores: &7%killer_players%'
+      - ' &4▎ &fKills: &7%killer_kills%'
       - ''
-      - ' &4▎&f1º &8- &7%killer_winner:1%'
-      - ' &4▎&f2º &8- &7%killer_winner:2%'
-      - ' &4▎&f3º &8- &7%killer_winner:3%'
+      - ' &4▎ &f1º &8- &7%killer_winner:1%'
+      - ' &4▎ &f2º &8- &7%killer_winner:2%'
+      - ' &4▎ &f3º &8- &7%killer_winner:3%'
       - ''
       - '  &4www.voltzmc.com'
 

@@ -3,7 +3,9 @@ Settings:
   aliases: []
   tag: '&9[PB]'
   winners-amount: 3
-  minimum-players: 2
+  minimum-players:
+    to-start: 2
+    after-start: 1 # não mexa nessa opção
   announces-amount: 5
   announces-delay: 30 # segundos
   max-ammo-amount: 30
@@ -71,8 +73,8 @@ Scoreboards:
     title: ' &9&lPAINTBALL'
     lines:
       - ''
-      - ' &9▎&fJogadores: &7%paintball_players%'
-      - ' &9▎&fIniciando em: &7%paintball_time%'
+      - ' &9▎ &fJogadores: &7%paintball_players%'
+      - ' &9▎ &fIniciando em: &7%paintball_time%'
       - ''
       - '  &9www.voltzmc.com'
   2:
@@ -81,12 +83,12 @@ Scoreboards:
     title: ' &9&lPAINTBALL'
     lines:
       - ''
-      - ' &9▎&fJogadores: &7%paintball_players%'
-      - ' &9▎&fKills: &7%paintball_kills%'
+      - ' &9▎ &fJogadores: &7%paintball_players%'
+      - ' &9▎ &fKills: &7%paintball_kills%'
       - ''
-      - ' &9▎&f1º &8- &7%paintball_winner:1%'
-      - ' &9▎&f2º &8- &7%paintball_winner:2%'
-      - ' &9▎&f3º &8- &7%paintball_winner:3%'
+      - ' &9▎ &f1º &8- &7%paintball_winner:1%'
+      - ' &9▎ &f2º &8- &7%paintball_winner:2%'
+      - ' &9▎ &f3º &8- &7%paintball_winner:3%'
       - ''
       - '  &9www.voltzmc.com'
 

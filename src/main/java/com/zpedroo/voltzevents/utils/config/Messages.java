@@ -5,6 +5,8 @@ import com.zpedroo.voltzevents.utils.color.Colorize;
 
 public class Messages {
 
+    public static final String BLACKLISTED_COMMAND = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.CONFIG, "Messages.blacklisted-command"));
+
     public static final String ALREADY_STARTED = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.CONFIG, "Messages.already-started"));
 
     public static final String NOT_STARTED = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.CONFIG, "Messages.not-started"));

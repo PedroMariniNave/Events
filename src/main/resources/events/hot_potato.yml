@@ -3,7 +3,9 @@ Settings:
   aliases: [hotpotato]
   tag: '&6[BC]'
   winners-amount: 3
-  minimum-players: 8
+  minimum-players:
+    to-start: 8
+    after-start: 1 # não mexa nessa opção
   hot-potatoes:
     # A cada quantos participantes 1 batata-quente será adicionada
     #
@@ -95,8 +97,8 @@ Scoreboards:
     title: ' &6&lBATATA-QUENTE'
     lines:
       - ''
-      - ' &6▎&fJogadores: &7%hotpotato_players%'
-      - ' &6▎&fIniciando em: &7%hotpotato_time%'
+      - ' &6▎ &fJogadores: &7%hotpotato_players%'
+      - ' &6▎ &fIniciando em: &7%hotpotato_time%'
       - ''
       - '  &6www.voltzmc.com'
   2:
@@ -105,10 +107,10 @@ Scoreboards:
     title: ' &6&lBATATA-QUENTE'
     lines:
       - ''
-      - ' &6▎&fParticipantes: &7%hotpotato_players%'
-      - ' &6▎&fQueimando em: &7%hotpotato_burn_time%s'
+      - ' &6▎ &fParticipantes: &7%hotpotato_players%'
+      - ' &6▎ &fQueimando em: &7%hotpotato_burn_time%s'
       - ''
-      - ' &6▎&fRodada: &7#%hotpotato_round%'
+      - ' &6▎ &fRodada: &7#%hotpotato_round%'
       - ''
       - '  &6www.voltzmc.com'
   3:
@@ -117,10 +119,10 @@ Scoreboards:
     title: ' &6&lBATATA-QUENTE'
     lines:
       - ''
-      - ' &6▎&fParticipantes: &7%hotpotato_players%'
-      - ' &6▎&fIniciando em: &7%hotpotato_new_round_time%s'
+      - ' &6▎ &fParticipantes: &7%hotpotato_players%'
+      - ' &6▎ &fIniciando em: &7%hotpotato_new_round_time%s'
       - ''
-      - ' &6▎&fRodada: &7#%hotpotato_round%'
+      - ' &6▎ &fRodada: &7#%hotpotato_round%'
       - ''
       - '  &6www.voltzmc.com'
 

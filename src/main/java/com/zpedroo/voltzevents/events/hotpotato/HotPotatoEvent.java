@@ -41,12 +41,12 @@ public class HotPotatoEvent extends ArenaEvent {
     public static HotPotatoEvent getInstance() { return instance; }
 
     private final ItemStack hotPotatoItem = ItemBuilder.build(FileUtils.get().getFile(FileUtils.Files.HOT_POTATO).get(), "Hot-Potato-Item").build();
-    private final List<String> hotPotatoesNames = new ArrayList<>(getHotPotatoesSpawnAmount());
+    private final List<String> hotPotatoesNames = new ArrayList<>(HOT_POTATOES_MAX);
 
     private HotPotatoTask hotPotatoTask = null;
 
     public HotPotatoEvent(Plugin plugin) {
-        super("HotPotato", FileUtils.Files.HOT_POTATO, TAG, new HashMap<String, List<String>>() {{
+        super("HotPotato", FileUtils.Files.HOT_POTATO, WHITELISTED_COMMANDS, TAG, new HashMap<String, List<String>>() {{
             put("ROUND_STARTED", ROUND_STARTED);
             put("ROUND_FINISHED", ROUND_FINISHED);
             put("STARTING", EVENT_STARTING);
@@ -54,7 +54,7 @@ public class HotPotatoEvent extends ArenaEvent {
             put("CANCELLED", EVENT_CANCELLED);
             put("FINISHED", EVENT_FINISHED);
             put("INSUFFICIENT_PLAYERS", INSUFFICIENT_PLAYERS);
-        }}, WINNERS, WINNERS_AMOUNT, MINIMUM_PLAYERS, SAVE_PLAYER_INVENTORY, ADDITIONAL_VOID_CHECKER, EVENT_ITEMS, JOIN_LOCATION, EXIT_LOCATION, ARENA_LOCATION);
+        }}, WINNERS, WINNERS_AMOUNT, MINIMUM_PLAYERS_TO_START, MINIMUM_PLAYERS_AFTER_START, SAVE_PLAYER_INVENTORY, ADDITIONAL_VOID_CHECKER, EVENT_ITEMS, JOIN_LOCATION, EXIT_LOCATION, ARENA_LOCATION);
 
         instance = this;
         setAnnounceTask(new AnnounceTask(plugin, this, ANNOUNCES_DELAY, ANNOUNCES_AMOUNT));
@@ -70,23 +70,24 @@ public class HotPotatoEvent extends ArenaEvent {
         int position = participantsAmount;
         winEvent(player, position);
 
-        if (getPlayersParticipatingAmount() <= 1) {
+        if (getPlayersParticipatingAmount() <= MINIMUM_PLAYERS_AFTER_START) {
             Player winner = getPlayersParticipating().size() == 1 ? getPlayersParticipating().get(0) : null;
-            if (winner != null) leave(winner, LeaveReason.WINNER, false);
+            if (winner != null) leave(winner, LeaveReason.WINNER, false, false);
             finishEvent(true);
         }
     }
 
     @Override
     public void startEventMethods() {
-        this.setEventPhase(EventPhase.WARMUP);
+        this.setEventPhase(EventPhase.STARTED);
+        this.selectHotPotatoesAndAnnounce();
         hotPotatoTask = new HotPotatoTask(this);
         hotPotatoTask.startTask();
     }
 
     @Override
     public void teleportPlayersToArenaAndExecuteEventActions() {
-        getPlayersParticipating().forEach(player -> player.teleport(getArenaLocation()));
+//        getPlayersParticipating().forEach(player -> player.teleport(getArenaLocation()));
     }
 
     @Override
@@ -149,10 +150,10 @@ public class HotPotatoEvent extends ArenaEvent {
         if (player == null || !isHotPotato(player)) return;
 
         hotPotatoesNames.remove(playerName);
-        player.getWorld().createExplosion(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ(), 5, false, false);
+        player.getWorld().createExplosion(player.getLocation().getX(), player.getLocation().getY() + 1, player.getLocation().getZ(), 5, false, false);
         player.sendTitle(Titles.ELIMINATED[0], Titles.ELIMINATED[1]);
 
-        leave(player, LeaveReason.ELIMINATED, false);
+        leave(player, LeaveReason.ELIMINATED);
     }
 
     public void explodeAllHotPotatoes() {
@@ -176,7 +177,7 @@ public class HotPotatoEvent extends ArenaEvent {
     }
 
     public boolean isHotPotato(Player player) {
-        return this.isHotPotato(player.getName());
+        return isHotPotato(player.getName());
     }
 
     public boolean isHotPotato(String playerName) {
@@ -215,7 +216,9 @@ public class HotPotatoEvent extends ArenaEvent {
 
         public static final int WINNERS_AMOUNT = FileUtils.get().getInt(FileUtils.Files.HOT_POTATO, "Settings.winners-amount", 1);
 
-        public static final int MINIMUM_PLAYERS = FileUtils.get().getInt(FileUtils.Files.HOT_POTATO, "Settings.minimum-players");
+        public static final int MINIMUM_PLAYERS_TO_START = FileUtils.get().getInt(FileUtils.Files.HOT_POTATO, "Settings.minimum-players.to-start");
+
+        public static final int MINIMUM_PLAYERS_AFTER_START = FileUtils.get().getInt(FileUtils.Files.HOT_POTATO, "Settings.minimum-players.after-start");
 
         public static final int HOT_POTATOES_PROPORTION = FileUtils.get().getInt(FileUtils.Files.HOT_POTATO, "Settings.hot-potatoes.proportion");
 
@@ -232,6 +235,8 @@ public class HotPotatoEvent extends ArenaEvent {
         public static final boolean SAVE_PLAYER_INVENTORY = FileUtils.get().getBoolean(FileUtils.Files.HOT_POTATO, "Settings.save-player-inventory");
 
         public static final boolean ADDITIONAL_VOID_CHECKER = FileUtils.get().getBoolean(FileUtils.Files.HOT_POTATO, "Settings.additional-void-checker");
+
+        public static final List<String> WHITELISTED_COMMANDS = FileUtils.get().getStringList(FileUtils.Files.HOT_POTATO, "Whitelisted-Commands");
     }
 
     public static class Messages {

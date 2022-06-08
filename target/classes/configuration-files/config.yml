@@ -30,6 +30,7 @@ Settings:
   time-formatter: 'mm:ss'
 
 Messages:
+  blacklisted-command: '&cVocê não pode executar esse comando durante o evento!'
   already-started: '&cEsse evento já foi iniciado!'
   not-started: '&cEsse evento não está ocorrendo!'
   already-participating: '&cVocê já está participando de um evento!'

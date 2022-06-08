@@ -34,8 +34,9 @@ public class FightListeners implements Listener {
 
         killer.getInventory().clear();
         killer.getInventory().setArmorContents(new ItemStack[4]);
+        killer.setHealth(killer.getMaxHealth());
         fightEvent.getEventData().addPlayerKills(killer, 1);
-        fightEvent.leave(player, LeaveReason.ELIMINATED, false);
+        fightEvent.leave(player, LeaveReason.ELIMINATED);
 
         fightEvent.sendTitleToAllParticipants(FightEvent.Titles.WINNER[0], FightEvent.Titles.WINNER[1], new String[]{
                 "{winner}",

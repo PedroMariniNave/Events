@@ -45,7 +45,7 @@ public class PlayerCheckTask extends BukkitRunnable {
         winner.getInventory().clear();
         winner.getInventory().setArmorContents(new ItemStack[4]);
         sumoEvent.getEventData().addPlayerKills(winner, 1);
-        sumoEvent.leave(player, LeaveReason.ELIMINATED, false);
+        sumoEvent.leave(player, LeaveReason.ELIMINATED);
 
         sumoEvent.sendTitleToAllParticipants(SumoEvent.Titles.WINNER[0], SumoEvent.Titles.WINNER[1], new String[]{
                 "{winner}",

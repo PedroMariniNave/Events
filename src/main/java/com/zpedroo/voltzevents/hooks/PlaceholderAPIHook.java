@@ -64,6 +64,10 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
                 return String.valueOf(hotPotatoEvent.getRound());
             case "TIME":
                 return event.getFormattedTime();
+            case "WARMUP_TIME":
+                if (event.getWarmupTask() == null) break;
+
+                return String.valueOf(event.getWarmupTask().getTimeLeft());
             case "BURN_TIME":
                 if (!(event instanceof HotPotatoEvent)) break;
 

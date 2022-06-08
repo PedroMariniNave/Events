@@ -1,10 +1,16 @@
 package com.zpedroo.voltzevents.listeners;
 
+import com.zpedroo.voltzevents.VoltzEvents;
 import com.zpedroo.voltzevents.enums.LeaveReason;
 import com.zpedroo.voltzevents.managers.DataManager;
 import com.zpedroo.voltzevents.types.ArenaEvent;
 import com.zpedroo.voltzevents.types.Event;
+import com.zpedroo.voltzevents.utils.config.Messages;
 import com.zpedroo.voltzevents.utils.config.Settings;
+import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -15,10 +21,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.*;
 
 public class PlayerGeneralListeners implements Listener {
 
@@ -27,7 +30,7 @@ public class PlayerGeneralListeners implements Listener {
         Player player = event.getPlayer();
         DataManager.getInstance().savePlayerData(player);
         Event participatingEvent = DataManager.getInstance().getPlayerParticipatingEvent(player);
-        if (participatingEvent != null) participatingEvent.leave(player, LeaveReason.QUIT, true);
+        if (participatingEvent != null) participatingEvent.leave(player, LeaveReason.QUIT, true, true);
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
@@ -124,5 +127,21 @@ public class PlayerGeneralListeners implements Listener {
     public void onDeath(PlayerDeathEvent event) {
         Event participatingEvent = DataManager.getInstance().getPlayerParticipatingEvent(event.getEntity());
         if (participatingEvent != null && participatingEvent.isSavePlayerInventory()) event.getDrops().clear();
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onCommandPreprocess(PlayerCommandPreprocessEvent event) {
+        Player player = event.getPlayer();
+        Event participatingEvent = DataManager.getInstance().getPlayerParticipatingEvent(player);
+        if (participatingEvent == null || player.hasPermission(Settings.ADMIN_PERMISSION)) return;
+
+        String executedCommand = event.getMessage().split(" ")[0].replace("/", "").toLowerCase();
+        if (participatingEvent.getWhitelistedCommands().contains(executedCommand)) return;
+
+        PluginCommand pluginCommand = Bukkit.getPluginCommand(executedCommand);
+        if (pluginCommand == null || pluginCommand.getPlugin() instanceof VoltzEvents) return;
+
+        event.setCancelled(true);
+        player.sendMessage(Messages.BLACKLISTED_COMMAND);
     }
 }

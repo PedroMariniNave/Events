@@ -3,7 +3,9 @@ Settings:
   aliases: []
   tag: '&e[P]'
   winners-amount: 3
-  minimum-players: 1
+  minimum-players:
+    to-start: 2
+    after-start: 0 # não mexa nessa opção
   announces-amount: 2
   announces-delay: 15 # segundos
   save-player-inventory: true
@@ -69,8 +71,8 @@ Scoreboards:
     title: ' &e&lPARKOUR'
     lines:
       - ''
-      - ' &e▎&fJogadores: &7%parkour_players%'
-      - ' &e▎&fIniciando em: &7%parkour_time%'
+      - ' &e▎ &fJogadores: &7%parkour_players%'
+      - ' &e▎ &fIniciando em: &7%parkour_time%'
       - ''
       - '  &ewww.voltzmc.com'
   2:
@@ -79,12 +81,12 @@ Scoreboards:
     title: ' &e&lPARKOUR'
     lines:
       - ''
-      - ' &e▎&fJogadores: &7%parkour_players%'
-      - ' &e▎&fTempo: &7%parkour_time%'
+      - ' &e▎ &fJogadores: &7%parkour_players%'
+      - ' &e▎ &fTempo: &7%parkour_time%'
       - ''
-      - ' &e▎&f1º &8- &7%parkour_winner:1%'
-      - ' &e▎&f2º &8- &7%parkour_winner:2%'
-      - ' &e▎&f3º &8- &7%parkour_winner:3%'
+      - ' &e▎ &f1º &8- &7%parkour_winner:1%'
+      - ' &e▎ &f2º &8- &7%parkour_winner:2%'
+      - ' &e▎ &f3º &8- &7%parkour_winner:3%'
       - ''
       - '  &ewww.voltzmc.com'
 

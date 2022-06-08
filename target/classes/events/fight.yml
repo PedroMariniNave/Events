@@ -3,7 +3,9 @@ Settings:
   aliases: []
   tag: '&5[&l⚔&5]'
   winners-amount: 3
-  minimum-players: 2
+  minimum-players:
+    to-start: 2
+    after-start: 1 # não mexa nessa opção
   announces-amount: 5
   announces-delay: 30 # segundos
   teleport-delay: 2 # delay entre uma batalha e outra em segundos
@@ -69,8 +71,8 @@ Scoreboards:
     title: ' &5&lFIGHT'
     lines:
       - ''
-      - ' &5▎&fJogadores: &7%fight_players%'
-      - ' &5▎&fIniciando em: &7%fight_time%'
+      - ' &5▎ &fJogadores: &7%fight_players%'
+      - ' &5▎ &fIniciando em: &7%fight_time%'
       - ''
       - '  &5www.voltzmc.com'
   2:
@@ -79,14 +81,14 @@ Scoreboards:
     title: ' &5&lFIGHT'
     lines:
       - ''
-      - ' &5▎&fJogadores: &7%fight_players%'
-      - ' &5▎&fVitórias: &7%fight_kills%'
+      - ' &5▎ &fJogadores: &7%fight_players%'
+      - ' &5▎ &fVitórias: &7%fight_kills%'
       - ''
-      - ' &5▎&fSelecionando jogadores'
+      - ' &5▎ &fSelecionando jogadores'
       - ''
-      - ' &5▎&f1º &8- &7%fight_winner:1%'
-      - ' &5▎&f2º &8- &7%fight_winner:2%'
-      - ' &5▎&f3º &8- &7%fight_winner:3%'
+      - ' &5▎ &f1º &8- &7%fight_winner:1%'
+      - ' &5▎ &f2º &8- &7%fight_winner:2%'
+      - ' &5▎ &f3º &8- &7%fight_winner:3%'
       - ''
       - '  &5www.voltzmc.com'
   3:
@@ -95,14 +97,14 @@ Scoreboards:
     title: ' &5&lFIGHT'
     lines:
       - ''
-      - ' &5▎&fJogadores: &7%fight_players%'
-      - ' &5▎&fVitórias: &7%fight_kills%'
+      - ' &5▎ &fJogadores: &7%fight_players%'
+      - ' &5▎ &fVitórias: &7%fight_kills%'
       - ''
-      - ' &5▎&7%fight_player1% &fvs &7%fight_player2%'
+      - ' &5▎ &7%fight_player1% &fvs &7%fight_player2%'
       - ''
-      - ' &5▎&f1º &8- &7%fight_winner:1%'
-      - ' &5▎&f2º &8- &7%fight_winner:2%'
-      - ' &5▎&f3º &8- &7%fight_winner:3%'
+      - ' &5▎ &f1º &8- &7%fight_winner:1%'
+      - ' &5▎ &f2º &8- &7%fight_winner:2%'
+      - ' &5▎ &f3º &8- &7%fight_winner:3%'
       - ''
       - '  &5www.voltzmc.com'
 

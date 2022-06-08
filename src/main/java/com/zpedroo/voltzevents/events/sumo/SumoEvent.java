@@ -15,19 +15,17 @@ import com.zpedroo.voltzevents.types.PvPEvent;
 import com.zpedroo.voltzevents.utils.FileUtils;
 import com.zpedroo.voltzevents.utils.color.Colorize;
 import com.zpedroo.voltzevents.utils.serialization.LocationSerialization;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.zpedroo.voltzevents.events.sumo.SumoEvent.Messages.*;
 import static com.zpedroo.voltzevents.events.sumo.SumoEvent.Locations.*;
+import static com.zpedroo.voltzevents.events.sumo.SumoEvent.Messages.*;
 import static com.zpedroo.voltzevents.events.sumo.SumoEvent.Settings.*;
 
 public class SumoEvent extends PvPEvent {
@@ -36,13 +34,13 @@ public class SumoEvent extends PvPEvent {
     public static SumoEvent getInstance() { return instance; }
 
     public SumoEvent(Plugin plugin) {
-        super("Sumo", FileUtils.Files.SUMO, TAG, new HashMap<String, List<String>>() {{
+        super("Sumo", FileUtils.Files.SUMO, WHITELISTED_COMMANDS, TAG, new HashMap<String, List<String>>() {{
             put("STARTING", EVENT_STARTING);
             put("STARTED", EVENT_STARTED);
             put("CANCELLED", EVENT_CANCELLED);
             put("FINISHED", EVENT_FINISHED);
             put("INSUFFICIENT_PLAYERS", INSUFFICIENT_PLAYERS);
-        }}, WINNERS, WINNERS_AMOUNT, MINIMUM_PLAYERS, SAVE_PLAYER_INVENTORY, ADDITIONAL_VOID_CHECKER, EVENT_ITEMS, JOIN_LOCATION, EXIT_LOCATION, POS1_LOCATION, POS2_LOCATION);
+        }}, WINNERS, WINNERS_AMOUNT, MINIMUM_PLAYERS_TO_START, MINIMUM_PLAYERS_AFTER_START, SAVE_PLAYER_INVENTORY, ADDITIONAL_VOID_CHECKER, EVENT_ITEMS, JOIN_LOCATION, EXIT_LOCATION, POS1_LOCATION, POS2_LOCATION);
 
         instance = this;
         setAnnounceTask(new AnnounceTask(plugin, this, ANNOUNCES_DELAY, ANNOUNCES_AMOUNT));
@@ -58,9 +56,9 @@ public class SumoEvent extends PvPEvent {
         int position = participantsAmount;
         winEvent(player, position);
 
-        if (getPlayersParticipatingAmount() <= 1) {
+        if (getPlayersParticipatingAmount() <= MINIMUM_PLAYERS_AFTER_START) {
             Player winner = getPlayersParticipating().size() == 1 ? getPlayersParticipating().get(0) : null;
-            if (winner != null) leave(winner, LeaveReason.WINNER, false);
+            if (winner != null) leave(winner, LeaveReason.WINNER);
             finishEvent(true);
         }
     }
@@ -82,8 +80,8 @@ public class SumoEvent extends PvPEvent {
     public void selectPlayersAndExecuteEventActions() {
         setEventPhase(EventPhase.STARTED);
 
-        Player player1 = getPlayersParticipating().stream().findAny().get();
-        Player player2 = getPlayersParticipating().stream().filter(player -> player.getUniqueId() != player1.getUniqueId()).findAny().get();
+        Player player1 = getRandomParticipant();
+        Player player2 = getRandomParticipant(player1);
 
         setPlayer1(player1);
         setPlayer2(player2);
@@ -139,7 +137,9 @@ public class SumoEvent extends PvPEvent {
 
         public static final int WINNERS_AMOUNT = FileUtils.get().getInt(FileUtils.Files.SUMO, "Settings.winners-amount", 1);
 
-        public static final int MINIMUM_PLAYERS = FileUtils.get().getInt(FileUtils.Files.SUMO, "Settings.minimum-players");
+        public static final int MINIMUM_PLAYERS_TO_START = FileUtils.get().getInt(FileUtils.Files.SUMO, "Settings.minimum-players.to-start");
+
+        public static final int MINIMUM_PLAYERS_AFTER_START = FileUtils.get().getInt(FileUtils.Files.SUMO, "Settings.minimum-players.after-start");
 
         public static final int ANNOUNCES_DELAY = FileUtils.get().getInt(FileUtils.Files.SUMO, "Settings.announces-delay");
 
@@ -150,6 +150,8 @@ public class SumoEvent extends PvPEvent {
         public static final boolean SAVE_PLAYER_INVENTORY = FileUtils.get().getBoolean(FileUtils.Files.SUMO, "Settings.save-player-inventory");
 
         public static final boolean ADDITIONAL_VOID_CHECKER = FileUtils.get().getBoolean(FileUtils.Files.SUMO, "Settings.additional-void-checker");
+
+        public static final List<String> WHITELISTED_COMMANDS = FileUtils.get().getStringList(FileUtils.Files.SUMO, "Whitelisted-Commands");
     }
 
     public static class Messages {
