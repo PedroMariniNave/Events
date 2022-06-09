@@ -305,10 +305,8 @@ public abstract class Event {
         }
 
         player.teleport(joinLocation);
-        if (!player.hasPermission(Settings.ADMIN_PERMISSION)) {
-            player.setAllowFlight(false);
-            player.setFlying(false);
-        }
+        player.setAllowFlight(false);
+        player.setFlying(false);
 
         if (additionalVoidChecker) {
             VoidCheckTask voidCheckTask = new VoidCheckTask(this, player);
@@ -344,6 +342,7 @@ public abstract class Event {
         playersParticipating.remove(player);
         removeScoreboard(player);
         player.teleport(exitLocation);
+        showAllParticipants(player);
 
         if (checkParticipantsAmount) {
             checkParticipantsAmount(checkTopOne);
@@ -505,14 +504,14 @@ public abstract class Event {
             if (event.isFighting(target)) return;
         }
 
-        viewer.hidePlayer(target);
+        VoltzEvents.get().getServer().getScheduler().runTaskLater(VoltzEvents.get(), () -> viewer.hidePlayer(target), 0L); // sync method
         sendTabPacket((CraftPlayer) viewer, ((CraftPlayer) target).getHandle());
     }
 
     public void showPlayer(@NotNull Player viewer, @NotNull Player target) {
         if (viewer.equals(target) || viewer.canSee(target)) return;
 
-        viewer.showPlayer(target);
+        VoltzEvents.get().getServer().getScheduler().runTaskLater(VoltzEvents.get(), () -> viewer.showPlayer(target), 0L); // sync method
     }
 
     public void showPlayerToAllParticipants(@NotNull Player target) {
@@ -542,7 +541,7 @@ public abstract class Event {
 
     public void sendMessageToAllParticipants(List<String> messages) {
         for (String message : messages) {
-            sendMessageToAllParticipants(message, null);
+            sendMessageToAllParticipants(message, Collections.emptyList());
         }
     }
 
@@ -553,7 +552,7 @@ public abstract class Event {
     }
 
     public void sendMessageToAllParticipants(String message, String[] placeholders, String[] replacers) {
-        sendMessageToAllParticipants(StringUtils.replaceEach(message, placeholders, replacers), null);
+        sendMessageToAllParticipants(StringUtils.replaceEach(message, placeholders, replacers), Collections.emptyList());
     }
 
     public void sendMessageToAllParticipants(List<String> messages, String[] placeholders, String[] replacers) {

@@ -5,7 +5,6 @@ import com.zpedroo.voltzevents.enums.EventPhase;
 import com.zpedroo.voltzevents.events.hotpotato.HotPotatoEvent;
 import com.zpedroo.voltzevents.utils.actionbar.ActionBarAPI;
 import org.apache.commons.lang.StringUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
@@ -58,12 +57,12 @@ public class HotPotatoTask extends BukkitRunnable {
 
             if (burnTimer <= 0 && event.getEventPhase() == EventPhase.STARTED) {
                 event.setEventPhase(EventPhase.WARMUP);
-                event.explodeAllHotPotatoes();
                 event.playSoundToAllParticipants(Sound.EXPLODE, 0.5f, 2f);
+                event.explodeAllHotPotatoes();
 
                 final int hotPotatoesAmount = event.getHotPotatoesAmount();
 
-                event.sendMessageToAllParticipants(HotPotatoEvent.Messages.ROUND_FINISHED, new String[]{
+                event.sendMessageToAllParticipants(event.getMessage("ROUND_FINISHED"), new String[]{
                         "{amount}",
                         "{round}",
                         "{new_round}",

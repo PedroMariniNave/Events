@@ -34,5 +34,9 @@ public class FastCraftListeners implements Listener {
         }
 
         fastCraftEvent.winEvent(player, position);
+
+        if (position == fastCraftEvent.getWinnersAmount()) {
+            fastCraftEvent.finishEvent(true);
+        }
     }
 }

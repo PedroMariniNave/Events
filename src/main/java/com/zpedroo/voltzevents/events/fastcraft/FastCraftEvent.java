@@ -7,6 +7,7 @@ import com.zpedroo.voltzevents.events.fastcraft.tasks.FastCraftTask;
 import com.zpedroo.voltzevents.managers.CommandManager;
 import com.zpedroo.voltzevents.managers.DataManager;
 import com.zpedroo.voltzevents.managers.ListenerManager;
+import com.zpedroo.voltzevents.objects.player.EventData;
 import com.zpedroo.voltzevents.types.FunEvent;
 import com.zpedroo.voltzevents.utils.FileUtils;
 import com.zpedroo.voltzevents.utils.color.Colorize;
@@ -70,6 +71,7 @@ public class FastCraftEvent extends FunEvent {
         int randomIndex = new Random().nextInt(ITEMS.size());
         this.craftItem = new LinkedList<>(ITEMS.keySet()).get(randomIndex);
         this.setEventPhase(EventPhase.STARTED);
+        this.setEventData(new EventData());
         new FastCraftTask(this, ANNOUNCES_DELAY, MAX_ANNOUNCES).startTask();
     }
 

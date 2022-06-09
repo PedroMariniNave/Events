@@ -1,10 +1,12 @@
 package com.zpedroo.voltzevents.events.hotpotato;
 
+import com.zpedroo.voltzevents.VoltzEvents;
 import com.zpedroo.voltzevents.commands.ArenaEventCmd;
 import com.zpedroo.voltzevents.enums.EventPhase;
 import com.zpedroo.voltzevents.enums.LeaveReason;
 import com.zpedroo.voltzevents.events.hotpotato.listeners.HotPotatoListeners;
 import com.zpedroo.voltzevents.events.hotpotato.tasks.HotPotatoTask;
+import com.zpedroo.voltzevents.events.hotpotato.tasks.PlayerFinderTask;
 import com.zpedroo.voltzevents.managers.CommandManager;
 import com.zpedroo.voltzevents.managers.DataManager;
 import com.zpedroo.voltzevents.managers.ListenerManager;
@@ -16,20 +18,22 @@ import com.zpedroo.voltzevents.utils.builder.ItemBuilder;
 import com.zpedroo.voltzevents.utils.color.Colorize;
 import com.zpedroo.voltzevents.utils.region.CuboidRegion;
 import com.zpedroo.voltzevents.utils.serialization.LocationSerialization;
+import de.tr7zw.nbtapi.NBTItem;
 import org.apache.commons.lang.StringUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
+import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.zpedroo.voltzevents.events.hotpotato.HotPotatoEvent.Locations.*;
 import static com.zpedroo.voltzevents.events.hotpotato.HotPotatoEvent.Messages.*;
@@ -40,7 +44,7 @@ public class HotPotatoEvent extends ArenaEvent {
     private static HotPotatoEvent instance;
     public static HotPotatoEvent getInstance() { return instance; }
 
-    private final ItemStack hotPotatoItem = ItemBuilder.build(FileUtils.get().getFile(FileUtils.Files.HOT_POTATO).get(), "Hot-Potato-Item").build();
+    private final Map<Integer, ItemStack> taggedItems = getTaggedItemsFromFile();
     private final List<String> hotPotatoesNames = new ArrayList<>(HOT_POTATOES_MAX);
 
     private HotPotatoTask hotPotatoTask = null;
@@ -81,8 +85,11 @@ public class HotPotatoEvent extends ArenaEvent {
     public void startEventMethods() {
         this.setEventPhase(EventPhase.STARTED);
         this.selectHotPotatoesAndAnnounce();
-        hotPotatoTask = new HotPotatoTask(this);
-        hotPotatoTask.startTask();
+        this.hotPotatoTask = new HotPotatoTask(this);
+        this.hotPotatoTask.startTask();
+
+        PlayerFinderTask playerFinderTask = new PlayerFinderTask(this);
+        playerFinderTask.startTask();
     }
 
     @Override
@@ -93,6 +100,15 @@ public class HotPotatoEvent extends ArenaEvent {
     @Override
     public void resetAllValues() {
         this.hotPotatoesNames.clear();
+    }
+
+    @Override
+    public CuboidRegion getWinRegion() {
+        return null;
+    }
+
+    @Override
+    public void setWinRegion(CuboidRegion winRegion) {
     }
 
     public void selectHotPotatoesAndAnnounce() {
@@ -106,10 +122,6 @@ public class HotPotatoEvent extends ArenaEvent {
         }, new String[]{
                 StringUtils.join(hotPotatoesNames, ChatColor.translateAlternateColorCodes('&', "&7, &f"))
         });
-    }
-
-    public ItemStack getHotPotatoItem() {
-        return hotPotatoItem.clone();
     }
 
     public List<String> getHotPotatoesNames() {
@@ -163,17 +175,25 @@ public class HotPotatoEvent extends ArenaEvent {
     public void transferHotPotato(Player hotPotato, Player newHotPotato) {
         hotPotatoesNames.remove(hotPotato.getName());
         hotPotato.getInventory().setHelmet(new ItemStack(Material.AIR));
-        hotPotato.getInventory().removeItem(hotPotatoItem);
+
+        taggedItems.values().forEach(item -> hotPotato.getInventory().removeItem(item));
         setHotPotato(newHotPotato);
 
         hotPotato.sendTitle(Titles.UNTAGGED[0], Titles.UNTAGGED[1]);
         newHotPotato.sendTitle(Titles.TAGGED[0], Titles.TAGGED[1]);
+
+        explodeFirework(newHotPotato.getLocation().clone().add(0D, 2D, 0D));
     }
 
     public void setHotPotato(Player player) {
         hotPotatoesNames.add(player.getName());
         player.getInventory().setHelmet(new ItemStack(Material.TNT));
-        player.getInventory().addItem(hotPotatoItem);
+        for (Map.Entry<Integer, ItemStack> entry : taggedItems.entrySet()) {
+            int slot = entry.getKey();
+            ItemStack item = entry.getValue();
+
+            player.getInventory().setItem(slot, item);
+        }
     }
 
     public boolean isHotPotato(Player player) {
@@ -184,13 +204,57 @@ public class HotPotatoEvent extends ArenaEvent {
         return hotPotatoesNames.contains(playerName);
     }
 
-    @Override
-    public CuboidRegion getWinRegion() {
-        return null;
+    public Player getNearestUntagged(Player player) {
+        Player nearestPlayer = null;
+
+        for (Player players : getPlayersParticipating().stream().filter(
+                participant -> !isHotPotato(participant) && !participant.equals(player))
+                .collect(Collectors.toList())
+        ) {
+            if (nearestPlayer == null) {
+                nearestPlayer = players;
+                continue;
+            }
+
+            double actualDistance = player.getLocation().distance(nearestPlayer.getLocation());
+            double distance = player.getLocation().distance(players.getLocation());
+            if (distance < actualDistance) nearestPlayer = players;
+        }
+
+        return nearestPlayer;
     }
 
-    @Override
-    public void setWinRegion(CuboidRegion winRegion) {
+    private void explodeFirework(Location location) {
+        Firework firework = location.getWorld().spawn(location, Firework.class);
+        FireworkEffect effect = FireworkEffect.builder().trail(true).flicker(false).withColor(Color.GREEN).with(FireworkEffect.Type.CREEPER).build();
+        FireworkMeta meta = firework.getFireworkMeta();
+        meta.clearEffects();
+        meta.addEffect(effect);
+        firework.setFireworkMeta(meta);
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                firework.detonate();
+            }
+        }.runTaskLaterAsynchronously(VoltzEvents.get(), 2L);
+    }
+
+    private Map<Integer, ItemStack> getTaggedItemsFromFile() {
+        Map<Integer, ItemStack> ret = new HashMap<>(2);
+        FileUtils.Files file = FileUtils.Files.HOT_POTATO;
+        for (String str : FileUtils.get().getSection(file, "Tagged-Items")) {
+            String identifier = FileUtils.get().getString(file, "Tagged-Items." + str + ".identifier");
+            ItemStack item = ItemBuilder.build(FileUtils.get().getFile(file).get(), "Tagged-Items." + str).build();
+            int slot = FileUtils.get().getInt(file, "Tagged-Items." + str + ".slot");
+
+            NBTItem nbt = new NBTItem(item);
+            nbt.addCompound(identifier);
+
+            ret.put(slot, nbt.getItem());
+        }
+
+        return ret;
     }
 
     protected static class Locations {

@@ -141,15 +141,22 @@ Potions:
   tagged:
     enabled: true
     type: SPEED
-    level: 4
+    level: 3
   untagged:
     enabled: true
     type: SPEED
-    level: 2
+    level: 1
 
-Hot-Potato-Item:
-  type: POTATO_ITEM
-  name: '&cBatata-Quente'
+Tagged-Items:
+  1:
+    identifier: HOT_POTATO # Necessário para identificar o item como batata-quente
+    type: POTATO_ITEM
+    name: '&cBatata-Quente'
+    slot: 0
+  2:
+    type: COMPASS
+    name: '&6Localizador'
+    slot: 4
 
 Whitelisted-Commands:
   - '/g'

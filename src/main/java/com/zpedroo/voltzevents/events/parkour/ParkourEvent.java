@@ -49,15 +49,15 @@ public class ParkourEvent extends ArenaEvent {
 
     @Override
     public void checkIfPlayerIsWinner(Player player, int participantsAmount) {
-        if (participantsAmount > WINNERS_AMOUNT) return;
-
-        int position = 1;
+        int position = -1;
         for (int pos = 1; pos <= WINNERS_AMOUNT; ++pos) {
             if (!hasWinner(pos)) {
                 position = pos;
                 break;
             }
         }
+
+        if (position == -1) return;
 
         winEvent(player, position);
         leave(player, LeaveReason.WINNER);

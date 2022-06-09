@@ -42,7 +42,11 @@ public class AnnounceTask extends BukkitRunnable {
             }
         }
 
-        event.setAllParticipantsLevel(--countdown);
+        --countdown;
+
+        if (event.isSavePlayerInventory()) { // player exp saved
+            event.setAllParticipantsLevel(countdown);
+        }
 
         if (countdown <= 0) {
             this.cancelTask();

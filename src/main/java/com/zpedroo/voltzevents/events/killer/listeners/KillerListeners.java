@@ -15,7 +15,7 @@ public class KillerListeners implements Listener {
     
     @EventHandler(priority = EventPriority.MONITOR)
     public void onDeath(PlayerDeathEvent event) {
-        if (!killerEvent.isHappening() || !killerEvent.isParticipating(event.getEntity())) return;
+        if (!killerEvent.isStarted() || !killerEvent.isParticipating(event.getEntity())) return;
 
         Player player = event.getEntity();
         Player killer = player.getKiller();
@@ -29,7 +29,7 @@ public class KillerListeners implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onQuit(PlayerQuitEvent event) {
-        if (!killerEvent.isHappening() || !killerEvent.isParticipating(event.getPlayer())) return;
+        if (!killerEvent.isStarted() || !killerEvent.isParticipating(event.getPlayer())) return;
 
         Player player = event.getPlayer();
         player.damage(9999);

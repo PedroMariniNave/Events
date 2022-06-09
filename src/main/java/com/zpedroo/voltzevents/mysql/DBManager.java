@@ -102,7 +102,7 @@ public class DBManager {
     }
 
     protected void createTable() {
-        executeUpdate("CREATE TABLE IF NOT EXISTS `" + DBConnection.TABLE + "` (`uuid` VARCHAR(255), `wins` INTEGER, `participations` INTEGER, `items_status` TEXT, PRIMARY KEY(`uuid`));");
+        executeUpdate("CREATE TABLE IF NOT EXISTS `" + DBConnection.TABLE + "` (`uuid` VARCHAR(255), `wins` INTEGER, `participations` INTEGER, `items_status` VARCHAR(100), PRIMARY KEY(`uuid`));");
     }
 
     private Connection getConnection() throws SQLException {
