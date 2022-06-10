@@ -46,7 +46,8 @@ public class FunEventCmd implements CommandExecutor {
             }
         }
 
+        return player == null;
+
 //        event.join(player);
-        return false;
     }
 }

@@ -1,6 +1,5 @@
 package com.zpedroo.voltzevents.events.fight;
 
-import com.zpedroo.voltzevents.VoltzEvents;
 import com.zpedroo.voltzevents.commands.PvPEventCmd;
 import com.zpedroo.voltzevents.enums.EventPhase;
 import com.zpedroo.voltzevents.enums.LeaveReason;
@@ -17,11 +16,11 @@ import com.zpedroo.voltzevents.utils.serialization.LocationSerialization;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static com.zpedroo.voltzevents.events.fight.FightEvent.Locations.*;
 import static com.zpedroo.voltzevents.events.fight.FightEvent.Messages.*;
@@ -55,9 +54,10 @@ public class FightEvent extends PvPEvent {
         int position = participantsAmount;
         winEvent(player, position);
 
-        if (getPlayersParticipatingAmount() <= MINIMUM_PLAYERS_AFTER_START) {
-            Player winner = getPlayersParticipating().size() == 1 ? getPlayersParticipating().get(0) : null;
-            if (winner != null) leave(winner, LeaveReason.WINNER);
+        int newParticipantsAmount = participantsAmount - 1;
+        if (newParticipantsAmount <= MINIMUM_PLAYERS_AFTER_START) {
+            Optional<Player> optionalPlayer = getPlayersParticipating().stream().filter(players -> !players.equals(player)).findFirst();
+            optionalPlayer.ifPresent(winner -> leave(winner, LeaveReason.WINNER));
             finishEvent(true);
         }
     }
@@ -80,13 +80,8 @@ public class FightEvent extends PvPEvent {
         addEventItemsToPlayer(player1);
         addEventItemsToPlayer(player2);
 
-        new BukkitRunnable() { // sync
-            @Override
-            public void run() {
-                showPlayerToAllParticipants(player1);
-                showPlayerToAllParticipants(player2);
-            }
-        }.runTaskLater(VoltzEvents.get(), 0L);
+        showPlayerToAllParticipants(player1);
+        showPlayerToAllParticipants(player2);
 
         player1.teleport(getPos1Location());
         player2.teleport(getPos2Location());

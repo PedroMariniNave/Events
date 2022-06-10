@@ -9,6 +9,7 @@ import com.zpedroo.voltzevents.events.paintball.PaintballEvent;
 import com.zpedroo.voltzevents.events.parkour.ParkourEvent;
 import com.zpedroo.voltzevents.events.race.RaceEvent;
 import com.zpedroo.voltzevents.events.sumo.SumoEvent;
+import com.zpedroo.voltzevents.hooks.yClansHook;
 import com.zpedroo.voltzevents.listeners.*;
 import com.zpedroo.voltzevents.managers.CommandManager;
 import com.zpedroo.voltzevents.managers.DataManager;
@@ -22,6 +23,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.quartz.SchedulerException;
+import yclans.api.yClansAPI;
 
 import java.util.logging.Level;
 
@@ -103,6 +105,10 @@ public class VoltzEvents extends JavaPlugin {
     private void registerHooks() {
         if (Bukkit.getPluginManager().getPlugin("Legendchat") != null) {
             getServer().getPluginManager().registerEvents(new TagListeners(), this);
+        }
+
+        if (Bukkit.getPluginManager().getPlugin("yClans") != null) {
+            yClansHook.hook();
         }
     }
 

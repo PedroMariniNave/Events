@@ -22,6 +22,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static com.zpedroo.voltzevents.events.killer.KillerEvent.ActionBars.WARMUP_BAR;
 import static com.zpedroo.voltzevents.events.killer.KillerEvent.Locations.*;
@@ -56,10 +57,12 @@ public class KillerEvent extends ArenaEvent {
         int position = participantsAmount;
         winEvent(player, position);
 
-        if (getPlayersParticipatingAmount() <= MINIMUM_PLAYERS_AFTER_START) {
-            Player winner = getPlayersParticipating().size() == 1 ? getPlayersParticipating().get(0) : null;
-            if (winner == null) return;
+        int newParticipantsAmount = participantsAmount - 1;
+        if (newParticipantsAmount <= MINIMUM_PLAYERS_AFTER_START) {
+            Optional<Player> optionalPlayer = getPlayersParticipating().stream().filter(players -> !players.equals(player)).findFirst();
+            if (!optionalPlayer.isPresent()) return;
 
+            Player winner = optionalPlayer.get();
             winEvent(winner, 1);
             sendFinishMessages();
 

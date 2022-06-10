@@ -89,6 +89,8 @@ public class ArenaEventCmd implements CommandExecutor {
             }
         }
 
+        if (player == null) return true;
+
         if (!event.isParticipating(player)) {
             event.join(player);
         } else {

@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
@@ -46,7 +46,7 @@ public class FightListeners implements Listener {
                 player.getName()
         });
 
-        if (fightEvent.isFinished()) return;
+        if (fightEvent.isFinished() || fightEvent.getPlayersParticipatingAmount() <= fightEvent.getMinimumPlayersAfterStart()) return;
 
         killer.teleport(fightEvent.getJoinLocation());
         fightEvent.setPlayerSpecialItems(killer);
@@ -61,7 +61,7 @@ public class FightListeners implements Listener {
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onDamage(EntityDamageByEntityEvent event) {
+    public void onDamage(EntityDamageEvent event) {
         if (!(event.getEntity() instanceof Player)) return;
 
         Player player = (Player) event.getEntity();

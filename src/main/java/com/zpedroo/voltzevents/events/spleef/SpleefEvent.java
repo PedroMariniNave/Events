@@ -19,10 +19,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.zpedroo.voltzevents.events.spleef.SpleefEvent.Messages.*;
 import static com.zpedroo.voltzevents.events.spleef.SpleefEvent.Locations.*;
@@ -56,9 +53,10 @@ public class SpleefEvent extends ArenaEvent {
         int position = participantsAmount;
         winEvent(player, position);
 
-        if (getPlayersParticipatingAmount() <= MINIMUM_PLAYERS_AFTER_START) {
-            Player winner = getPlayersParticipating().size() == 1 ? getPlayersParticipating().get(0) : null;
-            if (winner != null) leave(winner, LeaveReason.WINNER);
+        int newParticipantsAmount = participantsAmount - 1;
+        if (newParticipantsAmount <= MINIMUM_PLAYERS_AFTER_START) {
+            Optional<Player> optionalPlayer = getPlayersParticipating().stream().filter(players -> !players.equals(player)).findFirst();
+            optionalPlayer.ifPresent(winner -> leave(winner, LeaveReason.WINNER));
             finishEvent(true);
         }
     }

@@ -5,6 +5,7 @@ import com.zpedroo.voltzevents.api.PlayerLeaveEvent;
 import com.zpedroo.voltzevents.enums.EventPhase;
 import com.zpedroo.voltzevents.enums.LeaveReason;
 import com.zpedroo.voltzevents.hooks.PlaceholderAPIHook;
+import com.zpedroo.voltzevents.hooks.yClansHook;
 import com.zpedroo.voltzevents.managers.DataManager;
 import com.zpedroo.voltzevents.objects.event.SpecialItem;
 import com.zpedroo.voltzevents.objects.event.WinnerData;
@@ -113,11 +114,13 @@ public abstract class Event {
             int kills = winnerData == null ? 0 : winnerData.getKills();
 
             builder.append(StringUtils.replaceEach(winnerSettings.getDisplay(), new String[]{
+                    "{tag}",
                     "{player}",
                     "{position}",
                     "{kills}",
                     "{time}"
             }, new String[]{
+                    winnerTag,
                     winnerName == null ? Settings.NULL_WINNER : winnerName,
                     String.valueOf(position),
                     String.valueOf(kills),
@@ -236,20 +239,21 @@ public abstract class Event {
     }
 
     public Player getRandomParticipant() {
-        int randomIndex = new Random().nextInt(getPlayersParticipatingAmount());
+        int participantsAmount = getPlayersParticipatingAmount();
+        if (participantsAmount <= 0) return null;
+
+        int randomIndex = new Random().nextInt(participantsAmount);
 
         return playersParticipating.get(randomIndex);
     }
 
     public Player getRandomParticipant(Player playerToIgnore) {
-        int randomIndex = new Random().nextInt(getPlayersParticipatingAmount());
-        int playerIndex = playersParticipating.indexOf(playerToIgnore);
-
-        while (randomIndex == playerIndex) {
-            randomIndex = new Random().nextInt(getPlayersParticipatingAmount());
+        Player selected = getRandomParticipant();
+        while (selected.equals(playerToIgnore)) {
+            selected = getRandomParticipant();
         }
 
-        return playersParticipating.get(randomIndex);
+        return selected;
     }
 
     public void setWinner(String winnerName, int position) {
@@ -272,7 +276,6 @@ public abstract class Event {
     }
 
     public void join(Player player) {
-        if (isParticipating(player)) return;
         if (!canJoin()) {
             player.sendMessage(Messages.NOT_STARTED);
             return;
@@ -312,6 +315,8 @@ public abstract class Event {
             VoidCheckTask voidCheckTask = new VoidCheckTask(this, player);
             voidCheckTask.startTask();
         }
+
+        yClansHook.setClanPvP(player, true);
     }
 
     public void leave(Player player, LeaveReason leaveReason) {
@@ -319,11 +324,13 @@ public abstract class Event {
     }
 
     public void leave(Player player, LeaveReason leaveReason, boolean checkParticipantsAmount, boolean checkTopOne) {
-        if (!isParticipating(player)) return;
         if (!isHappening()) {
             player.sendMessage(Messages.NOT_STARTED);
             return;
         }
+
+        PlayerLeaveEvent event = new PlayerLeaveEvent(player, this, leaveReason, getPlayersParticipatingAmount());
+        Bukkit.getPluginManager().callEvent(event);
 
         DataManager.getInstance().setPlayerParticipatingEvent(player, null);
         if (eventItems != null || specialItems != null) {
@@ -337,8 +344,6 @@ public abstract class Event {
             clearPotionEffects(player);
         }
 
-        final int participantsAmountWhenPlayerLeft = getPlayersParticipatingAmount();
-
         playersParticipating.remove(player);
         removeScoreboard(player);
         player.teleport(exitLocation);
@@ -348,8 +353,7 @@ public abstract class Event {
             checkParticipantsAmount(checkTopOne);
         }
 
-        PlayerLeaveEvent event = new PlayerLeaveEvent(player, this, leaveReason, participantsAmountWhenPlayerLeft);
-        Bukkit.getPluginManager().callEvent(event);
+        yClansHook.resetClanPvP(player);
     }
 
     public void setScoreboard(Player player) {

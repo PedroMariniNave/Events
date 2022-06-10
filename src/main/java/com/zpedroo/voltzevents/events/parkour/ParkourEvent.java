@@ -62,7 +62,8 @@ public class ParkourEvent extends ArenaEvent {
         winEvent(player, position);
         leave(player, LeaveReason.WINNER);
 
-        if (position == WINNERS_AMOUNT || getPlayersParticipatingAmount() <= MINIMUM_PLAYERS_AFTER_START) {
+        int newParticipantsAmount = participantsAmount - 1;
+        if (position == WINNERS_AMOUNT || newParticipantsAmount <= MINIMUM_PLAYERS_AFTER_START) {
             finishEvent(true);
         }
     }

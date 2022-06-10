@@ -139,7 +139,7 @@ public class PlayerGeneralListeners implements Listener {
         if (participatingEvent.getWhitelistedCommands().contains(executedCommand)) return;
 
         PluginCommand pluginCommand = Bukkit.getPluginCommand(executedCommand);
-        if (pluginCommand == null || pluginCommand.getPlugin() instanceof VoltzEvents) return;
+        if (pluginCommand != null && pluginCommand.getPlugin() instanceof VoltzEvents) return;
 
         event.setCancelled(true);
         player.sendMessage(Messages.BLACKLISTED_COMMAND);

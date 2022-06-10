@@ -55,7 +55,7 @@ public class PlayerCheckTask extends BukkitRunnable {
                 player.getName()
         });
 
-        if (sumoEvent.isFinished()) return;
+        if (sumoEvent.isFinished() || sumoEvent.getPlayersParticipatingAmount() <= sumoEvent.getMinimumPlayersAfterStart()) return;
 
         winner.teleport(sumoEvent.getJoinLocation());
         sumoEvent.setPlayerSpecialItems(winner);
