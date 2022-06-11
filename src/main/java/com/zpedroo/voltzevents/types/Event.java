@@ -307,9 +307,9 @@ public abstract class Event {
             updateAllParticipantsView();
         }
 
-        player.teleport(joinLocation);
         player.setAllowFlight(false);
         player.setFlying(false);
+        player.teleport(joinLocation);
 
         if (additionalVoidChecker) {
             VoidCheckTask voidCheckTask = new VoidCheckTask(this, player);
@@ -472,14 +472,14 @@ public abstract class Event {
                 sendMessageToAllParticipants(replacePlayerPlaceholders(player, msg), Collections.singletonList(player));
             }
 
-            new BukkitRunnable() { // sync command dispatch
+            new BukkitRunnable() { // inventory will be restored after 2 ticks, so we'll deliver rewards in 4 ticks (2 ticks later)
                 @Override
                 public void run() {
                     for (String command : winnerSettings.getRewards()) {
                         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), replacePlayerPlaceholders(player, command));
                     }
                 }
-            }.runTaskLater(VoltzEvents.get(), 0L);
+            }.runTaskLater(VoltzEvents.get(), 4L);
         }
 
         if (position == 1) {
