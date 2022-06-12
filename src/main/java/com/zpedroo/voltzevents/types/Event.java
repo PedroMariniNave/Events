@@ -5,7 +5,6 @@ import com.zpedroo.voltzevents.api.PlayerLeaveEvent;
 import com.zpedroo.voltzevents.enums.EventPhase;
 import com.zpedroo.voltzevents.enums.LeaveReason;
 import com.zpedroo.voltzevents.hooks.PlaceholderAPIHook;
-import com.zpedroo.voltzevents.hooks.yClansHook;
 import com.zpedroo.voltzevents.managers.DataManager;
 import com.zpedroo.voltzevents.objects.event.SpecialItem;
 import com.zpedroo.voltzevents.objects.event.WinnerData;
@@ -315,8 +314,6 @@ public abstract class Event {
             VoidCheckTask voidCheckTask = new VoidCheckTask(this, player);
             voidCheckTask.startTask();
         }
-
-        yClansHook.setClanPvP(player, true);
     }
 
     public void leave(Player player, LeaveReason leaveReason) {
@@ -352,8 +349,6 @@ public abstract class Event {
         if (checkParticipantsAmount) {
             checkParticipantsAmount(checkTopOne);
         }
-
-        yClansHook.resetClanPvP(player);
     }
 
     public void setScoreboard(Player player) {

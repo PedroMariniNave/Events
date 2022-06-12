@@ -1,5 +1,5 @@
 name: Events
-description: Only a simple events plugin.
+description: ${project.description}
 version: 1.0
 author: zPedroo_
 main: com.zpedroo.voltzevents.VoltzEvents

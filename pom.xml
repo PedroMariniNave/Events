@@ -26,8 +26,6 @@
             <url>https://repo.codemc.org/repository/maven-public/</url>
             <layout>default</layout>
         </repository>
-
-
     </repositories>
 
     <dependencies>

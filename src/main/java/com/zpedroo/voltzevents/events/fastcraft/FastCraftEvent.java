@@ -68,10 +68,13 @@ public class FastCraftEvent extends FunEvent {
 
     @Override
     public void startEventMethods() {
+        EventData eventData = new EventData();
+        eventData.setStartTimestamp(System.currentTimeMillis());
         int randomIndex = new Random().nextInt(ITEMS.size());
+
         this.craftItem = new LinkedList<>(ITEMS.keySet()).get(randomIndex);
         this.setEventPhase(EventPhase.STARTED);
-        this.setEventData(new EventData());
+        this.setEventData(eventData);
         new FastCraftTask(this, ANNOUNCES_DELAY, MAX_ANNOUNCES).startTask();
     }
 

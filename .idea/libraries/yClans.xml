@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="yClans">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/src/main/resources/libraries/yClans.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
