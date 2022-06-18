@@ -24,7 +24,9 @@ public class InventoryStorer {
 
     public static void restorePlayerInventory(Player player) {
         StoredInventory storedInventory = storedInventories.remove(player);
+
         if (storedInventory == null) return;
+
         if (player.isDead()) {
             player.spigot().respawn();
         }
@@ -34,9 +36,9 @@ public class InventoryStorer {
             public void run() {
                 player.getInventory().setContents(storedInventory.getInventoryContents());
                 player.getInventory().setArmorContents(storedInventory.getArmorContents());
-                player.updateInventory();
+                player.saveData();
             }
-        }.runTaskLaterAsynchronously(VoltzEvents.get(), 2L);
+        }.runTaskLater(VoltzEvents.get(), 2L);
     }
 
     @Data

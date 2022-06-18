@@ -3,4 +3,4 @@ description: ${project.description}
 version: ${project.version}
 author: zPedroo_
 main: com.zpedroo.voltzevents.VoltzEvents
-softdepend: [PlaceholderAPI, Legendchat, yClans]
+softdepend: [PlaceholderAPI, Legendchat]

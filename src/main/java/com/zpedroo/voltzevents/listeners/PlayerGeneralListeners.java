@@ -117,11 +117,13 @@ public class PlayerGeneralListeners implements Listener {
         }
     }
 
+    /*
     @EventHandler(priority = EventPriority.LOWEST)
     public void onTeleport(PlayerTeleportEvent event) {
         Event participatingEvent = DataManager.getInstance().getPlayerParticipatingEvent(event.getPlayer());
         if (participatingEvent != null && !participatingEvent.isStarted()) event.setCancelled(true);
     }
+     */
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onDeath(PlayerDeathEvent event) {

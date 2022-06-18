@@ -56,23 +56,21 @@ public class HotPotatoTask extends BukkitRunnable {
             }
 
             if (burnTimer <= 0 && event.getEventPhase() == EventPhase.STARTED) {
-                event.setEventPhase(EventPhase.WARMUP);
-                event.playSoundToAllParticipants(Sound.EXPLODE, 0.5f, 2f);
-                event.explodeAllHotPotatoes();
-
-                final int hotPotatoesAmount = event.getHotPotatoesAmount();
-
                 event.sendMessageToAllParticipants(event.getMessage("ROUND_FINISHED"), new String[]{
                         "{amount}",
                         "{round}",
                         "{new_round}",
                         "{round_delay}"
                 }, new String[]{
-                        String.valueOf(hotPotatoesAmount),
+                        String.valueOf(event.getHotPotatoesAmount()),
                         String.valueOf(round),
                         String.valueOf(++round),
                         String.valueOf(ROUND_DELAY)
                 });
+
+                event.setEventPhase(EventPhase.WARMUP);
+                event.playSoundToAllParticipants(Sound.EXPLODE, 0.5f, 2f);
+                event.explodeAllHotPotatoes();
             }
         }
 
