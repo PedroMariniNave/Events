@@ -24,7 +24,6 @@ public class InventoryStorer {
 
     public static void restorePlayerInventory(Player player) {
         StoredInventory storedInventory = storedInventories.remove(player);
-
         if (storedInventory == null) return;
 
         if (player.isDead()) {

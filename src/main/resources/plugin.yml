@@ -4,3 +4,4 @@ version: ${project.version}
 author: zPedroo_
 main: com.zpedroo.voltzevents.VoltzEvents
 softdepend: [PlaceholderAPI, Legendchat]
+load: POSTWORLD

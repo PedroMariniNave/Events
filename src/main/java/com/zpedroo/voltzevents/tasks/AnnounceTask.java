@@ -95,7 +95,7 @@ public class AnnounceTask extends BukkitRunnable {
             return;
         }
 
-        this.runTaskTimerAsynchronously(plugin, 0L, 20L);
+        this.runTaskTimer(plugin, 0L, 20L);
     }
 
     public void cancelTask() {

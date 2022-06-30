@@ -13,7 +13,7 @@ public class WinnerRegionCheckTask extends BukkitRunnable {
     public WinnerRegionCheckTask(ArenaEvent event, Player player) {
         this.event = event;
         this.player = player;
-        this.runTaskTimerAsynchronously(VoltzEvents.get(), 1L, 1L);
+        this.runTaskTimer(VoltzEvents.get(), 1L, 1L);
     }
 
     @Override

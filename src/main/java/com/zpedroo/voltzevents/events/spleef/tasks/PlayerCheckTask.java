@@ -13,7 +13,7 @@ public class PlayerCheckTask extends BukkitRunnable {
 
     public PlayerCheckTask(Player player) {
         this.player = player;
-        this.runTaskTimerAsynchronously(VoltzEvents.get(), 1L, 1L);
+        this.runTaskTimer(VoltzEvents.get(), 1L, 1L);
     }
 
     @Override

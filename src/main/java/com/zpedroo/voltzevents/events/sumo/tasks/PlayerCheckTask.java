@@ -15,7 +15,7 @@ public class PlayerCheckTask extends BukkitRunnable {
 
     public PlayerCheckTask(Player player) {
         this.player = player;
-        this.runTaskTimerAsynchronously(VoltzEvents.get(), 1L, 1L);
+        this.runTaskTimer(VoltzEvents.get(), 1L, 1L);
     }
 
     @Override
@@ -66,6 +66,6 @@ public class PlayerCheckTask extends BukkitRunnable {
             public void run() {
                 sumoEvent.selectPlayersAndExecuteEventActions();
             }
-        }.runTaskLaterAsynchronously(VoltzEvents.get(), 20L * SumoEvent.Settings.TELEPORT_DELAY);
+        }.runTaskLater(VoltzEvents.get(), 20L * SumoEvent.Settings.TELEPORT_DELAY);
     }
 }

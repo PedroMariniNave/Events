@@ -49,7 +49,7 @@ public class VoltzEvents extends JavaPlugin {
         new Menus();
         new SaveTask(this);
 
-        loadEvents();
+        getServer().getScheduler().runTaskLaterAsynchronously(this, this::loadEvents, 100L);
         registerListeners();
         registerHooks();
         startAllEventsScheduler();

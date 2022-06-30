@@ -34,6 +34,6 @@ public class VoidCheckTask extends BukkitRunnable {
     }
 
     public void startTask() {
-        this.runTaskTimerAsynchronously(VoltzEvents.get(), 0L, 2L);
+        this.runTaskTimer(VoltzEvents.get(), 0L, 2L);
     }
 }
