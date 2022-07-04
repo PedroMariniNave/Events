@@ -5,7 +5,7 @@ Settings:
   winners-amount: 3
   minimum-players:
     to-start: 2
-    after-start: 1 # não mexa nessa opção
+    after-start: 1
   announces-amount: 5
   announces-delay: 30 # segundos
   teleport-delay: 2 # delay entre uma batalha e outra em segundos
@@ -20,10 +20,12 @@ Special-Items: # Nome da config.yml : slot
   - 'LEAVE:6'
 
 Auto-Start:
-  enabled: false
+  enabled: true
   schedules: # DAY:HOUR:MINUTE
-    - 'EVERYDAY:10:00'
+    - 'EVERYDAY:07:30'
     - 'EVERYDAY:12:00'
+    - 'EVERYDAY:15:30'
+    - 'EVERYDAY:21:30'
 
 Messages:
   event-starting:
@@ -31,7 +33,19 @@ Messages:
     - ' &5&lFight'
     - ''
     - ' &7Para participar, digite &5/fight&7!'
-    - ' &7Prêmio total: &2$&a100k &7+ tag {tag}&7!'
+    - ' &7Prêmio total: &2$&a100k &7+ &f5x &6Chaves Lendárias &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &5{players}'
+    - ' &7Anúncio &5{announces_now} &7de &5{announces_amount}'
+    - ''
+  event-starting-hosted:
+    - ''
+    - ' &5&lFight'
+    - ''
+    - ' &7Esse evento está sendo hospedado'
+    - ' &7por: &5{host}&7.'
+    - ''
+    - ' &7Para participar, digite &5/fight&7!'
+    - ' &7Prêmio total: {host_rewards} &7+ tag {tag}&7!'
     - ' &7Jogadores participando: &5{players}'
     - ' &7Anúncio &5{announces_now} &7de &5{announces_amount}'
     - ''
@@ -40,7 +54,18 @@ Messages:
     - ' &5&lFight'
     - ''
     - ' &7O evento foi iniciado!'
-    - ' &7Prêmio total: &2$&a100k &7+ tag {tag}&7!'
+    - ' &7Prêmio total: &2$&a100k &7+ &f5x &6Chaves Lendárias &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &5{players}'
+    - ''
+  event-started-hosted:
+    - ''
+    - ' &5&lFight'
+    - ''
+    - ' &7Esse evento está sendo hospedado'
+    - ' &7por: &5{host}&7.'
+    - ''
+    - ' &7O evento foi iniciado!'
+    - ' &7Prêmio total: {host_rewards} &7+ tag {tag}&7!'
     - ' &7Jogadores participando: &5{players}'
     - ''
   insufficient-players:
@@ -52,6 +77,17 @@ Messages:
   event-finished:
     - ''
     - ' &5&lFight'
+    - ''
+    - ' &7O evento foi finalizado!'
+    - ''
+    - '{winners}'
+    - ''
+  event-finished-hosted:
+    - ''
+    - ' &5&lFight'
+    - ''
+    - ' &7Esse evento foi hospedado'
+    - ' &7por: &5{host}&7.'
     - ''
     - ' &7O evento foi finalizado!'
     - ''
@@ -130,38 +166,49 @@ Whitelisted-Commands:
 
 Winner-Settings:
   1:
-    display: ' &f{position}º &8- &f{player} &7(&f{kills} &7vitórias) &2$&a50k'
+    display: ' &f{position}º &8- {tag} &f{player} &7(&f{kills} &7vitórias) {rewards}'
     winner-messages:
       - ''
       - ' &5&lFight'
       - ''
       - ' &7Parabéns! Você venceu o evento em &f1º&7!'
       - ' &7Vitórias: &f{kills}&7.'
-      - ' &7Sua recompensa: &2$&a50k &7+ tag {tag}&7.'
+      - ' &7Sua recompensa: {rewards} &7+ tag {tag}&7.'
       - ''
     rewards:
-      - 'money give {player} 50k'
+      host-percentage: 55
+      display: '&2$&a50k &7+ &f3x &6Chaves Lendárias'
+      commands:
+        - 'money give {player} 50k'
+        - 'cratesadmin give {player} Legendary 3'
   2:
-    display: ' &f{position}º &8- &f{player} &7(&f{kills} &7vitórias) &2$&a35k'
+    display: ' &f{position}º &8- &f{player} &7(&f{kills} &7vitórias) {rewards}'
     winner-messages:
       - ''
       - ' &5&lFight'
       - ''
       - ' &7Você finalizou o evento em &f2º&7!'
       - ' &7Vitórias: &f{kills}&7.'
-      - ' &7Sua recompensa: &2$&a35k&7.'
+      - ' &7Sua recompensa: {rewards}&7.'
       - ''
     rewards:
-      - 'money give {player} 35k'
+      host-percentage: 30
+      display: '&2$&a35k &7+ &f2x &6Chaves Lendárias'
+      commands:
+        - 'money give {player} 35k'
+        - 'cratesadmin give {player} Legendary 2'
   3:
-    display: ' &f{position}º &8- &f{player} &7(&f{kills} &7vitórias) &2$&a15k'
+    display: ' &f{position}º &8- &f{player} &7(&f{kills} &7vitórias) {rewards}'
     winner-messages:
       - ''
       - ' &5&lFight'
       - ''
       - ' &7Você finalizou o evento em &f3º&7!'
       - ' &7Vitórias: &f{kills}&7.'
-      - ' &7Sua recompensa: &2$&a15k&7.'
+      - ' &7Sua recompensa: {rewards}&7.'
       - ''
     rewards:
-      - 'money give {player} 15k'
+      host-percentage: 15
+      display: '&2$&a15k'
+      commands:
+        - 'money give {player} 15k'

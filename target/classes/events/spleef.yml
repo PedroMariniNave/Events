@@ -5,7 +5,7 @@ Settings:
   winners-amount: 3
   minimum-players:
     to-start: 2
-    after-start: 1 # não mexa nessa opção
+    after-start: 1
   announces-amount: 5
   announces-delay: 30 # segundos
   start-time: 15 # segundos
@@ -31,12 +31,35 @@ Messages:
     - ' &7Jogadores participando: &b{players}'
     - ' &7Anúncio &b{announces_now} &7de &b{announces_amount}'
     - ''
+  event-starting-hosted:
+    - ''
+    - ' &b&lSpleef'
+    - ''
+    - ' &7Esse evento está sendo hospedado'
+    - ' &7por: &b{host}&7.'
+    - ''
+    - ' &7Para participar, digite &b/spleef&7!'
+    - ' &7Prêmio total: {host_rewards} &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &b{players}'
+    - ' &7Anúncio &b{announces_now} &7de &b{announces_amount}'
+    - ''
   event-started:
     - ''
     - ' &b&lSpleef'
     - ''
     - ' &7O evento foi iniciado!'
     - ' &7Prêmio total: &2$&a55k &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &b{players}'
+    - ''
+  event-started-hosted:
+    - ''
+    - ' &b&lSpleef'
+    - ''
+    - ' &7Esse evento está sendo hospedado'
+    - ' &7por: &b{host}&7.'
+    - ''
+    - ' &7O evento foi iniciado!'
+    - ' &7Prêmio total: {host_rewards} &7+ tag {tag}&7!'
     - ' &7Jogadores participando: &b{players}'
     - ''
   insufficient-players:
@@ -48,6 +71,17 @@ Messages:
   event-finished:
     - ''
     - ' &b&lSpleef'
+    - ''
+    - ' &7O evento foi finalizado!'
+    - ''
+    - '{winners}'
+    - ''
+  event-finished-hosted:
+    - ''
+    - ' &b&lSpleef'
+    - ''
+    - ' &7Esse evento foi hospedado'
+    - ' &7por: &b{host}&7.'
     - ''
     - ' &7O evento foi finalizado!'
     - ''
@@ -102,35 +136,44 @@ Whitelisted-Commands:
 
 Winner-Settings:
   1:
-    display: ' &f{position}º &8- &f{player} &2$&a35k'
+    display: ' &f{position}º &8- &f{player} {rewards}'
     winner-messages:
       - ''
       - ' &b&lSpleef'
       - ''
       - ' &7Parabéns! Você venceu o evento em &f1º&7!'
-      - ' &7Sua recompensa: &2$&a35k &7+ tag {tag}&7.'
+      - ' &7Sua recompensa: {rewards} &7+ tag {tag}&7.'
       - ''
     rewards:
-      - 'money give {player} 35k'
+      host-percentage: 55
+      display: '&2$&a35k'
+      commands:
+        - 'money give {player} 35k'
   2:
-    display: ' &f{position}º &8- &f{player} &2$&a15k'
+    display: ' &f{position}º &8- &f{player} {rewards}'
     winner-messages:
       - ''
       - ' &b&lSpleef'
       - ''
       - ' &7Você finalizou o evento em &f2º&7!'
-      - ' &7Sua recompensa: &2$&a15k&7.'
+      - ' &7Sua recompensa: {rewards}&7.'
       - ''
     rewards:
-      - 'money give {player} 15k'
+      host-percentage: 35
+      display: '&2$&a15k'
+      commands:
+        - 'money give {player} 15k'
   3:
-    display: ' &f{position}º &8- &f{player} &2$&a5k'
+    display: ' &f{position}º &8- &f{player} {rewards}'
     winner-messages:
       - ''
       - ' &b&lSpleef'
       - ''
       - ' &7Você finalizou o evento em &f3º&7!'
-      - ' &7Sua recompensa: &2$&a5k&7.'
+      - ' &7Sua recompensa: {rewards}&7.'
       - ''
     rewards:
-      - 'money give {player} 5k'
+      host-percentage: 15
+      display: '&2$&a5k'
+      commands:
+        - 'money give {player} 5k'

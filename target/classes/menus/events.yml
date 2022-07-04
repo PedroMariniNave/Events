@@ -15,10 +15,10 @@ Inventory:
         - '&7desse evento:'
         - ''
         - ' &8▶ &7Dia: &fTodos'
-        - ' &8▶ &7Horários: &f13:00 &8| &f20:00 &8| &f03:00'
+        - ' &8▶ &7Horários: &f11:15 &8| &f16:15 &8| &f21:00'
         - ''
         - ' &8▶ &7Custo de entrada: &f-/-'
-        - ' &8▶ &7Prêmio: &2$&a25k &7+ tag &b[C]'
+        - ' &8▶ &7Prêmio: &2$&a55k &7+ tag &b[C]'
       slot: 11
     2:
       type: STICK
@@ -31,10 +31,10 @@ Inventory:
         - '&7desse evento:'
         - ''
         - ' &8▶ &7Dia: &fTodos'
-        - ' &8▶ &7Horários: &f08:00 &8| &f16:00 &8| &f23:00'
+        - ' &8▶ &7Horários: &f08:45 &8| &f10:30 &8| &f17:00 &8| &f19:15'
         - ''
         - ' &8▶ &7Custo de entrada: &f-/-'
-        - ' &8▶ &7Prêmio: &2$&a50k &7+ tag &c[&l㊋&c]'
+        - ' &8▶ &7Prêmio: &2$&a100k &7+ tag &c[&l㊋&c]'
       slot: 12
     3:
       type: IRON_BOOTS
@@ -46,10 +46,10 @@ Inventory:
         - '&7desse evento:'
         - ''
         - ' &8▶ &7Dia: &fTodos'
-        - ' &8▶ &7Horários: &f11:00 &8| &f18:00 &8| &f02:00'
+        - ' &8▶ &7Horários: &f13:00 &8| &f14:30 &8| &f23:00'
         - ''
         - ' &8▶ &7Custo de entrada: &f-/-'
-        - ' &8▶ &7Prêmio: &2$&a25k &7+ tag &e[P]'
+        - ' &8▶ &7Prêmio: &2$&a55k &7+ tag &e[P]'
       slot: 13
     4:
       type: DIAMOND_SWORD
@@ -62,27 +62,27 @@ Inventory:
         - '&7desse evento:'
         - ''
         - ' &8▶ &7Dia: &fTodos'
-        - ' &8▶ &7Horários: &f14:00 &8| &f21:00 &8| &f01:00'
+        - ' &8▶ &7Horários: &f07:30 &8| &f12:00 &8| &f15:30 &8| &f21:30'
         - ''
         - ' &8▶ &7Custo de entrada: &f-/-'
-        - ' &8▶ &7Prêmio: &2$&a50k &7+ tag &5[&l⚔&5]'
+        - ' &8▶ &7Prêmio: &2$&a100k &7+ tag &5[&l⚔&5]'
       slot: 14
     5:
-      type: SNOW_BALL
-      glow: true
-      name: "&9Paintball"
+      type: POTATO_ITEM
+      name: "&6Batata-Quente"
       lore:
-        - '&7Elimine os outros jogadores com sua arma'
-        - '&7de Paintball para vencer!'
+        - '&7Não deixe a batata queimar na'
+        - '&7sua mão! Passe-a para os outros'
+        - '&7jogadores e vença o evento.'
         - ''
         - '&7Abaixo estão as informações'
         - '&7desse evento:'
         - ''
         - ' &8▶ &7Dia: &fTodos'
-        - ' &8▶ &7Horários: &f05:00 &8| &f15:00 &8| &f22:00'
+        - ' &8▶ &7Horários: &f09:15 &8| &f12:30 &8| &f15:00 &8| &f20:00'
         - ''
         - ' &8▶ &7Custo de entrada: &f-/-'
-        - ' &8▶ &7Prêmio: &2$&a45k &7+ tag &9[P]'
+        - ' &8▶ &7Prêmio: &2$&a160k &7+ tag &6[BQ]'
       slot: 15
     6:
       type: DIAMOND_CHESTPLATE
@@ -95,12 +95,45 @@ Inventory:
         - '&7desse evento:'
         - ''
         - ' &8▶ &7Dia: &fTodos'
-        - ' &8▶ &7Horários: &f10:00 &8| &f17:00 &8| &f00:00'
+        - ' &8▶ &7Horários: &f10:45 &8| &f18:45 &8| &f21:45 &8| &f00:00'
         - ''
         - ' &8▶ &7Custo de entrada: &f-/-'
-        - ' &8▶ &7Prêmio: &2$&a75k &7+ tag &4[&l⚔&c]'
+        - ' &8▶ &7Prêmio: &2$&a100k &7+ tag &4[&l⚔&4]'
       slot: 20
     7:
+      type: WORKBENCH
+      name: "&6FastCraft"
+      lore:
+        - '&7Crie o item escolhido o mais'
+        - '&7rápido possível!'
+        - ''
+        - '&7Abaixo estão as informações'
+        - '&7desse evento:'
+        - ''
+        - ' &8▶ &7Dia: &fTodos'
+        - ' &8▶ &7Horários: &f08:00 &8| &f13:45 &8| &f18:00 &8| &f20:30'
+        - ''
+        - ' &8▶ &7Custo de entrada: &f-/-'
+        - ' &8▶ &7Prêmio: &2$&a16k &7+ tag &6[FC]'
+      slot: 21
+    8:
+      type: SNOW_BALL
+      glow: true
+      name: "&9Paintball"
+      lore:
+        - '&7Elimine os outros jogadores com sua arma'
+        - '&7de Paintball para vencer!'
+        - ''
+        - '&7Abaixo estão as informações'
+        - '&7desse evento:'
+        - ''
+        - ' &8▶ &7Dia: &fTodos'
+        - ' &8▶ &7Horários: &f10:00 &8| &f17:30 &8| &f22:15'
+        - ''
+        - ' &8▶ &7Custo de entrada: &f-/-'
+        - ' &8▶ &7Prêmio: &2$&a100k &7+ tag &9[P]'
+      slot: 22
+    9:
       type: IRON_AXE
       glow: true
       name: "&4Mini-Gladiador"
@@ -115,9 +148,9 @@ Inventory:
         - ' &8▶ &7Horário: &f18:30'
         - ''
         - ' &8▶ &7Custo de entrada: &f-/-'
-        - ' &8▶ &7Prêmio: &2$&a100k &7+ tag &4[Mini-Gladiador]'
-      slot: 21
-    8:
+        - ' &8▶ &7Prêmio: &2$&a100k &7+ tag &4[MG]'
+      slot: 22
+    10:
       type: DIAMOND_AXE
       glow: true
       name: "&4Gladiador"
@@ -132,5 +165,5 @@ Inventory:
         - ' &8▶ &7Horário: &f18:30'
         - ''
         - ' &8▶ &7Custo de entrada: &f-/-'
-        - ' &8▶ &7Prêmio: &2$&a250k &7+ tag &4[Gladiador]'
-      slot: 22
+        - ' &8▶ &7Prêmio: &2$&a250k &7+ tag &4[G]'
+      slot: 23
