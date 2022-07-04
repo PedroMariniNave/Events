@@ -20,6 +20,9 @@ Settings:
     set-join: SETJOIN
     set-exit: SETEXIT
   admin-permission: events.admin
+  host-event:
+    permission: events.host
+    cooldown: 1800 # segundos
   save-interval: 600 # segundos
   null-winner: 'Ninguém'
   disable-inventory-interaction: true # Essa opção é ignorada em eventos que o jogador entra com itens próprios
@@ -28,16 +31,34 @@ Settings:
   disable-block-place: true
   disable-block-break: true
   time-formatter: 'mm:ss'
+  currency-separator: ' &7+ '
 
 Messages:
   blacklisted-command: '&cVocê não pode executar esse comando durante o evento!'
-  already-started: '&cEsse evento já foi iniciado!'
+  already-started: '&cEsse evento já está ocorrendo!'
   not-started: '&cEsse evento não está ocorrendo!'
   already-participating: '&cVocê já está participando de um evento!'
   invalid-location: '&cEsse evento não possui todas localizações definidas!'
   invalid-position: '&cVocê ainda não definiu todas posições!'
   invalid-checkpoint: '&cVocê ainda não possui nenhum checkpoint!'
+  invalid-rewards: '&cVocê precisa adicionar pelo menos uma recompensa!'
+  invalid-event: '&cVocê precisa escolher um evento!'
+  insufficient-currency: '&cVocê não pode pagar todas essas recompensas!'
   position-set: '&7Posição &f{pos} &7definida com sucesso!'
+  add-currency:
+    - '&7Digite no chat quanto você deseja adicionar!'
+    - ''
+    - ' &8▶ &7Moeda: {currency}'
+    - ' &8▶ &7Quantia atual: {currency_amount}'
+    - ' &8▶ &7Valor mínimo: {currency_min_amount}'
+    - ''
+  remove-currency:
+    - '&7Digite no chat quanto você deseja remover!'
+    - ''
+    - ' &8▶ &7Moeda: {currency}'
+    - ' &8▶ &7Quantia atual: {currency_amount}'
+    - ' &8▶ &7Valor mínimo: {currency_min_amount}'
+    - ''
 
 Countdown-Titles:
   10:
@@ -100,3 +121,14 @@ Set-Region-Items:
     type: SKULL_ITEM
     owner: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWZkZTNiZmNlMmQ4Y2I3MjRkZTg1NTZlNWVjMjFiN2YxNWY1ODQ2ODRhYjc4NTIxNGFkZDE2NGJlNzYyNGIifX19
     name: '&cCancelar'
+
+Time-Formatter:
+  second: 'segundo'
+  seconds: 'segundos'
+  minute: 'minuto'
+  minutes: 'minutos'
+  hour: 'hora'
+  hours: 'horas'
+  day: 'dia'
+  days: 'dias'
+  now: 'Agora'

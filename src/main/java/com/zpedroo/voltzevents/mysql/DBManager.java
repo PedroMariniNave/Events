@@ -11,12 +11,11 @@ import java.util.*;
 public class DBManager {
 
     public void savePlayerData(PlayerData data) {
-        String query = "REPLACE INTO `" + DBConnection.TABLE + "` (`uuid`, `wins`, `participations`, `items_status`) VALUES " +
+        executeUpdate("REPLACE INTO `" + DBConnection.TABLE + "` (`uuid`, `wins`, `participations`, `items_status`) VALUES " +
                 "('" + data.getUniqueId() + "', " +
                 "'" + data.getWinsAmount() + "', " +
                 "'" + data.getParticipationsAmount() + "', " +
-                "'" + ItemStatusSerialization.serialize(data.getSpecialItemsStatus()) + "');";
-        executeUpdate(query);
+                "'" + ItemStatusSerialization.serialize(data.getSpecialItemsStatus()) + "');");
     }
 
     public PlayerData getPlayerDataFromDatabase(Player player) {

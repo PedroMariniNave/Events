@@ -7,12 +7,14 @@ import com.zpedroo.voltzevents.events.fastcraft.tasks.FastCraftTask;
 import com.zpedroo.voltzevents.managers.CommandManager;
 import com.zpedroo.voltzevents.managers.DataManager;
 import com.zpedroo.voltzevents.managers.ListenerManager;
+import com.zpedroo.voltzevents.objects.host.EventHost;
 import com.zpedroo.voltzevents.objects.player.EventData;
 import com.zpedroo.voltzevents.types.FunEvent;
 import com.zpedroo.voltzevents.utils.FileUtils;
 import com.zpedroo.voltzevents.utils.color.Colorize;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.libs.jline.internal.Nullable;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
@@ -24,29 +26,38 @@ import static com.zpedroo.voltzevents.events.fastcraft.FastCraftEvent.Settings.*
 
 public class FastCraftEvent extends FunEvent {
 
-    private static FastCraftEvent instance;
-    public static FastCraftEvent getInstance() { return instance; }
-
     private Material craftItem = null;
 
     public FastCraftEvent(Plugin plugin) {
         super("FastCraft", FileUtils.Files.FASTCRAFT, TAG,  new HashMap<String, List<String>>() {{
             put("STARTED", EVENT_STARTED);
+            put("STARTED_HOSTED", EVENT_STARTED_HOSTED);
             put("HAPPENING", EVENT_HAPPENING);
+            put("HAPPENING_HOSTED", EVENT_HAPPENING_HOSTED);
             put("CANCELLED", EVENT_CANCELLED);
             put("FINISHED", EVENT_FINISHED);
+            put("FINISHED_HOSTED", EVENT_FINISHED_HOSTED);
         }}, WINNERS, WINNERS_AMOUNT);
 
-        instance = this;
-        ListenerManager.registerListener(plugin, new FastCraftListeners());
+        ListenerManager.registerListener(plugin, new FastCraftListeners(this));
         CommandManager.registerCommand(plugin, COMMAND, ALIASES, new FunEventCmd(this));
         DataManager.getInstance().getCache().getEvents().add(this);
     }
 
     @Override
+    public void join(Player player) {
+    }
+
+    @Override
     public void startEvent() {
+        startEvent(null);
+    }
+
+    @Override
+    public void startEvent(@Nullable EventHost eventHost) {
         if (isHappening()) return;
 
+        setEventHost(eventHost);
         getWinnersPosition().clear();
         startEventMethods();
     }
@@ -120,9 +131,15 @@ public class FastCraftEvent extends FunEvent {
 
         public static final List<String> EVENT_STARTED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.FASTCRAFT, "Messages.event-started"));
 
+        public static final List<String> EVENT_STARTED_HOSTED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.FASTCRAFT, "Messages.event-started-hosted"));
+
         public static final List<String> EVENT_HAPPENING = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.FASTCRAFT, "Messages.event-happening"));
 
+        public static final List<String> EVENT_HAPPENING_HOSTED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.FASTCRAFT, "Messages.event-happening-hosted"));
+
         public static final List<String> EVENT_FINISHED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.FASTCRAFT, "Messages.event-finished"));
+
+        public static final List<String> EVENT_FINISHED_HOSTED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.FASTCRAFT, "Messages.event-finished-hosted"));
 
         public static final List<String> EVENT_CANCELLED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.FASTCRAFT, "Messages.event-cancelled"));
     }

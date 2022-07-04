@@ -37,24 +37,23 @@ import static com.zpedroo.voltzevents.events.paintball.PaintballEvent.Settings.*
 
 public class PaintballEvent extends ArenaEvent {
 
-    private static PaintballEvent instance;
-    public static PaintballEvent getInstance() { return instance; }
-
     private final ItemStack gunItem = ItemBuilder.build(FileUtils.get().getFile(FileUtils.Files.PAINTBALL).get(), "Gun-Item").build();
     private final ItemStack reloadingGunItem = ItemBuilder.build(FileUtils.get().getFile(FileUtils.Files.PAINTBALL).get(), "Reloading-Gun-Item").build();
 
     public PaintballEvent(Plugin plugin) {
         super("Paintball", FileUtils.Files.PAINTBALL, WHITELISTED_COMMANDS, TAG, new HashMap<String, List<String>>() {{
             put("STARTING", EVENT_STARTING);
+            put("STARTING_HOSTED", EVENT_STARTING_HOSTED);
             put("STARTED", EVENT_STARTED);
+            put("STARTED_HOSTED", EVENT_STARTED_HOSTED);
             put("CANCELLED", EVENT_CANCELLED);
             put("FINISHED", EVENT_FINISHED);
+            put("FINISHED_HOSTED", EVENT_FINISHED_HOSTED);
             put("INSUFFICIENT_PLAYERS", INSUFFICIENT_PLAYERS);
         }}, WINNERS, WINNERS_AMOUNT, MINIMUM_PLAYERS_TO_START, MINIMUM_PLAYERS_AFTER_START, SAVE_PLAYER_INVENTORY, ADDITIONAL_VOID_CHECKER, EVENT_ITEMS, JOIN_LOCATION, EXIT_LOCATION, ARENA_LOCATION);
 
-        instance = this;
         setAnnounceTask(new AnnounceTask(plugin, this, ANNOUNCES_DELAY, ANNOUNCES_AMOUNT));
-        ListenerManager.registerListener(plugin, new PaintballListeners());
+        ListenerManager.registerListener(plugin, new PaintballListeners(this));
         CommandManager.registerCommand(plugin, COMMAND, ALIASES, new ArenaEventCmd(this));
         DataManager.getInstance().getCache().getEvents().add(this);
     }
@@ -224,11 +223,17 @@ public class PaintballEvent extends ArenaEvent {
 
         public static final List<String> EVENT_STARTING = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.PAINTBALL, "Messages.event-starting"));
 
+        public static final List<String> EVENT_STARTING_HOSTED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.PAINTBALL, "Messages.event-starting-hosted"));
+
         public static final List<String> EVENT_STARTED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.PAINTBALL, "Messages.event-started"));
+
+        public static final List<String> EVENT_STARTED_HOSTED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.PAINTBALL, "Messages.event-started-hosted"));
 
         public static final List<String> EVENT_CANCELLED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.PAINTBALL, "Messages.event-cancelled"));
 
         public static final List<String> EVENT_FINISHED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.PAINTBALL, "Messages.event-finished"));
+
+        public static final List<String> EVENT_FINISHED_HOSTED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.PAINTBALL, "Messages.event-finished-hosted"));
 
         public static final List<String> INSUFFICIENT_PLAYERS = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.PAINTBALL, "Messages.insufficient-players"));
     }

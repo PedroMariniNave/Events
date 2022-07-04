@@ -7,10 +7,12 @@ Settings:
   announces-delay: 30 # segundos
 
 Auto-Start:
-  enabled: false
+  enabled: true
   schedules: # DAY:HOUR:MINUTE
-    - 'EVERYDAY:10:00'
-    - 'EVERYDAY:12:00'
+    - 'EVERYDAY:08:00'
+    - 'EVERYDAY:13:45'
+    - 'EVERYDAY:18:00'
+    - 'EVERYDAY:20:30'
 
 Messages:
   event-started:
@@ -18,9 +20,23 @@ Messages:
     - ' &6&lFastCraft'
     - ''
     - ' &7Evento iniciado!'
-    - ' &7Os &f3 &7primeiros que craftarem'
+    - ' &7Os &63 &7primeiros que craftarem'
     - ' &7o item vencem o evento!'
-    - ' &7Prêmio total: &2$&a16k &7+ tag {tag}&7!'
+    - ' &7Prêmio total: &2$&a100k &7+ &f5x &6Chaves Lendárias &7+ tag {tag}&7!'
+    - ''
+    - ' &7Item: &f{item}'
+    - ''
+  event-started-hosted:
+    - ''
+    - ' &6&lFastCraft'
+    - ''
+    - ' &7Esse evento está sendo hospedado'
+    - ' &7por: &6{host}&7.'
+    - ''
+    - ' &7Evento iniciado!'
+    - ' &7Os &63 &7primeiros que craftarem'
+    - ' &7o item vencem o evento!'
+    - ' &7Prêmio total: {host_rewards} &7+ tag {tag}&7!'
     - ''
     - ' &7Item: &f{item}'
     - ''
@@ -29,15 +45,40 @@ Messages:
     - ' &6&lFastCraft'
     - ''
     - ' &7O evento está ocorrendo!'
-    - ' &7Os &f3 &7primeiros que craftarem'
+    - ' &7Os &63 &7primeiros que craftarem'
     - ' &7o item vencem o evento!'
-    - ' &7Prêmio total: &2$&a16k &7+ tag {tag}&7!'
+    - ' &7Prêmio total: &2$&a100k &7+ &f5x &6Chaves Lendárias &7+ tag {tag}&7!'
+    - ''
+    - ' &7Item: &f{item}'
+    - ''
+  event-happening-hosted:
+    - ''
+    - ' &6&lFastCraft'
+    - ''
+    - ' &7Esse evento está sendo hospedado'
+    - ' &7por: &6{host}&7.'
+    - ''
+    - ' &7O evento está ocorrendo!'
+    - ' &7Os &63 &7primeiros que craftarem'
+    - ' &7o item vencem o evento!'
+    - ' &7Prêmio total: {host_rewards} &7+ tag {tag}&7!'
     - ''
     - ' &7Item: &f{item}'
     - ''
   event-finished:
     - ''
     - ' &6&lFastCraft'
+    - ''
+    - ' &7O evento foi finalizado!'
+    - ''
+    - '{winners}'
+    - ''
+  event-finished-hosted:
+    - ''
+    - ' &6&lFastCraft'
+    - ''
+    - ' &7Esse evento foi hospedado'
+    - ' &7por: &6{host}&7.'
     - ''
     - ' &7O evento foi finalizado!'
     - ''
@@ -58,35 +99,49 @@ Craftable-Items: # MATERIAL,TRADUÇÃO
 
 Winner-Settings:
   1:
-    display: ' &f{position}º &8- &f{player} &2$&a10k'
+    display: ' &f{position}º &8- &f{player} &7(&f{time}&7) {rewards}'
     winner-messages:
       - ''
       - ' &6&lFastCraft'
       - ''
       - ' &7Parabéns! Você venceu o evento em &f1º&7!'
-      - ' &7Sua recompensa: &2$&a10k &7+ tag {tag}&7.'
+      - ' &7Tempo necessário: &f{time}&7.'
+      - ' &7Sua recompensa: {rewards} &7+ tag {tag}&7.'
       - ''
     rewards:
-      - 'money give {player} 10k'
+      host-percentage: 55
+      display: '&2$&a50k &7+ &f3x &6Chaves Lendárias'
+      commands:
+        - 'money give {player} 50k'
+        - 'cratesadmin give {player} Legendary 3'
   2:
-    display: ' &f{position}º &8- &f{player} &2$&a5k'
+    display: ' &f{position}º &8- &f{player} &7(&f{time}&7) {rewards}'
     winner-messages:
       - ''
       - ' &6&lFastCraft'
       - ''
       - ' &7Você finalizou o evento em &f2º&7!'
-      - ' &7Sua recompensa: &2$&a5k&7.'
+      - ' &7Tempo necessário: &f{time}&7.'
+      - ' &7Sua recompensa: {rewards}&7.'
       - ''
     rewards:
-      - 'money give {player} 5k'
+      host-percentage: 30
+      display: '&2$&a35k &7+ &f2x &6Chaves Lendárias'
+      commands:
+        - 'money give {player} 35k'
+        - 'cratesadmin give {player} Legendary 2'
   3:
-    display: ' &f{position}º &8- &f{player} &2$&a1k'
+    display: ' &f{position}º &8- &f{player} &7(&f{time}&7) {rewards}'
     winner-messages:
       - ''
       - ' &6&lFastCraft'
       - ''
       - ' &7Você finalizou o evento em &f2º&7!'
-      - ' &7Sua recompensa: &2$&a1k&7.'
+      - ' &7Tempo necessário: &f{time}&7.'
+      - ' &7Sua recompensa: {rewards}&7.'
       - ''
     rewards:
-      - 'money give {player} 1k'
+      host-percentage: 15
+      display: '&2$&a15k'
+      commands:
+        - 'money give {player} 15k'

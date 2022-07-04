@@ -1,5 +1,6 @@
 package com.zpedroo.voltzevents.types;
 
+import com.zpedroo.multieconomy.objects.general.Currency;
 import com.zpedroo.voltzevents.VoltzEvents;
 import com.zpedroo.voltzevents.api.PlayerLeaveEvent;
 import com.zpedroo.voltzevents.enums.EventPhase;
@@ -9,6 +10,7 @@ import com.zpedroo.voltzevents.managers.DataManager;
 import com.zpedroo.voltzevents.objects.event.SpecialItem;
 import com.zpedroo.voltzevents.objects.event.WinnerData;
 import com.zpedroo.voltzevents.objects.event.WinnerSettings;
+import com.zpedroo.voltzevents.objects.host.EventHost;
 import com.zpedroo.voltzevents.objects.player.EventData;
 import com.zpedroo.voltzevents.objects.player.EventItems;
 import com.zpedroo.voltzevents.objects.player.PlayerData;
@@ -37,7 +39,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.math.BigInteger;
 import java.util.*;
 
 @Data
@@ -58,6 +62,7 @@ public abstract class Event {
     private final int minimumPlayersAfterStart;
     private final boolean savePlayerInventory;
     private final boolean additionalVoidChecker;
+    private EventHost eventHost;
     private EventItems eventItems;
     private EventData eventData;
     private EventPhase eventPhase = EventPhase.INACTIVE;
@@ -91,8 +96,8 @@ public abstract class Event {
         return playersParticipating.size();
     }
 
-    public List<String> getMessage(String message) {
-        return messages.get(message);
+    public List<String> getMessages(String name) {
+        return messages.get(name);
     }
 
     public WinnerSettings getWinnerSettings(int position) {
@@ -114,12 +119,14 @@ public abstract class Event {
 
             builder.append(StringUtils.replaceEach(winnerSettings.getDisplay(), new String[]{
                     "{tag}",
+                    "{rewards}",
                     "{player}",
                     "{position}",
                     "{kills}",
                     "{time}"
             }, new String[]{
                     winnerTag,
+                    getRewardsDisplay(winnerSettings),
                     winnerName == null ? Settings.NULL_WINNER : winnerName,
                     String.valueOf(position),
                     String.valueOf(kills),
@@ -128,6 +135,31 @@ public abstract class Event {
         }
 
         return builder.toString();
+    }
+
+    public String getRewardsDisplay(WinnerSettings winnerSettings) {
+        if (isHosted()) {
+            StringBuilder builder = new StringBuilder();
+            for (Map.Entry<Currency, BigInteger> entry : eventHost.getCurrencyRewards().entrySet()) {
+                if (builder.length() > 0) builder.append(Settings.CURRENCY_SEPARATOR);
+
+                Currency currency = entry.getKey();
+                BigInteger amount = entry.getValue();
+                BigInteger amountWithPercentageApplied = winnerSettings.getAmountWithPercentageApplied(amount);
+
+                builder.append(currency.getAmountDisplay(amountWithPercentageApplied));
+            }
+
+            return builder.toString();
+        }
+
+        return winnerSettings.getRewardsDisplay();
+    }
+
+    public String getTotalHostRewardsDisplay() {
+        if (!isHosted()) return "";
+
+        return eventHost.getTotalRewardsDisplay();
     }
 
     public String getWinnerName(int position) {
@@ -158,15 +190,17 @@ public abstract class Event {
 
     public String replaceFinishedEventPlaceholders(String text) {
         return replacePlaceholders(text, new String[]{
+                "{host}",
                 "{winners}",
                 "{tag}"
         }, new String[]{
+                isHosted() ? eventHost.getHostPlayerName() : "-/-",
                 getListedWinners(),
                 getWinnerTag()
         });
     }
 
-    public String replacePlayerPlaceholders(Player player, String text) {
+    public String replacePlayerPlaceholders(String text, Player player, WinnerSettings winnerSettings) {
         if (eventData == null) return text;
 
         int position = getWinnerPosition(player);
@@ -177,18 +211,24 @@ public abstract class Event {
                 "{position}",
                 "{kills}",
                 "{time}",
+                "{rewards}",
                 "{tag}"
         }, new String[]{
                 winnerData.getName(),
                 String.valueOf(position),
                 String.valueOf(winnerData.getKills()),
                 winnerData.getFormattedWinTimestamp(eventData.getStartTimestamp()),
+                getRewardsDisplay(winnerSettings),
                 getWinnerTag()
         });
     }
 
     public Scoreboard getScoreboard() {
         return scoreboards.get(eventPhase);
+    }
+
+    public boolean isHosted() {
+        return eventHost != null;
     }
 
     public boolean isHappening() {
@@ -413,8 +453,13 @@ public abstract class Event {
     }
 
     public void startEvent() {
+        startEvent(null);
+    }
+
+    public void startEvent(@Nullable EventHost eventHost) {
         if (isHappening()) return;
 
+        this.eventHost = eventHost;
         this.winnersPosition.clear();
         this.eventPhase = EventPhase.WAITING_PLAYERS;
         this.eventData = new EventData();
@@ -427,6 +472,7 @@ public abstract class Event {
         new ArrayList<>(playersParticipating).forEach(player -> leave(player, LeaveReason.EVENT_FINISHED, false, false));
         this.announceTask.cancelTask();
         this.eventPhase = EventPhase.INACTIVE;
+        this.eventHost = null;
 
         sendCancelledMessages();
     }
@@ -434,20 +480,22 @@ public abstract class Event {
     public void finishEvent(boolean sendFinishMessages) {
         if (!isHappening()) return;
 
+        if (sendFinishMessages) sendFinishMessages();
+
         new ArrayList<>(playersParticipating).forEach(player -> leave(player, LeaveReason.EVENT_FINISHED, false, false));
         this.eventPhase = EventPhase.INACTIVE;
-
-        if (sendFinishMessages) sendFinishMessages();
+        this.eventHost = null;
     }
 
     public void sendCancelledMessages() {
-        for (String msg : getMessage("CANCELLED")) {
+        for (String msg : getMessages("CANCELLED")) {
             Bukkit.broadcastMessage(replaceFinishedEventPlaceholders(msg));
         }
     }
 
     public void sendFinishMessages() {
-        for (String msg : getMessage("FINISHED")) {
+        List<String> messagesToSend = isHosted() ? getMessages("FINISHED_HOSTED") : getMessages("FINISHED");
+        for (String msg : messagesToSend) {
             Bukkit.broadcastMessage(replaceFinishedEventPlaceholders(msg));
         }
     }
@@ -460,27 +508,36 @@ public abstract class Event {
         WinnerSettings winnerSettings = getWinnerSettings(position);
         if (winnerSettings != null) {
             for (String msg : winnerSettings.getWinnerMessages()) {
-                player.sendMessage(replacePlayerPlaceholders(player, msg));
+                player.sendMessage(replacePlayerPlaceholders(msg, player, winnerSettings));
             }
 
             for (String msg : winnerSettings.getParticipantsMessages()) {
-                sendMessageToAllParticipants(replacePlayerPlaceholders(player, msg), Collections.singletonList(player));
+                sendMessageToAllParticipants(replacePlayerPlaceholders(msg, player, winnerSettings), Collections.singletonList(player));
             }
 
-            new BukkitRunnable() { // inventory will be restored after 2 ticks, so we'll deliver rewards in 4 ticks (2 ticks later)
-                @Override
-                public void run() {
-                    for (String command : winnerSettings.getRewards()) {
-                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), replacePlayerPlaceholders(player, command));
-                    }
-                }
-            }.runTaskLater(VoltzEvents.get(), 4L);
+            giveRewards(player, winnerSettings);
         }
 
         if (position == 1) {
             PlayerData data = DataManager.getInstance().getPlayerData(player);
             data.addWins(1);
         }
+    }
+
+    private void giveRewards(Player player, WinnerSettings winnerSettings) {
+        if (isHosted()) {
+            eventHost.giveRewards(player, winnerSettings);
+            return;
+        }
+
+        new BukkitRunnable() { // inventory will be restored after 2 ticks, so we'll deliver rewards in 4 ticks (2 ticks later)
+            @Override
+            public void run() {
+                for (String command : winnerSettings.getRewardsCommands()) {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), replacePlayerPlaceholders(command, player, winnerSettings));
+                }
+            }
+        }.runTaskLater(VoltzEvents.get(), 4L);
     }
 
     public void updatePlayerView(Player player) {

@@ -3,6 +3,8 @@ package com.zpedroo.voltzevents.utils.config;
 import com.zpedroo.voltzevents.utils.FileUtils;
 import com.zpedroo.voltzevents.utils.color.Colorize;
 
+import java.util.List;
+
 public class Messages {
 
     public static final String BLACKLISTED_COMMAND = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.CONFIG, "Messages.blacklisted-command"));
@@ -19,5 +21,15 @@ public class Messages {
 
     public static final String INVALID_CHECKPOINT = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.CONFIG, "Messages.invalid-checkpoint"));
 
+    public static final String INVALID_EVENT = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.CONFIG, "Messages.invalid-event"));
+
+    public static final String INVALID_REWARDS = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.CONFIG, "Messages.invalid-rewards"));
+
+    public static final String INSUFFICIENT_CURRENCY = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.CONFIG, "Messages.insufficient-currency"));
+
     public static final String POSITION_SET = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.CONFIG, "Messages.position-set"));
+
+    public static final List<String> ADD_CURRENCY = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.CONFIG, "Messages.add-currency"));
+
+    public static final List<String> REMOVE_CURRENCY = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.CONFIG, "Messages.remove-currency"));
 }

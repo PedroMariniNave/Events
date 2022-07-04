@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -133,6 +134,7 @@ public class InventoryBuilder {
         return inventory;
     }
 
+    @Nullable
     protected Action getAction(int slot, ActionType actionType) {
         return actions.get(slot, actionType);
     }

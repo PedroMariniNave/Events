@@ -85,12 +85,6 @@ public class CuboidRegion {
                 z >= minZ && z <= maxZ;
     }
 
-    public boolean overlaps(CuboidRegion cuboidRegion) {
-        return cuboidRegion.getWorld().equals(world) &&
-                !(cuboidRegion.getMinX() > maxX || cuboidRegion.getMinY() > maxY || cuboidRegion.getMinZ() > maxZ ||
-                        minZ > cuboidRegion.getMaxX() || minY > cuboidRegion.getMaxY() || minZ > cuboidRegion.getMaxZ());
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

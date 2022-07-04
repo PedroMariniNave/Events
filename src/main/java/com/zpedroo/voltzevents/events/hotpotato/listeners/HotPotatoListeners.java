@@ -13,8 +13,12 @@ import org.bukkit.inventory.ItemStack;
 
 public class HotPotatoListeners implements Listener {
 
-    private final HotPotatoEvent hotPotatoEvent = HotPotatoEvent.getInstance();
-    
+    private final HotPotatoEvent hotPotatoEvent;
+
+    public HotPotatoListeners(HotPotatoEvent hotPotatoEvent) {
+        this.hotPotatoEvent = hotPotatoEvent;
+    }
+
     @EventHandler(priority = EventPriority.LOWEST)
     public void onDamage(EntityDamageByEntityEvent event) {
         if (!(event.getEntity() instanceof Player)) return;

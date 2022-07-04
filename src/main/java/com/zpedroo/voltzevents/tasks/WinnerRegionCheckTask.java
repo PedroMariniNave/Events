@@ -23,8 +23,8 @@ public class WinnerRegionCheckTask extends BukkitRunnable {
             return;
         }
 
-        if (!event.getWinRegion().isOnRegion(player)) return;
-
-        event.checkIfPlayerIsWinner(player, event.getPlayersParticipatingAmount());
+        if (event.getWinRegion().isOnRegion(player)) {
+            event.checkIfPlayerIsWinner(player, event.getPlayersParticipatingAmount());
+        }
     }
 }

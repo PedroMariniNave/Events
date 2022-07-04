@@ -11,8 +11,12 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class KillerListeners implements Listener {
 
-    private final KillerEvent killerEvent = KillerEvent.getInstance();
-    
+    private final KillerEvent killerEvent;
+
+    public KillerListeners(KillerEvent killerEvent) {
+        this.killerEvent = killerEvent;
+    }
+
     @EventHandler(priority = EventPriority.MONITOR)
     public void onDeath(PlayerDeathEvent event) {
         if (!killerEvent.isStarted() || !killerEvent.isParticipating(event.getEntity())) return;

@@ -10,10 +10,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class PlayerCheckTask extends BukkitRunnable {
 
-    private final SumoEvent sumoEvent = SumoEvent.getInstance();
+    private final SumoEvent sumoEvent;
     private final Player player;
 
-    public PlayerCheckTask(Player player) {
+    public PlayerCheckTask(SumoEvent sumoEvent, Player player) {
+        this.sumoEvent = sumoEvent;
         this.player = player;
         this.runTaskTimer(VoltzEvents.get(), 1L, 1L);
     }

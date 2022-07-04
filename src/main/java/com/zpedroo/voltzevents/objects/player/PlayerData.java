@@ -28,6 +28,10 @@ public class PlayerData {
         return participationsAmount == 0 ? winsAmount : (double) (winsAmount / participationsAmount) * 100;
     }
 
+    public String getFormattedWinRate() {
+        return String.format("%.0f", getWinRate());
+    }
+
     public boolean getSpecialItemStatus(SpecialItem specialItem) {
         return specialItemsStatus.getOrDefault(specialItem, true);
     }

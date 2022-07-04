@@ -9,7 +9,11 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class SumoListeners implements Listener {
 
-    private final SumoEvent sumoEvent = SumoEvent.getInstance();
+    private final SumoEvent sumoEvent;
+
+    public SumoListeners(SumoEvent sumoEvent) {
+        this.sumoEvent = sumoEvent;
+    }
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onDamage(EntityDamageEvent event) {

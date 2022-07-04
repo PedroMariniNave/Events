@@ -8,6 +8,8 @@ import org.bukkit.Sound;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.List;
+
 public class AnnounceTask extends BukkitRunnable {
 
     private final Plugin plugin;
@@ -37,7 +39,8 @@ public class AnnounceTask extends BukkitRunnable {
 
         if (countdown % delayBetweenMessagesInSeconds == 0) {
             ++announcesAmount;
-            for (String msg : event.getMessage("STARTING")) {
+            List<String> messagesToSend = event.isHosted() ? event.getMessages("STARTING_HOSTED") : event.getMessages("STARTING");
+            for (String msg : messagesToSend) {
                 Bukkit.broadcastMessage(replacePlaceholders(msg));
             }
         }
@@ -52,7 +55,7 @@ public class AnnounceTask extends BukkitRunnable {
             this.cancelTask();
 
             if (event.getPlayersParticipatingAmount() < event.getMinimumPlayersToStart()) {
-                for (String msg : event.getMessage("INSUFFICIENT_PLAYERS")) {
+                for (String msg : event.getMessages("INSUFFICIENT_PLAYERS")) {
                     Bukkit.broadcastMessage(replacePlaceholders(msg));
                 }
 
@@ -60,7 +63,8 @@ public class AnnounceTask extends BukkitRunnable {
                 return;
             }
 
-            for (String msg : event.getMessage("STARTED")) {
+            List<String> messagesToSend = event.isHosted() ? event.getMessages("STARTED_HOSTED") : event.getMessages("STARTED");
+            for (String msg : messagesToSend) {
                 Bukkit.broadcastMessage(replacePlaceholders(msg));
             }
 
@@ -87,8 +91,7 @@ public class AnnounceTask extends BukkitRunnable {
     }
 
     public void startTask() {
-        if (runningTask) {
-            // already started, let's create a new instance to fix some runnable bugs
+        if (runningTask) { // already started, let's create a new instance to fix some runnable issues
             AnnounceTask announceTask = new AnnounceTask(plugin, event, delayBetweenMessagesInSeconds, maxAnnouncesAmount);
             announceTask.startTask();
             event.setAnnounceTask(announceTask);
@@ -112,11 +115,15 @@ public class AnnounceTask extends BukkitRunnable {
 
     private String replacePlaceholders(String str) {
         return StringUtils.replaceEach(str, new String[]{
+                "{host}",
+                "{host_rewards}",
                 "{tag}",
                 "{players}",
                 "{announces_now}",
                 "{announces_amount}"
         }, new String[]{
+                event.isHosted() ? event.getEventHost().getHostPlayerName() : "-/-",
+                event.getTotalHostRewardsDisplay(),
                 event.getWinnerTag(),
                 String.valueOf(event.getPlayersParticipatingAmount()),
                 String.valueOf(announcesAmount),

@@ -18,10 +18,12 @@ import com.zpedroo.voltzevents.utils.region.CuboidRegion;
 import com.zpedroo.voltzevents.utils.scoreboard.objects.Scoreboard;
 import com.zpedroo.voltzevents.utils.serialization.Base64Encoder;
 import com.zpedroo.voltzevents.utils.serialization.LocationSerialization;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.List;
@@ -63,6 +65,11 @@ public class DataManager {
 
     public List<Event> getEvents() {
         return dataCache.getEvents();
+    }
+
+    @Nullable
+    public Event getEventByName(String eventName) {
+        return dataCache.getEvents().stream().filter(event -> StringUtils.equalsIgnoreCase(event.getName(), eventName)).findFirst().orElse(null);
     }
 
     public CuboidRegion getWinRegionFromFile(String eventName) {
@@ -178,11 +185,13 @@ public class DataManager {
             int pos = Integer.parseInt(position);
 
             String display = Colorize.getColored(FileUtils.get().getString(file, "Winner-Settings." + position + ".display"));
+            String rewardsDisplay = Colorize.getColored(FileUtils.get().getString(file, "Winner-Settings." + position + ".rewards.display"));
             List<String> winnerMessages = Colorize.getColored(FileUtils.get().getStringList(file, "Winner-Settings." + position + ".winner-messages"));
             List<String> participantsMessages = Colorize.getColored(FileUtils.get().getStringList(file, "Winner-Settings." + position + ".participants-messages"));
-            List<String> rewards = FileUtils.get().getStringList(file, "Winner-Settings." + position + ".rewards");
+            List<String> rewardsCommands = FileUtils.get().getStringList(file, "Winner-Settings." + position + ".rewards.commands");
+            int hostRewardsPercentage = FileUtils.get().getInt(file, "Winner-Settings." + position + ".rewards.host-percentage");
 
-            ret.put(pos, new WinnerSettings(display, winnerMessages, participantsMessages, rewards));
+            ret.put(pos, new WinnerSettings(display, rewardsDisplay, winnerMessages, participantsMessages, rewardsCommands, hostRewardsPercentage));
         }
 
         return ret;

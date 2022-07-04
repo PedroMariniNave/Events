@@ -12,8 +12,12 @@ import org.bukkit.inventory.ItemStack;
 
 public class FastCraftListeners implements Listener {
 
-    private final FastCraftEvent fastCraftEvent = FastCraftEvent.getInstance();
-    
+    private final FastCraftEvent fastCraftEvent;
+
+    public FastCraftListeners(FastCraftEvent fastCraftEvent) {
+        this.fastCraftEvent = fastCraftEvent;
+    }
+
     @EventHandler(priority = EventPriority.LOWEST)
     public void onCraft(CraftItemEvent event) {
         if (!fastCraftEvent.isHappening()) return;

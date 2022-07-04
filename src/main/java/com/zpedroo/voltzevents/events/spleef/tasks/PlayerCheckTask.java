@@ -8,10 +8,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class PlayerCheckTask extends BukkitRunnable {
 
-    private final SpleefEvent spleefEvent = SpleefEvent.getInstance();
+    private final SpleefEvent spleefEvent;
     private final Player player;
 
-    public PlayerCheckTask(Player player) {
+    public PlayerCheckTask(SpleefEvent spleefEvent, Player player) {
+        this.spleefEvent = spleefEvent;
         this.player = player;
         this.runTaskTimer(VoltzEvents.get(), 1L, 1L);
     }

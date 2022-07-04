@@ -1,6 +1,7 @@
 package com.zpedroo.voltzevents.utils.config;
 
 import com.zpedroo.voltzevents.utils.FileUtils;
+import com.zpedroo.voltzevents.utils.color.Colorize;
 
 import java.util.List;
 
@@ -30,9 +31,13 @@ public class Settings {
 
     public static final String ADMIN_PERMISSION = FileUtils.get().getString(FileUtils.Files.CONFIG, "Settings.admin-permission");
 
+    public static final String HOST_EVENT_PERMISSION = FileUtils.get().getString(FileUtils.Files.CONFIG, "Settings.host-event.permission");
+
     public static final String NULL_WINNER = FileUtils.get().getString(FileUtils.Files.CONFIG, "Settings.null-winner");
 
     public static final String TIME_FORMATTER = FileUtils.get().getString(FileUtils.Files.CONFIG, "Settings.time-formatter");
+
+    public static final String CURRENCY_SEPARATOR = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.CONFIG, "Settings.currency-separator"));
 
     public static final boolean DISABLE_INVENTORY_INTERACTION = FileUtils.get().getBoolean(FileUtils.Files.CONFIG, "Settings.disable-inventory-interaction");
 
@@ -43,6 +48,8 @@ public class Settings {
     public static final boolean DISABLE_BLOCK_PLACE = FileUtils.get().getBoolean(FileUtils.Files.CONFIG, "Settings.disable-block-place");
 
     public static final boolean DISABLE_BLOCK_BREAK = FileUtils.get().getBoolean(FileUtils.Files.CONFIG, "Settings.disable-block-break");
+
+    public static final int HOST_EVENT_COOLDOWN = FileUtils.get().getInt(FileUtils.Files.CONFIG, "Settings.host-event.cooldown");
 
     public static final long SAVE_INTERVAL = FileUtils.get().getLong(FileUtils.Files.CONFIG, "Settings.save-interval");
 }

@@ -16,8 +16,12 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class FightListeners implements Listener {
 
-    private final FightEvent fightEvent = FightEvent.getInstance();
-    
+    private final FightEvent fightEvent;
+
+    public FightListeners(FightEvent fightEvent) {
+        this.fightEvent = fightEvent;
+    }
+
     @EventHandler(priority = EventPriority.MONITOR)
     public void onDeath(PlayerDeathEvent event) {
         if (!fightEvent.isHappening() || !fightEvent.isParticipating(event.getEntity())) return;

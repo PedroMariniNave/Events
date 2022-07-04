@@ -6,6 +6,8 @@ import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.List;
+
 public class FastCraftTask extends BukkitRunnable {
 
     private final FastCraftEvent event;
@@ -27,7 +29,8 @@ public class FastCraftTask extends BukkitRunnable {
         }
 
         if (++announcesAmount == 1) {
-            for (String str : event.getMessage("STARTED")) {
+            List<String> messagesToSend = event.isHosted() ? event.getMessages("STARTED_HOSTED") : event.getMessages("STARTED");
+            for (String str : messagesToSend) {
                 Bukkit.broadcastMessage(replacePlaceholders(str));
             }
             return;
@@ -38,7 +41,8 @@ public class FastCraftTask extends BukkitRunnable {
             return;
         }
 
-        for (String str : event.getMessage("HAPPENING")) {
+        List<String> messagesToSend = event.isHosted() ? event.getMessages("HAPPENING_HOSTED") : event.getMessages("HAPPENING");
+        for (String str : messagesToSend) {
             Bukkit.broadcastMessage(replacePlaceholders(str));
         }
     }
@@ -49,11 +53,15 @@ public class FastCraftTask extends BukkitRunnable {
 
     private String replacePlaceholders(String str) {
         return StringUtils.replaceEach(str, new String[]{
+                "{host}",
+                "{host_rewards}",
                 "{tag}",
                 "{item}",
                 "{announces_now}",
                 "{announces_amount}"
         }, new String[]{
+                event.isHosted() ? event.getEventHost().getHostPlayerName() : "-/-",
+                event.getTotalHostRewardsDisplay(),
                 event.getWinnerTag(),
                 event.getTranslation(event.getCraftItem()),
                 String.valueOf(announcesAmount),

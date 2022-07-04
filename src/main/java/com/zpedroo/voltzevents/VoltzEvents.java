@@ -17,6 +17,7 @@ import com.zpedroo.voltzevents.mysql.DBConnection;
 import com.zpedroo.voltzevents.scheduler.SchedulerLoader;
 import com.zpedroo.voltzevents.tasks.SaveTask;
 import com.zpedroo.voltzevents.utils.FileUtils;
+import com.zpedroo.voltzevents.utils.cooldown.Cooldown;
 import com.zpedroo.voltzevents.utils.menu.Menus;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -47,6 +48,7 @@ public class VoltzEvents extends JavaPlugin {
         new DataManager();
         new WinRegionManager();
         new Menus();
+        new Cooldown();
         new SaveTask(this);
 
         getServer().getScheduler().runTaskLaterAsynchronously(this, this::loadEvents, 100L);
@@ -96,6 +98,7 @@ public class VoltzEvents extends JavaPlugin {
     private void registerListeners() {
         getServer().getPluginManager().registerEvents(new EventListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerGeneralListeners(), this);
+        getServer().getPluginManager().registerEvents(new PreHostChatListeners(), this);
         getServer().getPluginManager().registerEvents(new SpecialItemListeners(), this);
         getServer().getPluginManager().registerEvents(new WinRegionSetListeners(), this);
     }

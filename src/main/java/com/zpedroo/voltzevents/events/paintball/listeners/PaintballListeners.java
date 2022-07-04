@@ -22,7 +22,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class PaintballListeners implements Listener {
 
-    private final PaintballEvent paintballEvent = PaintballEvent.getInstance();
+    private final PaintballEvent paintballEvent;
+
+    public PaintballListeners(PaintballEvent paintballEvent) {
+        this.paintballEvent = paintballEvent;
+    }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onDeath(PlayerDeathEvent event) {

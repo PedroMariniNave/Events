@@ -38,9 +38,6 @@ import static com.zpedroo.voltzevents.events.hotpotato.HotPotatoEvent.Settings.*
 
 public class HotPotatoEvent extends ArenaEvent {
 
-    private static HotPotatoEvent instance;
-    public static HotPotatoEvent getInstance() { return instance; }
-
     private final Map<Integer, ItemStack> taggedItems = getTaggedItemsFromFile();
     private final List<String> hotPotatoesNames = new ArrayList<>(HOT_POTATOES_MAX);
 
@@ -51,15 +48,17 @@ public class HotPotatoEvent extends ArenaEvent {
             put("ROUND_STARTED", ROUND_STARTED);
             put("ROUND_FINISHED", ROUND_FINISHED);
             put("STARTING", EVENT_STARTING);
+            put("STARTING_HOSTED", EVENT_STARTING_HOSTED);
             put("STARTED", EVENT_STARTED);
+            put("STARTED_HOSTED", EVENT_STARTED_HOSTED);
             put("CANCELLED", EVENT_CANCELLED);
             put("FINISHED", EVENT_FINISHED);
+            put("FINISHED_HOSTED", EVENT_FINISHED_HOSTED);
             put("INSUFFICIENT_PLAYERS", INSUFFICIENT_PLAYERS);
         }}, WINNERS, WINNERS_AMOUNT, MINIMUM_PLAYERS_TO_START, MINIMUM_PLAYERS_AFTER_START, SAVE_PLAYER_INVENTORY, ADDITIONAL_VOID_CHECKER, EVENT_ITEMS, JOIN_LOCATION, EXIT_LOCATION, ARENA_LOCATION);
 
-        instance = this;
         setAnnounceTask(new AnnounceTask(plugin, this, ANNOUNCES_DELAY, ANNOUNCES_AMOUNT));
-        ListenerManager.registerListener(plugin, new HotPotatoListeners());
+        ListenerManager.registerListener(plugin, new HotPotatoListeners(this));
         CommandManager.registerCommand(plugin, COMMAND, ALIASES, new ArenaEventCmd(this));
         DataManager.getInstance().getCache().getEvents().add(this);
     }
@@ -309,11 +308,17 @@ public class HotPotatoEvent extends ArenaEvent {
 
         public static final List<String> EVENT_STARTING = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.HOT_POTATO, "Messages.event-starting"));
 
+        public static final List<String> EVENT_STARTING_HOSTED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.HOT_POTATO, "Messages.event-starting-hosted"));
+
         public static final List<String> EVENT_STARTED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.HOT_POTATO, "Messages.event-started"));
+
+        public static final List<String> EVENT_STARTED_HOSTED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.HOT_POTATO, "Messages.event-started-hosted"));
 
         public static final List<String> EVENT_CANCELLED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.HOT_POTATO, "Messages.event-cancelled"));
 
         public static final List<String> EVENT_FINISHED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.HOT_POTATO, "Messages.event-finished"));
+
+        public static final List<String> EVENT_FINISHED_HOSTED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.HOT_POTATO, "Messages.event-finished-hosted"));
 
         public static final List<String> INSUFFICIENT_PLAYERS = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.HOT_POTATO, "Messages.insufficient-players"));
     }

@@ -56,7 +56,7 @@ public class HotPotatoTask extends BukkitRunnable {
             }
 
             if (burnTimer <= 0 && event.getEventPhase() == EventPhase.STARTED) {
-                event.sendMessageToAllParticipants(event.getMessage("ROUND_FINISHED"), new String[]{
+                event.sendMessageToAllParticipants(event.getMessages("ROUND_FINISHED"), new String[]{
                         "{amount}",
                         "{round}",
                         "{new_round}",

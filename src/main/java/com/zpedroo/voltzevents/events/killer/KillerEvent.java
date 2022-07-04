@@ -31,21 +31,20 @@ import static com.zpedroo.voltzevents.events.killer.KillerEvent.Settings.*;
 
 public class KillerEvent extends ArenaEvent {
 
-    private static KillerEvent instance;
-    public static KillerEvent getInstance() { return instance; }
-
     public KillerEvent(Plugin plugin) {
         super("Killer", FileUtils.Files.KILLER, WHITELISTED_COMMANDS, TAG, new HashMap<String, List<String>>() {{
             put("STARTING", EVENT_STARTING);
+            put("STARTING_HOSTED", EVENT_STARTING_HOSTED);
             put("STARTED", EVENT_STARTED);
+            put("STARTED_HOSTED", EVENT_STARTED_HOSTED);
             put("CANCELLED", EVENT_CANCELLED);
             put("FINISHED", EVENT_FINISHED);
+            put("FINISHED_HOSTED", EVENT_FINISHED_HOSTED);
             put("INSUFFICIENT_PLAYERS", INSUFFICIENT_PLAYERS);
         }}, WINNERS, WINNERS_AMOUNT, MINIMUM_PLAYERS_TO_START, MINIMUM_PLAYERS_AFTER_START, SAVE_PLAYER_INVENTORY, ADDITIONAL_VOID_CHECKER, EVENT_ITEMS, JOIN_LOCATION, EXIT_LOCATION, ARENA_LOCATION);
 
-        instance = this;
         setAnnounceTask(new AnnounceTask(plugin, this, ANNOUNCES_DELAY, ANNOUNCES_AMOUNT));
-        ListenerManager.registerListener(plugin, new KillerListeners());
+        ListenerManager.registerListener(plugin, new KillerListeners(this));
         CommandManager.registerCommand(plugin, COMMAND, ALIASES, new ArenaEventCmd(this));
         DataManager.getInstance().getCache().getEvents().add(this);
     }
@@ -146,11 +145,17 @@ public class KillerEvent extends ArenaEvent {
 
         public static final List<String> EVENT_STARTING = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.KILLER, "Messages.event-starting"));
 
+        public static final List<String> EVENT_STARTING_HOSTED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.KILLER, "Messages.event-starting-hosted"));
+
         public static final List<String> EVENT_STARTED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.KILLER, "Messages.event-started"));
+
+        public static final List<String> EVENT_STARTED_HOSTED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.KILLER, "Messages.event-started-hosted"));
 
         public static final List<String> EVENT_CANCELLED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.KILLER, "Messages.event-cancelled"));
 
         public static final List<String> EVENT_FINISHED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.KILLER, "Messages.event-finished"));
+
+        public static final List<String> EVENT_FINISHED_HOSTED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.KILLER, "Messages.event-finished-hosted"));
 
         public static final List<String> INSUFFICIENT_PLAYERS = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.KILLER, "Messages.insufficient-players"));
     }
