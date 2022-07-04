@@ -12,5 +12,5 @@ public class PreEventHostEdit {
     private final PreEventHost preEventHost;
     private final PreHostChatAction action;
     private final Currency currency;
-    private final BigInteger minimum;
+    private final BigInteger minimumValue;
 }

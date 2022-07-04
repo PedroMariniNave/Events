@@ -32,6 +32,7 @@ Settings:
   disable-block-break: true
   time-formatter: 'mm:ss'
   currency-separator: ' &7+ '
+  cancel-action-key: 'CANCELAR'
 
 Messages:
   blacklisted-command: '&cVocê não pode executar esse comando durante o evento!'

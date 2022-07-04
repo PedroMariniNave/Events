@@ -39,6 +39,8 @@ public class Settings {
 
     public static final String CURRENCY_SEPARATOR = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.CONFIG, "Settings.currency-separator"));
 
+    public static final String CANCEL_ACTION_KEY = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.CONFIG, "Settings.cancel-action-key"));
+
     public static final boolean DISABLE_INVENTORY_INTERACTION = FileUtils.get().getBoolean(FileUtils.Files.CONFIG, "Settings.disable-inventory-interaction");
 
     public static final boolean DISABLE_ITEM_PICKUP = FileUtils.get().getBoolean(FileUtils.Files.CONFIG, "Settings.disable-item-pickup");

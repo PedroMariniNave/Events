@@ -9,6 +9,7 @@ import com.zpedroo.voltzevents.enums.Result;
 import com.zpedroo.voltzevents.objects.host.PreEventHost;
 import com.zpedroo.voltzevents.objects.host.PreEventHostEdit;
 import com.zpedroo.voltzevents.utils.config.Messages;
+import com.zpedroo.voltzevents.utils.config.Settings;
 import com.zpedroo.voltzevents.utils.menu.Menus;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Sound;
@@ -33,9 +34,14 @@ public class PreHostChatListeners implements Listener {
         event.setCancelled(true);
 
         Player player = event.getPlayer();
-        PreEventHostEdit preHostEdit = playersEditing.remove(player);
-        Currency currency = preHostEdit.getCurrency();
+        PreEventHostEdit preHostEdit = playersEditing.get(player);
         PreEventHost preEventHost = preHostEdit.getPreEventHost();
+        if (StringUtils.equalsIgnoreCase(Settings.CANCEL_KEY, event.getMessage())) {
+            cancelEdit(player, preEventHost);
+            return;
+        }
+
+        Currency currency = preHostEdit.getCurrency();
         BigInteger amount = NumberFormatter.getInstance().filter(event.getMessage());
 
         if (!hasCurrencyAmount(player, currency, amount)) {
@@ -50,10 +56,9 @@ public class PreHostChatListeners implements Listener {
             return;
         }
 
-        BigInteger minimumValue = preHostEdit.getMinimum();
-        if (amount.compareTo(minimumValue) < 0) {
+        BigInteger minimumValue = preHostEdit.getMinimumValue();
+        if (minimumValue.compareTo(amount) > 0) {
             player.sendMessage(StringUtils.replace(Messages.MINIMUM_VALUE, "{minimum}", NumberFormatter.getInstance().format(minimumValue)));
-            handleActionResult(player, preEventHost, Result.FAILED);
             return;
         }
 
@@ -71,7 +76,7 @@ public class PreHostChatListeners implements Listener {
     }
 
     private void handleActionResult(Player player, PreEventHost preEventHost, Result result) {
-        sync(() -> Menus.getInstance().openHostRewardsMenu(player, preEventHost));
+        cancelEdit(player, preEventHost);
         switch (result) {
             case SUCCESSFUL:
                 player.playSound(player.getLocation(), Sound.VILLAGER_YES, 1f, 1f);
@@ -80,6 +85,11 @@ public class PreHostChatListeners implements Listener {
                 player.playSound(player.getLocation(), Sound.VILLAGER_NO, 1f, 1f);
                 break;
         }
+    }
+
+    private void cancelEdit(Player player, PreEventHost preEventHost) {
+        playersEditing.remove(player);
+        sync(() -> Menus.getInstance().openHostRewardsMenu(player, preEventHost));
     }
 
     private boolean isValidAmount(BigInteger amount) {
