@@ -43,6 +43,8 @@ Messages:
   invalid-checkpoint: '&cVocê ainda não possui nenhum checkpoint!'
   invalid-rewards: '&cVocê precisa adicionar pelo menos uma recompensa!'
   invalid-event: '&cVocê precisa escolher um evento!'
+  invalid-amount: '&cA quantia informada é inválida!'
+  minimum-value: '&cA quantia precisa ser maior que {minimum}!'
   insufficient-currency: '&cVocê não pode pagar todas essas recompensas!'
   position-set: '&7Posição &f{pos} &7definida com sucesso!'
   add-currency:

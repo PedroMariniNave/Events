@@ -25,6 +25,10 @@ public class Messages {
 
     public static final String INVALID_REWARDS = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.CONFIG, "Messages.invalid-rewards"));
 
+    public static final String INVALID_AMOUNT = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.CONFIG, "Messages.invalid-amount"));
+
+    public static final String MINIMUM_VALUE = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.CONFIG, "Messages.minimum-value"));
+
     public static final String INSUFFICIENT_CURRENCY = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.CONFIG, "Messages.insufficient-currency"));
 
     public static final String POSITION_SET = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.CONFIG, "Messages.position-set"));

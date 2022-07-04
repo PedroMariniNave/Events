@@ -1,0 +1,130 @@
+Inventory:
+  title: "Eventos"
+  size: 45
+  items:
+    1:
+      action: REWARDS
+      type: SKULL_ITEM
+      owner: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODQ0NDk4YTBmZTI3ODk1NmUzZDA0MTM1ZWY0YjEzNDNkMDU0OGE3ZTIwOGM2MWIxZmI2ZjNiNGRiYzI0MGRhOCJ9fX0=
+      name: '&6Prêmios'
+      lore:
+        - '&7Você pode escolher os prêmios'
+        - '&7que serão entregues aos'
+        - '&7vencedores do evento!'
+        - ''
+        - ' &8▶ &7Prêmio total: &f{rewards}'
+      slot: 31
+    4:
+      action: CONFIRM
+      type: SKULL_ITEM
+      owner: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTllNGJkY2YxNzJkNWRjNzdjMmJkNGUzN2FkOTg1Mzk5YTlmMmNkZWJmNzI0NjM5MjllYTRiNjY2ZWY2ZjgwIn19fQ==
+      name: '&aIniciar Evento'
+      slot: 29
+    5:
+      action: CANCEL
+      type: SKULL_ITEM
+      owner: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWZkZTNiZmNlMmQ4Y2I3MjRkZTg1NTZlNWVjMjFiN2YxNWY1ODQ2ODRhYjc4NTIxNGFkZDE2NGJlNzYyNGIifX19
+      name: '&cCancelar'
+      slot: 33
+
+Select-Event:
+  slot: 13
+  none:
+    type: BARRIER
+    name: '&cNenhum evento selecionado!'
+    lore:
+      - '&7Você precisa escolher o'
+      - '&7evento que deseja hospedar!'
+      - ''
+      - '&7Clique para selecionar.'
+  race:
+    type: DIAMOND_BOOTS
+    glow: true
+    name: "&bCorrida"
+    lore:
+      - '&7Esse evento consiste em uma corrida!'
+      - '&7Quem conseguir vencer os desafios e'
+      - '&7chegar primeiro vence!'
+      - ''
+      - '&7Atualmente esse evento está'
+      - '&7selecionado para ser hospedado!'
+      - ''
+      - '&7Clique para trocar o evento.'
+  sumo:
+    type: STICK
+    glow: true
+    name: "&cSumo"
+    lore:
+      - '&7Derrube os outros jogadores para vencer!'
+      - ''
+      - '&7Atualmente esse evento está'
+      - '&7selecionado para ser hospedado!'
+      - ''
+      - '&7Clique para trocar o evento.'
+  parkour:
+    type: IRON_BOOTS
+    name: "&eParkour"
+    lore:
+      - '&7O mais ágil vence!'
+      - ''
+      - '&7Atualmente esse evento está'
+      - '&7selecionado para ser hospedado!'
+      - ''
+      - '&7Clique para trocar o evento.'
+  fight:
+    type: DIAMOND_SWORD
+    glow: true
+    name: "&5Fight"
+    lore:
+      - '&7Vença batalhas 1v1 para ganhar o evento!'
+      - ''
+      - '&7Atualmente esse evento está'
+      - '&7selecionado para ser hospedado!'
+      - ''
+      - '&7Clique para trocar o evento.'
+  hotpotato:
+    type: POTATO_ITEM
+    name: "&6Batata-Quente"
+    lore:
+      - '&7Não deixe a batata queimar na'
+      - '&7sua mão! Passe-a para os outros'
+      - '&7jogadores e vença o evento.'
+      - ''
+      - '&7Atualmente esse evento está'
+      - '&7selecionado para ser hospedado!'
+      - ''
+      - '&7Clique para trocar o evento.'
+  killer:
+    type: DIAMOND_CHESTPLATE
+    glow: true
+    name: "&4Killer"
+    lore:
+      - '&7Batalhe em uma arena contra todos!'
+      - ''
+      - '&7Atualmente esse evento está'
+      - '&7selecionado para ser hospedado!'
+      - ''
+      - '&7Clique para trocar o evento.'
+  fastcraft:
+    type: WORKBENCH
+    name: "&6FastCraft"
+    lore:
+      - '&7Crie o item escolhido o mais'
+      - '&7rápido possível!'
+      - ''
+      - '&7Atualmente esse evento está'
+      - '&7selecionado para ser hospedado!'
+      - ''
+      - '&7Clique para trocar o evento.'
+  paintball:
+    type: SNOW_BALL
+    glow: true
+    name: '&9Paintball'
+    lore:
+      - '&7Elimine os outros jogadores com sua arma'
+      - '&7de Paintball para vencer!'
+      - ''
+      - '&7Atualmente esse evento está'
+      - '&7selecionado para ser hospedado!'
+      - ''
+      - '&7Clique para trocar o evento.'
