@@ -4,7 +4,9 @@ import com.zpedroo.multieconomy.api.CurrencyAPI;
 import com.zpedroo.multieconomy.objects.general.Currency;
 import com.zpedroo.voltzevents.types.Event;
 import com.zpedroo.voltzevents.utils.formatter.HostRewardsFormatter;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
 
 import java.math.BigInteger;
@@ -13,10 +15,12 @@ import java.util.Map;
 import java.util.UUID;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PreEventHost implements Cloneable {
 
     private Event event;
-    private final Map<Currency, BigInteger> rewardsCurrency = new HashMap<>(4);
+    private Map<Currency, BigInteger> rewardsCurrency = new HashMap<>(4);
 
     public EventHost create(UUID hostPlayerUUID) {
         return new EventHost(hostPlayerUUID, event, rewardsCurrency);
@@ -76,10 +80,6 @@ public class PreEventHost implements Cloneable {
 
     @Override
     public PreEventHost clone() {
-        try {
-            return (PreEventHost) super.clone();
-        } catch (CloneNotSupportedException ex) {
-            throw new AssertionError();
-        }
+        return new PreEventHost(event, rewardsCurrency);
     }
 }
