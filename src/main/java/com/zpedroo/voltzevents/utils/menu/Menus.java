@@ -196,7 +196,7 @@ public class Menus extends InventoryUtils {
             inventory.addItem(item, slot, () -> {
                 switch (action.toUpperCase()) {
                     case "REWARDS":
-                        openHostRewardsMenu(player, preEventHost);
+                        openHostRewardsMenu(player, preEventHost, null);
                         break;
                     case "CONFIRM":
                         Event event = preEventHost.getEvent();
@@ -249,27 +249,28 @@ public class Menus extends InventoryUtils {
         inventory.open(player);
     }
 
-    public void openHostRewardsMenu(Player player, PreEventHost preEventHost) {
+    public void openHostRewardsMenu(Player player, PreEventHost preEventHost, PreEventHost preEventHostClone) {
         FileUtils.Files file = FileUtils.Files.HOST_REWARDS;
 
         String title = Colorize.getColored(FileUtils.get().getString(file, "Inventory.title"));
         int size = FileUtils.get().getInt(file, "Inventory.size");
 
         InventoryBuilder inventory = new InventoryBuilder(title, size);
-        final PreEventHost preEventHostClone = preEventHost.clone();
+        if (preEventHostClone == null) preEventHostClone = preEventHost.clone();
 
         for (String items : FileUtils.get().getSection(file, "Inventory.items")) {
             ItemStack item = ItemBuilder.build(FileUtils.get().getFile(file).get(), "Inventory.items." + items).build();
             int slot = FileUtils.get().getInt(file, "Inventory.items." + items + ".slot");
             String action = FileUtils.get().getString(file, "Inventory.items." + items + ".action");
 
+            final PreEventHost finalPreEventHostClone = preEventHostClone;
             inventory.addItem(item, slot, () -> {
                 switch (action.toUpperCase()) {
                     case "CONFIRM":
                         openHostManagement(player, preEventHost);
                         break;
                     case "CANCEL":
-                        openHostManagement(player, preEventHostClone);
+                        openHostManagement(player, finalPreEventHostClone);
                         break;
                 }
             }, ActionType.ALL_CLICKS);
@@ -296,22 +297,22 @@ public class Menus extends InventoryUtils {
             int slot = FileUtils.get().getInt(file, "Currencies." + currencyName + ".slot");
 
             inventory.addItem(item, slot);
-            addCurrencyAddAction(player, preEventHost, inventory, currency, minCurrencyAmount, placeholders, replacers, slot);
-            addCurrencyRemoveAction(player, preEventHost, inventory, currency, minCurrencyAmount, placeholders, replacers, slot);
-            addCurrencyResetAction(player, preEventHost, inventory, currency, slot);
+            addCurrencyAddAction(player, preEventHost, preEventHostClone, inventory, currency, minCurrencyAmount, placeholders, replacers, slot);
+            addCurrencyRemoveAction(player, preEventHost, preEventHostClone, inventory, currency, minCurrencyAmount, placeholders, replacers, slot);
+            addCurrencyResetAction(player, preEventHost, preEventHostClone, inventory, currency, slot);
         }
 
         inventory.open(player);
     }
 
     private void addCurrencyAddAction(
-            Player player, PreEventHost preEventHost, InventoryBuilder inventory, Currency currency,
+            Player player, PreEventHost preEventHost, PreEventHost preEventHostClone, InventoryBuilder inventory, Currency currency,
             BigInteger minCurrencyAmount, String[] placeholders, String[] replacers, int slot
     ) {
         inventory.addAction(slot, () -> {
             inventory.close(player);
 
-            PreEventHostEdit edit = new PreEventHostEdit(preEventHost, PreHostChatAction.ADD_CURRENCY, currency, minCurrencyAmount);
+            PreEventHostEdit edit = new PreEventHostEdit(preEventHost, preEventHostClone, PreHostChatAction.ADD_CURRENCY, currency, minCurrencyAmount);
             PreHostChatListeners.getPlayersEditing().put(player, edit);
 
             for (String msg : Messages.ADD_CURRENCY) {
@@ -321,13 +322,13 @@ public class Menus extends InventoryUtils {
     }
 
     private void addCurrencyRemoveAction(
-            Player player, PreEventHost preEventHost, InventoryBuilder inventory, Currency currency,
+            Player player, PreEventHost preEventHost, PreEventHost preEventHostClone, InventoryBuilder inventory, Currency currency,
             BigInteger minCurrencyAmount, String[] placeholders, String[] replacers, int slot
     ) {
         inventory.addAction(slot, () -> {
             inventory.close(player);
 
-            PreEventHostEdit edit = new PreEventHostEdit(preEventHost, PreHostChatAction.REMOVE_CURRENCY, currency, minCurrencyAmount);
+            PreEventHostEdit edit = new PreEventHostEdit(preEventHost, preEventHostClone, PreHostChatAction.REMOVE_CURRENCY, currency, minCurrencyAmount);
             PreHostChatListeners.getPlayersEditing().put(player, edit);
 
             for (String msg : Messages.REMOVE_CURRENCY) {
@@ -336,13 +337,13 @@ public class Menus extends InventoryUtils {
         }, ActionType.RIGHT_CLICK);
     }
 
-    private void addCurrencyResetAction(Player player, PreEventHost preEventHost, InventoryBuilder inventory, Currency currency, int slot) {
+    private void addCurrencyResetAction(Player player, PreEventHost preEventHost, PreEventHost preEventHostClone, InventoryBuilder inventory, Currency currency, int slot) {
         inventory.addAction(slot, () -> {
             BigInteger amountToRefund = preEventHost.removeCurrency(currency);
             if (amountToRefund.signum() <= 0) return;
 
             CurrencyAPI.addCurrencyAmount(player.getUniqueId(), currency, amountToRefund);
-            openHostRewardsMenu(player, preEventHost);
+            openHostRewardsMenu(player, preEventHost, preEventHostClone);
         }, ActionType.SCROLL);
     }
 

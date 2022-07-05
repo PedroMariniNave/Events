@@ -36,8 +36,9 @@ public class PreHostChatListeners implements Listener {
         Player player = event.getPlayer();
         PreEventHostEdit preHostEdit = playersEditing.get(player);
         PreEventHost preEventHost = preHostEdit.getPreEventHost();
+        PreEventHost preEventHostClone = preHostEdit.getPreEventHostClone();
         if (StringUtils.equalsIgnoreCase(Settings.CANCEL_ACTION_KEY, event.getMessage())) {
-            cancelEdit(player, preEventHost);
+            cancelEdit(player, preEventHost, preEventHostClone);
             return;
         }
 
@@ -46,13 +47,13 @@ public class PreHostChatListeners implements Listener {
 
         if (!hasCurrencyAmount(player, currency, amount)) {
             player.sendMessage(Messages.INSUFFICIENT_CURRENCY);
-            handleActionResult(player, preEventHost, Result.FAILED);
+            handleActionResult(player, preEventHost, preEventHostClone, Result.FAILED);
             return;
         }
 
         if (!isValidAmount(amount)) {
             player.sendMessage(Messages.INVALID_AMOUNT);
-            handleActionResult(player, preEventHost, Result.FAILED);
+            handleActionResult(player, preEventHost, preEventHostClone, Result.FAILED);
             return;
         }
 
@@ -72,11 +73,11 @@ public class PreHostChatListeners implements Listener {
                 break;
         }
 
-        handleActionResult(player, preEventHost, Result.SUCCESSFUL);
+        handleActionResult(player, preEventHost, preEventHostClone, Result.SUCCESSFUL);
     }
 
-    private void handleActionResult(Player player, PreEventHost preEventHost, Result result) {
-        cancelEdit(player, preEventHost);
+    private void handleActionResult(Player player, PreEventHost preEventHost, PreEventHost preEventHostClone, Result result) {
+        cancelEdit(player, preEventHost, preEventHostClone);
         switch (result) {
             case SUCCESSFUL:
                 player.playSound(player.getLocation(), Sound.VILLAGER_YES, 1f, 1f);
@@ -87,9 +88,9 @@ public class PreHostChatListeners implements Listener {
         }
     }
 
-    private void cancelEdit(Player player, PreEventHost preEventHost) {
+    private void cancelEdit(Player player, PreEventHost preEventHost, PreEventHost preEventHostClone) {
         playersEditing.remove(player);
-        sync(() -> Menus.getInstance().openHostRewardsMenu(player, preEventHost));
+        sync(() -> Menus.getInstance().openHostRewardsMenu(player, preEventHost, preEventHostClone));
     }
 
     private boolean isValidAmount(BigInteger amount) {

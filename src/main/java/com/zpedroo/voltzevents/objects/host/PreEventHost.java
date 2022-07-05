@@ -78,14 +78,12 @@ public class PreEventHost implements Cloneable {
         return HostRewardsFormatter.getTotalRewardsDisplay(rewardsCurrency);
     }
 
-    @Override
     public PreEventHost clone() {
-        try {
-            PreEventHost clone = (PreEventHost) super.clone();
-            clone.setRewardsCurrency(new HashMap<>(rewardsCurrency));
-            return clone;
-        } catch (CloneNotSupportedException e) {
-            throw new AssertionError();
-        }
+        PreEventHost clone = new PreEventHost(event, null);
+        Map<Currency, BigInteger> rewardsClone = new HashMap<>(rewardsCurrency.size());
+        rewardsClone.putAll(rewardsCurrency);
+        clone.setRewardsCurrency(rewardsClone);
+
+        return clone;
     }
 }

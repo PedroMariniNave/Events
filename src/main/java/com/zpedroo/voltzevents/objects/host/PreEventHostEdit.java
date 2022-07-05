@@ -10,6 +10,7 @@ import java.math.BigInteger;
 public class PreEventHostEdit {
 
     private final PreEventHost preEventHost;
+    private final PreEventHost preEventHostClone;
     private final PreHostChatAction action;
     private final Currency currency;
     private final BigInteger minimumValue;
