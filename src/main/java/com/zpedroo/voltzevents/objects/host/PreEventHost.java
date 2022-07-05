@@ -80,6 +80,12 @@ public class PreEventHost implements Cloneable {
 
     @Override
     public PreEventHost clone() {
-        return new PreEventHost(event, rewardsCurrency);
+        try {
+            PreEventHost clone = (PreEventHost) super.clone();
+            clone.setRewardsCurrency(new HashMap<>(rewardsCurrency));
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }
