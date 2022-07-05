@@ -51,7 +51,7 @@ public class DBManager {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet result = null;
-        String query = "SELECT * FROM `" + DBConnection.TABLE + "` ORDER BY `wins` DESC LIMIT 10;";
+        String query = "SELECT uuid, wins, participations FROM `" + DBConnection.TABLE + "` ORDER BY `wins` DESC LIMIT 10;";
 
         try {
             connection = getConnection();
@@ -62,9 +62,8 @@ public class DBManager {
                 UUID uuid = UUID.fromString(result.getString(1));
                 int winsAmount = result.getInt(2);
                 int participationsAmount = result.getInt(3);
-                Map<SpecialItem, Boolean> specialItemsStatus = ItemStatusSerialization.deserialize(result.getString(4));
 
-                top.add(new PlayerData(uuid, winsAmount, participationsAmount, specialItemsStatus));
+                top.add(new PlayerData(uuid, winsAmount, participationsAmount, null));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

@@ -4,12 +4,12 @@ import com.zpedroo.voltzevents.managers.DataManager;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import static com.zpedroo.voltzevents.utils.config.Settings.SAVE_INTERVAL;
+import static com.zpedroo.voltzevents.utils.config.Settings.DATA_UPDATE_INTERVAL;
 
-public class SaveTask extends BukkitRunnable {
+public class DataUpdateTask extends BukkitRunnable {
 
-    public SaveTask(Plugin plugin) {
-        this.runTaskTimerAsynchronously(plugin, SAVE_INTERVAL * 20L, SAVE_INTERVAL * 20L);
+    public DataUpdateTask(Plugin plugin) {
+        this.runTaskTimerAsynchronously(plugin, DATA_UPDATE_INTERVAL * 20L, DATA_UPDATE_INTERVAL * 20L);
     }
 
     @Override

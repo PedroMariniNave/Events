@@ -36,7 +36,7 @@ public class PreHostChatListeners implements Listener {
         Player player = event.getPlayer();
         PreEventHostEdit preHostEdit = playersEditing.get(player);
         PreEventHost preEventHost = preHostEdit.getPreEventHost();
-        if (StringUtils.equalsIgnoreCase(Settings.CANCEL_KEY, event.getMessage())) {
+        if (StringUtils.equalsIgnoreCase(Settings.CANCEL_ACTION_KEY, event.getMessage())) {
             cancelEdit(player, preEventHost);
             return;
         }
