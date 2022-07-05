@@ -23,7 +23,7 @@ Settings:
   host-event:
     permission: events.host
     cooldown: 1800 # segundos
-  save-interval: 600 # segundos
+  data-update-interval: 600 # segundos
   null-winner: 'Ninguém'
   disable-inventory-interaction: true # Essa opção é ignorada em eventos que o jogador entra com itens próprios
   disable-item-pickup: true # Essa opção é ignorada em eventos que o jogador entra com itens próprios
@@ -32,6 +32,7 @@ Settings:
   disable-block-break: true
   time-formatter: 'mm:ss'
   currency-separator: ' &7+ '
+  cancel-action-key: 'CANCELAR'
 
 Messages:
   blacklisted-command: '&cVocê não pode executar esse comando durante o evento!'
@@ -43,6 +44,8 @@ Messages:
   invalid-checkpoint: '&cVocê ainda não possui nenhum checkpoint!'
   invalid-rewards: '&cVocê precisa adicionar pelo menos uma recompensa!'
   invalid-event: '&cVocê precisa escolher um evento!'
+  invalid-amount: '&cA quantia informada é inválida!'
+  minimum-value: '&cA quantia precisa ser maior que {minimum}!'
   insufficient-currency: '&cVocê não pode pagar todas essas recompensas!'
   position-set: '&7Posição &f{pos} &7definida com sucesso!'
   add-currency:

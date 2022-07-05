@@ -15,7 +15,7 @@ import com.zpedroo.voltzevents.managers.DataManager;
 import com.zpedroo.voltzevents.managers.WinRegionManager;
 import com.zpedroo.voltzevents.mysql.DBConnection;
 import com.zpedroo.voltzevents.scheduler.SchedulerLoader;
-import com.zpedroo.voltzevents.tasks.SaveTask;
+import com.zpedroo.voltzevents.tasks.DataUpdateTask;
 import com.zpedroo.voltzevents.utils.FileUtils;
 import com.zpedroo.voltzevents.utils.cooldown.Cooldown;
 import com.zpedroo.voltzevents.utils.menu.Menus;
@@ -49,7 +49,7 @@ public class VoltzEvents extends JavaPlugin {
         new WinRegionManager();
         new Menus();
         new Cooldown();
-        new SaveTask(this);
+        new DataUpdateTask(this);
 
         getServer().getScheduler().runTaskLaterAsynchronously(this, this::loadEvents, 100L);
         registerListeners();
