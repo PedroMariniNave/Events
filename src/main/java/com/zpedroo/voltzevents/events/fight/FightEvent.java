@@ -29,7 +29,7 @@ import static com.zpedroo.voltzevents.events.fight.FightEvent.Settings.*;
 public class FightEvent extends PvPEvent {
 
     public FightEvent(Plugin plugin) {
-        super("Fight", FileUtils.Files.FIGHT, WHITELISTED_COMMANDS, TAG,  new HashMap<String, List<String>>() {{
+        super("Fight", FileUtils.Files.FIGHT, WHITELISTED_COMMANDS, TAG, new HashMap<String, List<String>>() {{
             put("STARTING", EVENT_STARTING);
             put("STARTING_HOSTED", EVENT_STARTING_HOSTED);
             put("STARTED", EVENT_STARTED);

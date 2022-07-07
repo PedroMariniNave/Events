@@ -467,14 +467,20 @@ public abstract class Event {
     }
 
     public void cancelEvent() {
+        cancelEvent(true);
+    }
+
+    public void cancelEvent(boolean sendCancelledMessages) {
         if (!isHappening()) return;
 
-        new ArrayList<>(playersParticipating).forEach(player -> leave(player, LeaveReason.EVENT_FINISHED, false, false));
-        this.announceTask.cancelTask();
-        this.eventPhase = EventPhase.INACTIVE;
-        this.eventHost = null;
+        if (isHosted()) {
+            eventHost.refundHost();
+        }
 
-        sendCancelledMessages();
+        if (sendCancelledMessages) sendCancelledMessages();
+
+        this.announceTask.cancelTask();
+        this.finishEvent(false);
     }
 
     public void finishEvent(boolean sendFinishMessages) {

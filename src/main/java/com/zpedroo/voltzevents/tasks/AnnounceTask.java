@@ -18,7 +18,7 @@ public class AnnounceTask extends BukkitRunnable {
     private final int maxAnnouncesAmount;
     private int announcesAmount;
     private int countdown;
-    private boolean runningTask = false;
+    private boolean isRunningTask = false;
 
     public AnnounceTask(Plugin plugin, Event event, int delayBetweenMessagesInSeconds, int maxAnnouncesAmount) {
         this.plugin = plugin;
@@ -30,7 +30,7 @@ public class AnnounceTask extends BukkitRunnable {
 
     @Override
     public void run() {
-        this.runningTask = true;
+        this.isRunningTask = true;
 
         if (!event.isHappening()) {
             this.cancelTask();
@@ -59,7 +59,7 @@ public class AnnounceTask extends BukkitRunnable {
                     Bukkit.broadcastMessage(replacePlaceholders(msg));
                 }
 
-                event.finishEvent(false);
+                event.cancelEvent(false);
                 return;
             }
 
@@ -91,7 +91,7 @@ public class AnnounceTask extends BukkitRunnable {
     }
 
     public void startTask() {
-        if (runningTask) { // already started, let's create a new instance to fix some runnable issues
+        if (isRunningTask) { // already started, let's create a new instance to fix some runnable issues
             AnnounceTask announceTask = new AnnounceTask(plugin, event, delayBetweenMessagesInSeconds, maxAnnouncesAmount);
             announceTask.startTask();
             event.setAnnounceTask(announceTask);
@@ -102,7 +102,7 @@ public class AnnounceTask extends BukkitRunnable {
     }
 
     public void cancelTask() {
-        if (!runningTask) return;
+        if (!isRunningTask) return;
 
         this.cancel();
     }

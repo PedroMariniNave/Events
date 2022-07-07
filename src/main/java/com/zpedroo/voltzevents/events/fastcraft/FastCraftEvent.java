@@ -67,10 +67,7 @@ public class FastCraftEvent extends FunEvent {
         if (!isHappening()) return;
 
         setEventPhase(EventPhase.INACTIVE);
-
-        for (String msg : EVENT_CANCELLED) {
-            Bukkit.broadcastMessage(msg);
-        }
+        sendCancelledMessages();
     }
 
     @Override

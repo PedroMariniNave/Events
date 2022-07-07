@@ -37,4 +37,13 @@ public class EventHost {
             CurrencyAPI.addCurrencyAmount(player.getUniqueId(), currency, amountToGive);
         }
     }
+
+    public void refundHost() {
+        for (Map.Entry<Currency, BigInteger> entry : currencyRewards.entrySet()) {
+            Currency currency = entry.getKey();
+            BigInteger amount = entry.getValue();
+
+            CurrencyAPI.addCurrencyAmount(hostPlayerUUID, currency, amount);
+        }
+    }
 }
