@@ -2,8 +2,10 @@ package com.zpedroo.voltzevents.objects.host;
 
 import com.zpedroo.multieconomy.api.CurrencyAPI;
 import com.zpedroo.multieconomy.objects.general.Currency;
+import com.zpedroo.voltzevents.VoltzEvents;
 import com.zpedroo.voltzevents.objects.event.WinnerSettings;
 import com.zpedroo.voltzevents.types.Event;
+import com.zpedroo.voltzevents.utils.cooldown.Cooldown;
 import com.zpedroo.voltzevents.utils.formatter.HostRewardsFormatter;
 import lombok.Data;
 import org.bukkit.Bukkit;
@@ -45,5 +47,9 @@ public class EventHost {
 
             CurrencyAPI.addCurrencyAmount(hostPlayerUUID, currency, amount);
         }
+    }
+
+    public void resetHostCooldown() {
+        Cooldown.get().removeCooldown(hostPlayerUUID, VoltzEvents.class);
     }
 }

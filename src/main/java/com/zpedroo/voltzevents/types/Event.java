@@ -475,6 +475,7 @@ public abstract class Event {
 
         if (isHosted()) {
             eventHost.refundHost();
+            eventHost.resetHostCooldown();
         }
 
         if (sendCancelledMessages) sendCancelledMessages();

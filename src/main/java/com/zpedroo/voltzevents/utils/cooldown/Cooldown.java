@@ -29,6 +29,14 @@ public class Cooldown {
         cooldowns.put(player.getUniqueId(), object, System.currentTimeMillis() + cooldownInMillis);
     }
 
+    public void removeCooldown(Player player, Object object) {
+        removeCooldown(player.getUniqueId(), object);
+    }
+
+    public void removeCooldown(UUID uuid, Object object) {
+        cooldowns.remove(uuid, object);
+    }
+
     public boolean isInCooldown(Player player, Object object) {
         int timeLeftInSeconds = getTimeLeftInSeconds(player, object);
         if (timeLeftInSeconds <= 0 && cooldowns.contains(player.getUniqueId(), object)) {
