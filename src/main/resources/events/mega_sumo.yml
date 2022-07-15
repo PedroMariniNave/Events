@@ -130,7 +130,7 @@ Scoreboards:
     lines:
       - ''
       - ' &4▎ &fJogadores: &7%megasumo_players%'
-      - ' &4▎ &fKills: &7%megasumo_kills%'
+      - ' &4▎ &fEliminações: &7%megasumo_kills%'
       - ''
       - ' &4▎ &f1º &8- &7%megasumo_winner:1%'
       - ' &4▎ &f2º &8- &7%megasumo_winner:2%'
