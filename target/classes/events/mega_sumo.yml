@@ -1,0 +1,206 @@
+Settings:
+  command: megasumo
+  aliases: []
+  tag: '&4[&l㊋&4]'
+  winners-amount: 3
+  minimum-players:
+    to-start: 2
+    after-start: 1
+  announces-amount: 5
+  announces-delay: 30 # segundos
+  save-player-inventory: true
+  # Se ativado, o plugin irá criar uma task verificando se o jogador caiu no void
+  # Essa opção é um adicional caso não queira que o jogador espere levar dano do void
+  # para voltar ao checkpoint ou spawn do evento.
+  additional-void-checker: false
+
+Special-Items: # Nome da config.yml : slot
+  - 'LEAVE:8'
+
+Auto-Start:
+  enabled: true
+  schedules: # DAY:HOUR:MINUTE
+    - 'EVERYDAY:09:00'
+    - 'EVERYDAY:11:00'
+    - 'EVERYDAY:17:15'
+    - 'EVERYDAY:19:30'
+
+Messages:
+  event-starting:
+    - ''
+    - ' &4&lMega Sumo'
+    - ''
+    - ' &7Para participar, digite &4/megasumo&7!'
+    - ' &7Prêmio total: &2$&a100k &7+ &f5x &6Chaves Lendárias &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &4{players}'
+    - ' &7Anúncio &4{announces_now} &7de &4{announces_amount}'
+    - ''
+  event-starting-hosted:
+    - ''
+    - ' &4&lMega Sumo'
+    - ''
+    - ' &7Esse evento está sendo hospedado'
+    - ' &7por: &4{host}&7.'
+    - ''
+    - ' &7Para participar, digite &4/megasumo&7!'
+    - ' &7Prêmio total: {host_rewards} &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &4{players}'
+    - ' &7Anúncio &4{announces_now} &7de &4{announces_amount}'
+    - ''
+  event-started:
+    - ''
+    - ' &4&lMega Sumo'
+    - ''
+    - ' &7O evento foi iniciado!'
+    - ' &7Prêmio total: &2$&a100k &7+ &f5x &6Chaves Lendárias &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &4{players}'
+    - ''
+  event-started-hosted:
+    - ''
+    - ' &4&lMega Sumo'
+    - ''
+    - ' &7Esse evento está sendo hospedado'
+    - ' &7por: &4{host}&7.'
+    - ''
+    - ' &7O evento foi iniciado!'
+    - ' &7Prêmio total: {host_rewards} &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &4{players}'
+    - ''
+  insufficient-players:
+    - ''
+    - ' &4&lMega Sumo'
+    - ''
+    - ' &4O evento não teve participantes suficientes.'
+    - ''
+  event-finished:
+    - ''
+    - ' &4&lMega Sumo'
+    - ''
+    - ' &7O evento foi finalizado!'
+    - ''
+    - '{winners}'
+    - ''
+  event-finished-hosted:
+    - ''
+    - ' &4&lMega Sumo'
+    - ''
+    - ' &7Esse evento foi hospedado'
+    - ' &7por: &4{host}&7.'
+    - ''
+    - ' &7O evento foi finalizado!'
+    - ''
+    - '{winners}'
+    - ''
+  event-cancelled:
+    - ''
+    - ' &4&lMega Sumo'
+    - ''
+    - ' &4O evento foi cancelado!'
+    - ''
+
+Scoreboards:
+  1:
+    display-phase: WAITING_PLAYERS
+    update-time: 5
+    title: ' &4&lMEGA SUMO'
+    lines:
+      - ''
+      - ' &4▎ &fJogadores: &7%sumo_players%'
+      - ' &4▎ &fIniciando em: &7%sumo_time%'
+      - ''
+      - '  &4www.voltzmc.com'
+  2:
+    display-phase: WARMUP
+    update-time: 20
+    title: ' &4&lMEGA SUMO'
+    lines:
+      - ''
+      - ' &4▎ &fJogadores: &7%sumo_players%'
+      - ' &4▎ &fVitórias: &7%sumo_kills%'
+      - ''
+      - ' &4▎ &fSelecionando jogadores'
+      - ''
+      - ' &4▎ &f1º &8- &7%sumo_winner:1%'
+      - ' &4▎ &f2º &8- &7%sumo_winner:2%'
+      - ' &4▎ &f3º &8- &7%sumo_winner:3%'
+      - ''
+      - '  &4www.voltzmc.com'
+  3:
+    display-phase: STARTED
+    update-time: 20
+    title: ' &4&lMEGA SUMO'
+    lines:
+      - ''
+      - ' &4▎ &fJogadores: &7%sumo_players%'
+      - ' &4▎ &fVitórias: &7%sumo_kills%'
+      - ''
+      - ' &4▎ &7%sumo_player1% &fvs &7%sumo_player2%'
+      - ''
+      - ' &4▎ &f1º &8- &7%sumo_winner:1%'
+      - ' &4▎ &f2º &8- &7%sumo_winner:2%'
+      - ' &4▎ &f3º &8- &7%sumo_winner:3%'
+      - ''
+      - '  &4www.voltzmc.com'
+
+Titles:
+  eliminated:
+    title: ''
+    subtitle: '&cVocê foi eliminado!'
+
+Whitelisted-Commands:
+  - '/g'
+  - '/tell'
+  - '/sc'
+  - '/r'
+  - '/w'
+  - '/.'
+  - '/ally'
+
+Winner-Settings:
+  1:
+    display: ' &f{position}º &8- {tag} &f{player} &7(&f{kills} &7vitórias) {rewards}'
+    winner-messages:
+      - ''
+      - ' &4&lMega Sumo'
+      - ''
+      - ' &7Parabéns! Você venceu o evento em &f1º&7!'
+      - ' &7Vitórias: &f{kills}&7.'
+      - ' &7Sua recompensa: {rewards} &7+ tag {tag}&7.'
+      - ''
+    rewards:
+      host-percentage: 55
+      display: '&2$&a50k &7+ &f3x &6Chaves Lendárias'
+      commands:
+        - 'money give {player} 50k'
+        - 'cratesadmin give {player} Legendary 3'
+  2:
+    display: ' &f{position}º &8- &f{player} &7(&f{kills} &7vitórias) {rewards}'
+    winner-messages:
+      - ''
+      - ' &4&lMega Sumo'
+      - ''
+      - ' &7Você finalizou o evento em &f2º&7!'
+      - ' &7Vitórias: &f{kills}&7.'
+      - ' &7Sua recompensa: {rewards}&7.'
+      - ''
+    rewards:
+      host-percentage: 35
+      display: '&2$&a35k &7+ &f2x &6Chaves Lendárias'
+      commands:
+        - 'money give {player} 35k'
+        - 'cratesadmin give {player} Legendary 2'
+  3:
+    display: ' &f{position}º &8- &f{player} &7(&f{kills} &7vitórias) {rewards}'
+    winner-messages:
+      - ''
+      - ' &4&lMega Sumo'
+      - ''
+      - ' &7Você finalizou o evento em &f3º&7!'
+      - ' &7Vitórias: &f{kills}&7.'
+      - ' &7Sua recompensa: {rewards}&7.'
+      - ''
+    rewards:
+      host-percentage: 15
+      display: '&2$&a15k'
+      commands:
+        - 'money give {player} 15k'
