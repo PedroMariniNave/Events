@@ -1,0 +1,87 @@
+Inventory:
+  title: "Eventos"
+  size: 36
+  items:
+    1:
+      event: RACE
+      type: DIAMOND_BOOTS
+      glow: true
+      name: "&bCorrida"
+      lore:
+        - '&7Esse evento consiste em uma corrida!'
+        - '&7Quem conseguir vencer os desafios e'
+        - '&7chegar primeiro vence!'
+        - ''
+        - '&7Clique para selecionar esse evento.'
+      slot: 11
+    2:
+      event: SUMO
+      type: STICK
+      glow: true
+      name: "&cSumo"
+      lore:
+        - '&7Derrube os outros jogadores para vencer!'
+        - ''
+        - '&7Clique para selecionar esse evento.'
+      slot: 12
+    3:
+      event: PARKOUR
+      type: IRON_BOOTS
+      name: "&eParkour"
+      lore:
+        - '&7O mais ágil vence!'
+        - ''
+        - '&7Clique para selecionar esse evento.'
+      slot: 13
+    4:
+      event: FIGHT
+      type: DIAMOND_SWORD
+      glow: true
+      name: "&5Fight"
+      lore:
+        - '&7Vença batalhas 1v1 para ganhar o evento!'
+        - ''
+        - '&7Clique para selecionar esse evento.'
+      slot: 14
+    5:
+      event: HOTPOTATO
+      type: POTATO_ITEM
+      name: "&6Batata-Quente"
+      lore:
+        - '&7Não deixe a batata queimar na'
+        - '&7sua mão! Passe-a para os outros'
+        - '&7jogadores e vença o evento.'
+        - ''
+        - '&7Clique para selecionar esse evento.'
+      slot: 15
+    6:
+      event: KILLER
+      type: DIAMOND_CHESTPLATE
+      glow: true
+      name: "&4Killer"
+      lore:
+        - '&7Batalhe em uma arena contra todos!'
+        - ''
+        - '&7Clique para selecionar esse evento.'
+      slot: 21
+    7:
+      event: FASTCRAFT
+      type: WORKBENCH
+      name: "&6FastCraft"
+      lore:
+        - '&7Crie o item escolhido o mais'
+        - '&7rápido possível!'
+        - ''
+        - '&7Clique para selecionar esse evento.'
+      slot: 22
+    8:
+      event: PAINTBALL
+      type: SNOW_BALL
+      glow: true
+      name: "&9Paintball"
+      lore:
+        - '&7Elimine os outros jogadores com sua arma'
+        - '&7de Paintball para vencer!'
+        - ''
+        - '&7Clique para selecionar esse evento.'
+      slot: 23

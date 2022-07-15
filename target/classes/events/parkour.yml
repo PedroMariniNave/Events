@@ -1,0 +1,202 @@
+Settings:
+  command: parkour
+  aliases: []
+  tag: '&e[P]'
+  winners-amount: 3
+  minimum-players:
+    to-start: 2
+    after-start: 0
+  announces-amount: 5
+  announces-delay: 30 # segundos
+  save-player-inventory: true
+  # Se ativado, o plugin irá criar uma task verificando se o jogador caiu no void
+  # Essa opção é um adicional caso não queira que o jogador espere levar dano do void
+  # para voltar ao checkpoint ou spawn do evento.
+  additional-void-checker: true
+
+Special-Items: # Nome da config.yml : slot
+  - 'VISIBILITY:1'
+  - 'CHECKPOINT:4'
+  - 'LEAVE:7'
+
+Auto-Start:
+  enabled: true
+  schedules: # DAY:HOUR:MINUTE
+    - 'EVERYDAY:13:00'
+    - 'EVERYDAY:14:30'
+    - 'EVERYDAY:23:00'
+
+Messages:
+  event-starting:
+    - ''
+    - ' &e&lParkour'
+    - ''
+    - ' &7Para participar, digite &e/parkour&7!'
+    - ' &7Prêmio total: &2$&a55k &7+ &f3x &6Chaves Lendárias &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &e{players}'
+    - ' &7Anúncio &e{announces_now} &7de &e{announces_amount}'
+    - ''
+  event-starting-hosted:
+    - ''
+    - ' &e&lParkour'
+    - ''
+    - ' &7Esse evento está sendo hospedado'
+    - ' &7por: &e{host}&7.'
+    - ''
+    - ' &7Para participar, digite &e/parkour&7!'
+    - ' &7Prêmio total: {host_rewards} &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &e{players}'
+    - ' &7Anúncio &e{announces_now} &7de &e{announces_amount}'
+    - ''
+  event-started:
+    - ''
+    - ' &e&lParkour'
+    - ''
+    - ' &7O evento foi iniciado!'
+    - ' &7Prêmio total: &2$&a55k &7+ &f3x &6Chaves Lendárias &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &e{players}'
+    - ''
+  event-started-hosted:
+    - ''
+    - ' &e&lParkour'
+    - ''
+    - ' &7Esse evento está sendo hospedado'
+    - ' &7por: &e{host}&7.'
+    - ''
+    - ' &7O evento foi iniciado!'
+    - ' &7Prêmio total: {host_rewards} &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &e{players}'
+    - ''
+  insufficient-players:
+    - ''
+    - ' &e&lParkour'
+    - ''
+    - ' &cO evento não teve participantes suficientes.'
+    - ''
+  event-finished:
+    - ''
+    - ' &e&lParkour'
+    - ''
+    - ' &7O evento foi finalizado!'
+    - ''
+    - '{winners}'
+    - ''
+  event-finished-hosted:
+    - ''
+    - ' &e&lParkour'
+    - ''
+    - ' &7Esse evento foi hospedado'
+    - ' &7por: &e{host}&7.'
+    - ''
+    - ' &7O evento foi finalizado!'
+    - ''
+    - '{winners}'
+    - ''
+  event-cancelled:
+    - ''
+    - ' &e&lParkour'
+    - ''
+    - ' &cO evento foi cancelado!'
+    - ''
+
+Scoreboards:
+  1:
+    display-phase: WAITING_PLAYERS
+    update-time: 5
+    title: ' &e&lPARKOUR'
+    lines:
+      - ''
+      - ' &e▎ &fJogadores: &7%parkour_players%'
+      - ' &e▎ &fIniciando em: &7%parkour_time%'
+      - ''
+      - '  &ewww.voltzmc.com'
+  2:
+    display-phase: STARTED
+    update-time: 10
+    title: ' &e&lPARKOUR'
+    lines:
+      - ''
+      - ' &e▎ &fJogadores: &7%parkour_players%'
+      - ' &e▎ &fTempo: &7%parkour_time%'
+      - ''
+      - ' &e▎ &f1º &8- &7%parkour_winner:1%'
+      - ' &e▎ &f2º &8- &7%parkour_winner:2%'
+      - ' &e▎ &f3º &8- &7%parkour_winner:3%'
+      - ''
+      - '  &ewww.voltzmc.com'
+
+Whitelisted-Commands:
+  - '/g'
+  - '/tell'
+  - '/sc'
+  - '/r'
+  - '/w'
+  - '/.'
+  - '/ally'
+
+Winner-Settings:
+  1:
+    display: ' &f{position}º &8- {tag} &f{player} &7(&f{time}&7) {rewards}'
+    winner-messages:
+      - ''
+      - ' &e&lParkour'
+      - ''
+      - ' &7Parabéns! Você venceu o evento em &f1º&7!'
+      - ' &7Tempo necessário: &f{time}&7.'
+      - ' &7Sua recompensa: {rewards} &7+ tag {tag}&7.'
+      - ''
+    participants-messages:
+      - ''
+      - ' &e&lParkour'
+      - ''
+      - ' &7O jogador &f{player} &7venceu o evento em &f1º&7!'
+      - ''
+    rewards:
+      host-percentage: 55
+      display: '&2$&a35k &7+ &f2x &6Chaves Lendárias'
+      commands:
+        - 'money give {player} 35k'
+        - 'cratesadmin give {player} Legendary 2'
+  2:
+    display: ' &f{position}º &8- &f{player} &7(&f{time}&7) {rewards}'
+    winner-messages:
+      - ''
+      - ' &e&lParkour'
+      - ''
+      - ' &7Você finalizou o evento em &f2º&7!'
+      - ' &7Tempo necessário: &f{time}&7.'
+      - ' &7Sua recompensa: {rewards}&7.'
+      - ''
+    participants-messages:
+      - ''
+      - ' &e&lParkour'
+      - ''
+      - ' &7O jogador &f{player} &7finalizou o evento em &f2º&7!'
+      - ''
+    rewards:
+      host-percentage: 35
+      display: '&2$&a15k &7+ &f1x &6Chave Lendária'
+      commands:
+        - 'money give {player} 15k'
+        - 'cratesadmin give {player} Legendary 1'
+  3:
+    display: ' &f{position}º &8- &f{player} &7(&f{time}&7) {rewards}'
+    winner-messages:
+      - ''
+      - ' &e&lParkour'
+      - ''
+      - ' &7Você finalizou o evento em &f3º&7!'
+      - ' &7Tempo necessário: &f{time}&7.'
+      - ' &7Sua recompensa: {rewards}&7.'
+      - ''
+    participants-messages:
+      - ''
+      - ' &e&lParkour'
+      - ''
+      - ' &7O jogador &f{player} &7finalizou o evento em &f3º&7!'
+      - ''
+    rewards:
+      host-percentage: 15
+      display: '&2$&a5k'
+      commands:
+        - 'money give {player} 5k'

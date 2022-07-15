@@ -1,0 +1,33 @@
+Inventory:
+  title: "Eventos"
+  size: 45
+  items:
+    1:
+      action: CONFIRM
+      type: SKULL_ITEM
+      owner: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTllNGJkY2YxNzJkNWRjNzdjMmJkNGUzN2FkOTg1Mzk5YTlmMmNkZWJmNzI0NjM5MjllYTRiNjY2ZWY2ZjgwIn19fQ==
+      name: '&aConfirmar'
+      slot: 30
+    2:
+      action: CANCEL
+      type: SKULL_ITEM
+      owner: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWZkZTNiZmNlMmQ4Y2I3MjRkZTg1NTZlNWVjMjFiN2YxNWY1ODQ2ODRhYjc4NTIxNGFkZDE2NGJlNzYyNGIifX19
+      name: '&cDescartar Alterações'
+      slot: 32
+
+Currencies:
+  coins:
+    minimum: 1M
+    type: SKULL_ITEM
+    owner: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTc2YmM2ODU0N2M3NmJhNDYyNTA4NTAyOTgwNDY0N2I4MmY4MTY3MDVjOGJiNjFlMzdkMTQ4NWE3NWM3MmM1ZiJ9fX0=
+    name: "&eCoins"
+    lore:
+      - '&7Abaixo estão as informações'
+      - '&7dessa moeda:'
+      - ''
+      - ' &8▶ &7Quantia adicionada: {currency_amount}'
+      - ''
+      - '&7Clique com o &fbotão esquerdo &7para adicionar'
+      - '&7Clique com o &fbotão direito &7para remover'
+      - '&7Clique com o &fscroll &7para zerar'
+    slot: 13

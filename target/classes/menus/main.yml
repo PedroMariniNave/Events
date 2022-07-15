@@ -1,0 +1,68 @@
+Inventory:
+  title: "Eventos"
+  size: 45
+  items:
+    1:
+      type: SKULL_ITEM
+      owner: "{player}"
+      name: "&6{player}"
+      lore:
+        - '&7Abaixo estão suas informações:'
+        - ''
+        - ' &8▶ &7Vitórias: &f{wins}'
+        - ' &8▶ &7Participações: &f{participations}'
+        - ' &8▶ &7Taxa de vitórias: &f{win_rate}%'
+      slot: 13
+    2:
+      action: EVENTS
+      type: SKULL_ITEM
+      owner: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDJlZjQ0MGE2MzIzNWVkNDExN2NlYmY3MTg2MDAxYmRiMzY3M2NkMjlhMDRmMGJkMDg0ZDdkZGEyOGExZmYyZCJ9fX0=
+      name: "&6Eventos"
+      lore:
+        - '&7Clique para ver a lista'
+        - '&7de eventos e horários!'
+      slot: 29
+    3:
+      action: TOP
+      type: SKULL_ITEM
+      owner: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWNlMjUyOTYzYTUxODhjZWY4ZWRlOWQ4NTIzYmQ5MWQyODRhNzg1YjQxOGIzOWVlYzI5YTkxYWVhMDdjNjFlMiJ9fX0=
+      name: "&6Top Vitórias"
+      lore:
+        - '&7Clique para ver os jogadores'
+        - '&7que mais venceram eventos!'
+      slot: 31
+
+Host-Event-Items:
+  slot: 33 # -1 = disabled
+  unlocked:
+    type: SKULL_ITEM
+    owner: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzJiYWYwYzU4OWE2YjU4MzUxMWQ4M2MyNjgyNDA4NDJkMzM2NDc3NGVjOWY1NjZkMWZkNGQzNDljZjQyZmIifX19
+    name: '&6Hospedar Evento'
+    lore:
+      - '&7Alegre os jogadores do servidor'
+      - '&7hospedando um evento!'
+      - ''
+      - '&7Clique para gerenciar!'
+  locked:
+    type: BARRIER
+    name: '&cHospedar Evento'
+    lore:
+      - '&7Alegre os jogadores do servidor'
+      - '&7hospedando um evento!'
+      - ''
+      - '&cEssa função é exclusiva para'
+      - '&cjogadores &6[VipRoyalty]&c!'
+  cooldown:
+    type: WATCH
+    name: '&cHospedar Evento'
+    lore:
+      - '&7Alegre os jogadores do servidor'
+      - '&7hospedando um evento!'
+      - ''
+      - '&cAguarde {cooldown} antes de'
+      - '&chospedar outro evento!'
+
+Status-Translations:
+  can-host: '&7Clique para gerenciar!'
+  cooldown: '&cAguarde {cooldown} para hospedar novamente!'
+  need-permission: '&cEssa função é exclusiva para o &6[VipRoyalty]&c!'

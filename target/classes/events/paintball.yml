@@ -1,0 +1,209 @@
+Settings:
+  command: paintball
+  aliases: []
+  tag: '&9[PB]'
+  winners-amount: 3
+  minimum-players:
+    to-start: 2
+    after-start: 1
+  announces-amount: 5
+  announces-delay: 30 # segundos
+  max-ammo-amount: 30
+  reloading-time: 3 # segundos
+  shot-damage: 4 # dano do tiro
+  warmup-duration: 15 # segundos
+  save-player-inventory: true
+  # Se ativado, o plugin irá criar uma task verificando se o jogador caiu no void
+  # Essa opção é um adicional caso não queira que o jogador espere levar dano do void
+  # para voltar ao checkpoint ou spawn do evento.
+  additional-void-checker: false
+
+Auto-Start:
+  enabled: true
+  schedules: # DAY:HOUR:MINUTE
+    - 'EVERYDAY:10:00'
+    - 'EVERYDAY:17:30'
+    - 'EVERYDAY:22:15'
+
+Messages:
+  event-starting:
+    - ''
+    - ' &9&lPaintball'
+    - ''
+    - ' &7Para participar, digite &9/paintball&7!'
+    - ' &7Prêmio total: &2$&a100k &7+ &f5x &6Chaves Lendárias &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &9{players}'
+    - ' &7Anúncio &9{announces_now} &7de &9{announces_amount}'
+    - ''
+  event-starting-hosted:
+    - ''
+    - ' &9&lPaintball'
+    - ''
+    - ' &7Esse evento está sendo hospedado'
+    - ' &7por: &9{host}&7.'
+    - ''
+    - ' &7Para participar, digite &9/paintball&7!'
+    - ' &7Prêmio total: {host_rewards} &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &9{players}'
+    - ' &7Anúncio &9{announces_now} &7de &9{announces_amount}'
+    - ''
+  event-started:
+    - ''
+    - ' &9&lPaintball'
+    - ''
+    - ' &7O evento foi iniciado!'
+    - ' &7Prêmio total: &2$&a100k &7+ &f5x &6Chaves Lendárias &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &9{players}'
+    - ''
+  event-started-hosted:
+    - ''
+    - ' &9&lPaintball'
+    - ''
+    - ' &7Esse evento está sendo hospedado'
+    - ' &7por: &9{host}&7.'
+    - ''
+    - ' &7O evento foi iniciado!'
+    - ' &7Prêmio total: {host_rewards} &7+ tag {tag}&7!'
+    - ' &7Jogadores participando: &9{players}'
+    - ''
+  insufficient-players:
+    - ''
+    - ' &9&lPaintball'
+    - ''
+    - ' &cO evento não teve participantes suficientes.'
+    - ''
+  event-finished:
+    - ''
+    - ' &9&lPaintball'
+    - ''
+    - ' &7O evento foi finalizado!'
+    - ''
+    - '{winners}'
+    - ''
+  event-finished-hosted:
+    - ''
+    - ' &9&lPaintball'
+    - ''
+    - ' &7Esse evento foi hospedado'
+    - ' &7por: &9{host}&7.'
+    - ''
+    - ' &7O evento foi finalizado!'
+    - ''
+    - '{winners}'
+    - ''
+  event-cancelled:
+    - ''
+    - ' &9&lPaintball'
+    - ''
+    - ' &cO evento foi cancelado!'
+    - ''
+
+Action-Bars:
+  warmup: '&cLiberando combate em {timer} segundos!'
+
+Scoreboards:
+  1:
+    display-phase: WAITING_PLAYERS
+    update-time: 5
+    title: ' &9&lPAINTBALL'
+    lines:
+      - ''
+      - ' &9▎ &fJogadores: &7%paintball_players%'
+      - ' &9▎ &fIniciando em: &7%paintball_time%'
+      - ''
+      - '  &9www.voltzmc.com'
+  2:
+    display-phase: WARMUP
+    update-time: 5
+    title: ' &9&lPAINTBALL'
+    lines:
+      - ''
+      - ' &9▎ &fJogadores: &7%paintball_players%'
+      - ' &9▎ &fLiberando PvP em: &7%paintball_warmup_time%s'
+      - ''
+      - '  &9www.voltzmc.com'
+  3:
+    display-phase: STARTED
+    update-time: 20
+    title: ' &9&lPAINTBALL'
+    lines:
+      - ''
+      - ' &9▎ &fJogadores: &7%paintball_players%'
+      - ' &9▎ &fKills: &7%paintball_kills%'
+      - ''
+      - ' &9▎ &f1º &8- &7%paintball_winner:1%'
+      - ' &9▎ &f2º &8- &7%paintball_winner:2%'
+      - ' &9▎ &f3º &8- &7%paintball_winner:3%'
+      - ''
+      - '  &9www.voltzmc.com'
+
+Titles:
+  eliminated:
+    title: ''
+    subtitle: '&cVocê foi eliminado!'
+
+Gun-Item:
+  type: DIAMOND_BARDING
+  name: '&9Paintball &8(&f{ammo}&7 &8| &f{max}&8)'
+
+Reloading-Gun-Item:
+  type: DIAMOND_BARDING
+  name: '&9Paintball &8(&f{ammo}&7 &8| &f{max}&8)&fᴿ'
+
+Whitelisted-Commands:
+  - '/g'
+  - '/tell'
+  - '/sc'
+  - '/r'
+  - '/w'
+  - '/.'
+  - '/ally'
+
+Winner-Settings:
+  1:
+    display: ' &f{position}º &8- {tag} &f{player} &7(&f{kills} &7kills) {rewards}'
+    winner-messages:
+      - ''
+      - ' &9&lPaintball'
+      - ''
+      - ' &7Parabéns! Você venceu o evento em &f1º&7!'
+      - ' &7Kills: &f{kills}&7.'
+      - ' &7Sua recompensa: {rewards} &7+ tag {tag}&7.'
+      - ''
+    rewards:
+      host-percentage: 55
+      display: '&2$&a50k &7+ &f3x &6Chaves Lendárias'
+      commands:
+        - 'money give {player} 50k'
+        - 'cratesadmin give {player} Legendary 3'
+  2:
+    display: ' &f{position}º &8- &f{player} &7(&f{kills} &7kills) {rewards}'
+    winner-messages:
+      - ''
+      - ' &9&lPaintball'
+      - ''
+      - ' &7Você finalizou o evento em &f2º&7!'
+      - ' &7Kills: &f{kills}&7.'
+      - ' &7Sua recompensa: {rewards}&7.'
+      - ''
+    rewards:
+      host-percentage: 35
+      display: '&2$&a35k &7+ &f2x &6Chaves Lendárias'
+      commands:
+        - 'money give {player} 35k'
+        - 'cratesadmin give {player} Legendary 2'
+  3:
+    display: ' &f{position}º &8- &f{player} &7(&f{kills} &7kills) {rewards}'
+    winner-messages:
+      - ''
+      - ' &9&lPaintball'
+      - ''
+      - ' &7Você finalizou o evento em &f3º&7!'
+      - ' &7Kills: &f{kills}&7.'
+      - ' &7Sua recompensa: {rewards}&7.'
+      - ''
+    rewards:
+      host-percentage: 15
+      display: '&2$&a15k'
+      commands:
+        - 'money give {player} 15k'

@@ -1,0 +1,185 @@
+Inventory:
+  title: "Eventos"
+  size: 45
+  items:
+    1:
+      type: DIAMOND_BOOTS
+      glow: true
+      name: "&bCorrida"
+      lore:
+        - '&7Esse evento consiste em uma corrida!'
+        - '&7Quem conseguir vencer os desafios e'
+        - '&7chegar primeiro vence!'
+        - ''
+        - '&7Abaixo estão as informações'
+        - '&7desse evento:'
+        - ''
+        - ' &8▶ &7Dia: &fTodos'
+        - ' &8▶ &7Horários: &f11:15 &8| &f16:15 &8| &f21:00'
+        - ''
+        - ' &8▶ &7Custo de entrada: &f-/-'
+        - ' &8▶ &7Prêmio: &2$&a55k &7+ tag &b[C]'
+      slot: 11
+    2:
+      type: STICK
+      glow: true
+      name: "&cSumo"
+      lore:
+        - '&7Derrube seu inimigo para vencer!'
+        - ''
+        - '&7Abaixo estão as informações'
+        - '&7desse evento:'
+        - ''
+        - ' &8▶ &7Dia: &fTodos'
+        - ' &8▶ &7Horários: &f08:45 &8| &f10:30 &8| &f17:00 &8| &f19:15'
+        - ''
+        - ' &8▶ &7Custo de entrada: &f-/-'
+        - ' &8▶ &7Prêmio: &2$&a100k &7+ tag &c[&l㊋&c]'
+      slot: 12
+    3:
+      type: BLAZE_ROD
+      glow: true
+      name: "&4Mega Sumo"
+      lore:
+        - '&7Derrube os outros jogadores para vencer!'
+        - ''
+        - '&7Abaixo estão as informações'
+        - '&7desse evento:'
+        - ''
+        - ' &8▶ &7Dia: &fTodos'
+        - ' &8▶ &7Horários: &f09:00 &8| &f11:00 &8| &f17:15 &8| &f19:30'
+        - ''
+        - ' &8▶ &7Custo de entrada: &f-/-'
+        - ' &8▶ &7Prêmio: &2$&a100k &7+ tag &c[&l㊋&c]'
+      slot: 13
+    4:
+      type: IRON_BOOTS
+      name: "&eParkour"
+      lore:
+        - '&7O mais ágil vence!'
+        - ''
+        - '&7Abaixo estão as informações'
+        - '&7desse evento:'
+        - ''
+        - ' &8▶ &7Dia: &fTodos'
+        - ' &8▶ &7Horários: &f13:00 &8| &f14:30 &8| &f23:00'
+        - ''
+        - ' &8▶ &7Custo de entrada: &f-/-'
+        - ' &8▶ &7Prêmio: &2$&a55k &7+ tag &e[P]'
+      slot: 14
+    5:
+      type: DIAMOND_SWORD
+      glow: true
+      name: "&5Fight"
+      lore:
+        - '&7Vença batalhas 1v1 para ganhar o evento!'
+        - ''
+        - '&7Abaixo estão as informações'
+        - '&7desse evento:'
+        - ''
+        - ' &8▶ &7Dia: &fTodos'
+        - ' &8▶ &7Horários: &f07:30 &8| &f12:00 &8| &f15:30 &8| &f21:30'
+        - ''
+        - ' &8▶ &7Custo de entrada: &f-/-'
+        - ' &8▶ &7Prêmio: &2$&a100k &7+ tag &5[&l⚔&5]'
+      slot: 15
+    6:
+      type: POTATO_ITEM
+      name: "&6Batata-Quente"
+      lore:
+        - '&7Não deixe a batata queimar na'
+        - '&7sua mão! Passe-a para os outros'
+        - '&7jogadores e vença o evento.'
+        - ''
+        - '&7Abaixo estão as informações'
+        - '&7desse evento:'
+        - ''
+        - ' &8▶ &7Dia: &fTodos'
+        - ' &8▶ &7Horários: &f09:15 &8| &f12:30 &8| &f15:00 &8| &f20:00'
+        - ''
+        - ' &8▶ &7Custo de entrada: &f-/-'
+        - ' &8▶ &7Prêmio: &2$&a160k &7+ tag &6[BQ]'
+      slot: 20
+    7:
+      type: DIAMOND_CHESTPLATE
+      glow: true
+      name: "&4Killer"
+      lore:
+        - '&7Batalhe em uma arena contra todos!'
+        - ''
+        - '&7Abaixo estão as informações'
+        - '&7desse evento:'
+        - ''
+        - ' &8▶ &7Dia: &fTodos'
+        - ' &8▶ &7Horários: &f10:45 &8| &f18:45 &8| &f21:45 &8| &f00:00'
+        - ''
+        - ' &8▶ &7Custo de entrada: &f-/-'
+        - ' &8▶ &7Prêmio: &2$&a100k &7+ tag &4[&l⚔&4]'
+      slot: 21
+    8:
+      type: WORKBENCH
+      name: "&6FastCraft"
+      lore:
+        - '&7Crie o item escolhido o mais'
+        - '&7rápido possível!'
+        - ''
+        - '&7Abaixo estão as informações'
+        - '&7desse evento:'
+        - ''
+        - ' &8▶ &7Dia: &fTodos'
+        - ' &8▶ &7Horários: &f08:00 &8| &f13:45 &8| &f18:00 &8| &f20:30'
+        - ''
+        - ' &8▶ &7Custo de entrada: &f-/-'
+        - ' &8▶ &7Prêmio: &2$&a16k &7+ tag &6[FC]'
+      slot: 22
+    9:
+      type: SNOW_BALL
+      glow: true
+      name: "&9Paintball"
+      lore:
+        - '&7Elimine os outros jogadores com sua arma'
+        - '&7de Paintball para vencer!'
+        - ''
+        - '&7Abaixo estão as informações'
+        - '&7desse evento:'
+        - ''
+        - ' &8▶ &7Dia: &fTodos'
+        - ' &8▶ &7Horários: &f10:00 &8| &f17:30 &8| &f22:15'
+        - ''
+        - ' &8▶ &7Custo de entrada: &f-/-'
+        - ' &8▶ &7Prêmio: &2$&a100k &7+ tag &9[P]'
+      slot: 23
+    10:
+      type: IRON_AXE
+      glow: true
+      name: "&4Mini-Gladiador"
+      lore:
+        - '&7Esse evento consiste em uma batalha'
+        - '&7entre clans, mas com itens setados!'
+        - ''
+        - '&7Abaixo estão as informações'
+        - '&7desse evento:'
+        - ''
+        - ' &8▶ &7Dia: &fSegunda &8- &fSábado'
+        - ' &8▶ &7Horário: &f18:30'
+        - ''
+        - ' &8▶ &7Custo de entrada: &f-/-'
+        - ' &8▶ &7Prêmio: &2$&a100k &7+ tag &4[MG]'
+      slot: 24
+    11:
+      type: DIAMOND_AXE
+      glow: true
+      name: "&4Gladiador"
+      lore:
+        - '&7Esse evento consiste em uma batalha'
+        - '&7entre clans!'
+        - ''
+        - '&7Abaixo estão as informações'
+        - '&7desse evento:'
+        - ''
+        - ' &8▶ &7Dia: &fDomingo'
+        - ' &8▶ &7Horário: &f18:30'
+        - ''
+        - ' &8▶ &7Custo de entrada: &f-/-'
+        - ' &8▶ &7Prêmio: &2$&a250k &7+ tag &4[G]'
+      slot: 31
