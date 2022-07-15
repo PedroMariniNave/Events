@@ -2,9 +2,11 @@ package com.zpedroo.voltzevents.events.megasumo;
 
 import com.zpedroo.voltzevents.commands.ArenaEventCmd;
 import com.zpedroo.voltzevents.enums.LeaveReason;
+import com.zpedroo.voltzevents.events.megasumo.listeners.MegaSumoListeners;
 import com.zpedroo.voltzevents.events.megasumo.tasks.PlayerCheckTask;
 import com.zpedroo.voltzevents.managers.CommandManager;
 import com.zpedroo.voltzevents.managers.DataManager;
+import com.zpedroo.voltzevents.managers.ListenerManager;
 import com.zpedroo.voltzevents.objects.player.EventItems;
 import com.zpedroo.voltzevents.tasks.AnnounceTask;
 import com.zpedroo.voltzevents.tasks.WarmupTask;
@@ -42,6 +44,7 @@ public class MegaSumoEvent extends ArenaEvent {
         }}, WINNERS, WINNERS_AMOUNT, MINIMUM_PLAYERS_TO_START, MINIMUM_PLAYERS_AFTER_START, SAVE_PLAYER_INVENTORY, ADDITIONAL_VOID_CHECKER, EVENT_ITEMS, JOIN_LOCATION, EXIT_LOCATION, ARENA_LOCATION);
 
         setAnnounceTask(new AnnounceTask(plugin, this, ANNOUNCES_DELAY, ANNOUNCES_AMOUNT));
+        ListenerManager.registerListener(plugin, new MegaSumoListeners(this));
         CommandManager.registerCommand(plugin, COMMAND, ALIASES, new ArenaEventCmd(this));
         DataManager.getInstance().getCache().getEvents().add(this);
     }
@@ -62,6 +65,11 @@ public class MegaSumoEvent extends ArenaEvent {
     }
 
     @Override
+    public void executeJoinMethods(Player player) {
+        new PlayerCheckTask(this, player);
+    }
+
+    @Override
     public void startEventMethods() {
         WarmupTask warmupTask = new WarmupTask(this, WARMUP_BAR, WARMUP_DURATION);
         warmupTask.startTask();
@@ -70,10 +78,7 @@ public class MegaSumoEvent extends ArenaEvent {
 
     @Override
     public void teleportPlayersToArenaAndExecuteEventActions() {
-        getPlayersParticipating().forEach(player -> {
-            player.teleport(getArenaLocation());
-            new PlayerCheckTask(this, player);
-        });
+        getPlayersParticipating().forEach(player -> player.teleport(getArenaLocation()));
     }
 
     @Override

@@ -330,6 +330,7 @@ public abstract class Event {
             return;
         }
 
+        executeJoinMethods(player);
         DataManager.getInstance().setPlayerParticipatingEvent(player, this);
         if (savePlayerInventory || eventItems != null) {
             InventoryStorer.storePlayerInventory(player);
@@ -667,6 +668,8 @@ public abstract class Event {
     }
 
     public abstract void checkIfPlayerIsWinner(Player player, int participantsAmount);
+
+    public abstract void executeJoinMethods(Player player);
 
     public abstract void startEventMethods();
 

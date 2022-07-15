@@ -63,6 +63,10 @@ public class SumoEvent extends PvPEvent {
     }
 
     @Override
+    public void executeJoinMethods(Player player) {
+    }
+
+    @Override
     public void startEventMethods() {
         this.setEventPhase(EventPhase.STARTED);
         this.selectPlayersAndExecuteEventActions();

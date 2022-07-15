@@ -60,6 +60,10 @@ public class SpleefEvent extends ArenaEvent {
     }
 
     @Override
+    public void executeJoinMethods(Player player) {
+    }
+
+    @Override
     public void startEventMethods() {
         // new WarmupTask(this, WARMUP_BAR, WARMUP_DURATION);
     }

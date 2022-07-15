@@ -12,7 +12,6 @@ import com.zpedroo.voltzevents.objects.player.EventData;
 import com.zpedroo.voltzevents.types.FunEvent;
 import com.zpedroo.voltzevents.utils.FileUtils;
 import com.zpedroo.voltzevents.utils.color.Colorize;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.libs.jline.internal.Nullable;
 import org.bukkit.entity.Player;
@@ -72,6 +71,10 @@ public class FastCraftEvent extends FunEvent {
 
     @Override
     public void checkIfPlayerIsWinner(Player player, int participantsAmount) {
+    }
+
+    @Override
+    public void executeJoinMethods(Player player) {
     }
 
     @Override

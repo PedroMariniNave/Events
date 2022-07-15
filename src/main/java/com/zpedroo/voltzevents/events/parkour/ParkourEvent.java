@@ -68,6 +68,10 @@ public class ParkourEvent extends ArenaEvent {
     }
 
     @Override
+    public void executeJoinMethods(Player player) {
+    }
+
+    @Override
     public void startEventMethods() {
         setEventPhase(EventPhase.STARTED);
     }

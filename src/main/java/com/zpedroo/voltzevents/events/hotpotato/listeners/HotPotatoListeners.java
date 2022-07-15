@@ -25,10 +25,6 @@ public class HotPotatoListeners implements Listener {
 
         Player damaged = (Player) event.getEntity();
         if (!hotPotatoEvent.isHappening() || !hotPotatoEvent.isParticipating(damaged)) return;
-        if (!hotPotatoEvent.isStarted()) {
-            event.setCancelled(true);
-        }
-
         if (!(event.getDamager() instanceof Player)) return;
         
         Player damager = (Player) event.getDamager();

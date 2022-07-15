@@ -75,6 +75,10 @@ public class KillerEvent extends ArenaEvent {
     }
 
     @Override
+    public void executeJoinMethods(Player player) {
+    }
+
+    @Override
     public void startEventMethods() {
         WarmupTask warmupTask = new WarmupTask(this, WARMUP_BAR, WARMUP_DURATION);
         warmupTask.startTask();

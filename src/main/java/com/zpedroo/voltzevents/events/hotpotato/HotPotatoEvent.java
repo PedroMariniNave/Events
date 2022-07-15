@@ -79,6 +79,10 @@ public class HotPotatoEvent extends ArenaEvent {
     }
 
     @Override
+    public void executeJoinMethods(Player player) {
+    }
+
+    @Override
     public void startEventMethods() {
         this.setEventPhase(EventPhase.STARTED);
         this.selectHotPotatoesAndAnnounce();
