@@ -154,13 +154,13 @@ Whitelisted-Commands:
 
 Winner-Settings:
   1:
-    display: ' &f{position}º &8- {tag} &f{player} &7(&f{kills} &7vitórias) {rewards}'
+    display: ' &f{position}º &8- {tag} &f{player} &7(&f{kills} &7eliminações) {rewards}'
     winner-messages:
       - ''
       - ' &4&lMega Sumo'
       - ''
       - ' &7Parabéns! Você venceu o evento em &f1º&7!'
-      - ' &7Vitórias: &f{kills}&7.'
+      - ' &7Eliminações: &f{kills}&7.'
       - ' &7Sua recompensa: {rewards} &7+ tag {tag}&7.'
       - ''
     rewards:
@@ -170,13 +170,13 @@ Winner-Settings:
         - 'money give {player} 50k'
         - 'cratesadmin give {player} Legendary 3'
   2:
-    display: ' &f{position}º &8- &f{player} &7(&f{kills} &7vitórias) {rewards}'
+    display: ' &f{position}º &8- &f{player} &7(&f{kills} &7eliminações) {rewards}'
     winner-messages:
       - ''
       - ' &4&lMega Sumo'
       - ''
       - ' &7Você finalizou o evento em &f2º&7!'
-      - ' &7Vitórias: &f{kills}&7.'
+      - ' &7Eliminações: &f{kills}&7.'
       - ' &7Sua recompensa: {rewards}&7.'
       - ''
     rewards:
@@ -186,13 +186,13 @@ Winner-Settings:
         - 'money give {player} 35k'
         - 'cratesadmin give {player} Legendary 2'
   3:
-    display: ' &f{position}º &8- &f{player} &7(&f{kills} &7vitórias) {rewards}'
+    display: ' &f{position}º &8- &f{player} &7(&f{kills} &7eliminações) {rewards}'
     winner-messages:
       - ''
       - ' &4&lMega Sumo'
       - ''
       - ' &7Você finalizou o evento em &f3º&7!'
-      - ' &7Vitórias: &f{kills}&7.'
+      - ' &7Eliminações: &f{kills}&7.'
       - ' &7Sua recompensa: {rewards}&7.'
       - ''
     rewards:

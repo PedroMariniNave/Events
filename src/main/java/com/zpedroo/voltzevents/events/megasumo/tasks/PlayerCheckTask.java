@@ -4,6 +4,7 @@ import com.zpedroo.voltzevents.VoltzEvents;
 import com.zpedroo.voltzevents.enums.LeaveReason;
 import com.zpedroo.voltzevents.events.megasumo.MegaSumoEvent;
 import com.zpedroo.voltzevents.events.spleef.SpleefEvent;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -46,5 +47,10 @@ public class PlayerCheckTask extends BukkitRunnable {
         player.sendTitle(title, subtitle);
 
         megaSumoEvent.leave(player, LeaveReason.ELIMINATED);
+
+        Entity lastDamager = player.getLastDamageCause().getEntity();
+        if (!(lastDamager instanceof Player)) return;
+
+        megaSumoEvent.getEventData().addPlayerKills((Player) lastDamager, 1);
     }
 }
