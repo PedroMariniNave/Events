@@ -102,8 +102,8 @@ Messages:
 Scoreboards:
   1:
     display-phase: WAITING_PLAYERS
-    update-time: 5
-    title: ' &e&lPARKOUR'
+    update-time: 2
+    title: '&e&lPARKOUR'
     lines:
       - ''
       - ' &e▎ &fJogadores: &7%parkour_players%'
@@ -112,8 +112,8 @@ Scoreboards:
       - '  &ewww.voltzmc.com'
   2:
     display-phase: STARTED
-    update-time: 10
-    title: ' &e&lPARKOUR'
+    update-time: 2
+    title: '&e&lPARKOUR'
     lines:
       - ''
       - ' &e▎ &fJogadores: &7%parkour_players%'
@@ -157,6 +157,7 @@ Winner-Settings:
       commands:
         - 'money give {player} 35k'
         - 'cratesadmin give {player} Legendary 2'
+        - 'level give {player} 12500'
   2:
     display: ' &f{position}º &8- &f{player} &7(&f{time}&7) {rewards}'
     winner-messages:
@@ -179,6 +180,7 @@ Winner-Settings:
       commands:
         - 'money give {player} 15k'
         - 'cratesadmin give {player} Legendary 1'
+        - 'level give {player} 10000'
   3:
     display: ' &f{position}º &8- &f{player} &7(&f{time}&7) {rewards}'
     winner-messages:
@@ -200,3 +202,4 @@ Winner-Settings:
       display: '&2$&a5k'
       commands:
         - 'money give {player} 5k'
+        - 'level give {player} 6500'

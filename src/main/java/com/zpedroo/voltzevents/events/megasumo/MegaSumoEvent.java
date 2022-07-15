@@ -1,14 +1,13 @@
 package com.zpedroo.voltzevents.events.megasumo;
 
 import com.zpedroo.voltzevents.commands.ArenaEventCmd;
-import com.zpedroo.voltzevents.enums.EventPhase;
 import com.zpedroo.voltzevents.enums.LeaveReason;
 import com.zpedroo.voltzevents.events.megasumo.tasks.PlayerCheckTask;
 import com.zpedroo.voltzevents.managers.CommandManager;
 import com.zpedroo.voltzevents.managers.DataManager;
-import com.zpedroo.voltzevents.managers.ListenerManager;
 import com.zpedroo.voltzevents.objects.player.EventItems;
 import com.zpedroo.voltzevents.tasks.AnnounceTask;
+import com.zpedroo.voltzevents.tasks.WarmupTask;
 import com.zpedroo.voltzevents.types.ArenaEvent;
 import com.zpedroo.voltzevents.utils.FileUtils;
 import com.zpedroo.voltzevents.utils.color.Colorize;
@@ -23,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.zpedroo.voltzevents.events.megasumo.MegaSumoEvent.ActionBars.WARMUP_BAR;
 import static com.zpedroo.voltzevents.events.megasumo.MegaSumoEvent.Locations.*;
 import static com.zpedroo.voltzevents.events.megasumo.MegaSumoEvent.Messages.*;
 import static com.zpedroo.voltzevents.events.megasumo.MegaSumoEvent.Settings.*;
@@ -63,7 +63,9 @@ public class MegaSumoEvent extends ArenaEvent {
 
     @Override
     public void startEventMethods() {
-        this.setEventPhase(EventPhase.STARTED);
+        WarmupTask warmupTask = new WarmupTask(this, WARMUP_BAR, WARMUP_DURATION);
+        warmupTask.startTask();
+        setWarmupTask(warmupTask);
     }
 
     @Override
@@ -118,6 +120,8 @@ public class MegaSumoEvent extends ArenaEvent {
 
         public static final int ANNOUNCES_AMOUNT = FileUtils.get().getInt(FileUtils.Files.MEGA_SUMO, "Settings.announces-amount");
 
+        public static final int WARMUP_DURATION = FileUtils.get().getInt(FileUtils.Files.MEGA_SUMO, "Settings.warmup-duration");
+
         public static final boolean SAVE_PLAYER_INVENTORY = FileUtils.get().getBoolean(FileUtils.Files.MEGA_SUMO, "Settings.save-player-inventory");
 
         public static final boolean ADDITIONAL_VOID_CHECKER = FileUtils.get().getBoolean(FileUtils.Files.MEGA_SUMO, "Settings.additional-void-checker");
@@ -142,6 +146,11 @@ public class MegaSumoEvent extends ArenaEvent {
         public static final List<String> EVENT_FINISHED_HOSTED = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.MEGA_SUMO, "Messages.event-finished-hosted"));
 
         public static final List<String> INSUFFICIENT_PLAYERS = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.MEGA_SUMO, "Messages.insufficient-players"));
+    }
+
+    public static class ActionBars {
+
+        public static final String WARMUP_BAR = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.MEGA_SUMO, "Action-Bars.warmup"));
     }
 
     public static class Titles {

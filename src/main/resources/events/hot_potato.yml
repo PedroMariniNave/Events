@@ -129,8 +129,8 @@ Action-Bars:
 Scoreboards:
   1:
     display-phase: WAITING_PLAYERS
-    update-time: 5
-    title: ' &6&lBATATA-QUENTE'
+    update-time: 2
+    title: '&6&lBATATA-QUENTE'
     lines:
       - ''
       - ' &6▎ &fJogadores: &7%hotpotato_players%'
@@ -139,8 +139,8 @@ Scoreboards:
       - '  &6www.voltzmc.com'
   2:
     display-phase: STARTED
-    update-time: 5
-    title: ' &6&lBATATA-QUENTE'
+    update-time: 2
+    title: '&6&lBATATA-QUENTE'
     lines:
       - ''
       - ' &6▎ &fJogadores: &7%hotpotato_players%'
@@ -151,8 +151,8 @@ Scoreboards:
       - '  &6www.voltzmc.com'
   3:
     display-phase: WARMUP
-    update-time: 5
-    title: ' &6&lBATATA-QUENTE'
+    update-time: 2
+    title: '&6&lBATATA-QUENTE'
     lines:
       - ''
       - ' &6▎ &fJogadores: &7%hotpotato_players%'
@@ -219,6 +219,7 @@ Winner-Settings:
       commands:
         - 'money give {player} 75k'
         - 'cratesadmin give {player} Legendary 3'
+        - 'level give {player} 15000'
   2:
     display: ' &f{position}º &8- &f{player} {rewards}'
     winner-messages:
@@ -234,6 +235,7 @@ Winner-Settings:
       commands:
         - 'money give {player} 50k'
         - 'cratesadmin give {player} Legendary 2'
+        - 'level give {player} 12500'
   3:
     display: ' &f{position}º &8- &f{player} {rewards}'
     winner-messages:
@@ -249,3 +251,4 @@ Winner-Settings:
       commands:
         - 'money give {player} 35k'
         - 'cratesadmin give {player} Legendary 1'
+        - 'level give {player} 8000'

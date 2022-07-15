@@ -104,8 +104,8 @@ Action-Bars:
 Scoreboards:
   1:
     display-phase: WAITING_PLAYERS
-    update-time: 5
-    title: ' &9&lPAINTBALL'
+    update-time: 2
+    title: '&9&lPAINTBALL'
     lines:
       - ''
       - ' &9▎ &fJogadores: &7%paintball_players%'
@@ -114,8 +114,8 @@ Scoreboards:
       - '  &9www.voltzmc.com'
   2:
     display-phase: WARMUP
-    update-time: 5
-    title: ' &9&lPAINTBALL'
+    update-time: 2
+    title: '&9&lPAINTBALL'
     lines:
       - ''
       - ' &9▎ &fJogadores: &7%paintball_players%'
@@ -124,8 +124,8 @@ Scoreboards:
       - '  &9www.voltzmc.com'
   3:
     display-phase: STARTED
-    update-time: 20
-    title: ' &9&lPAINTBALL'
+    update-time: 2
+    title: '&9&lPAINTBALL'
     lines:
       - ''
       - ' &9▎ &fJogadores: &7%paintball_players%'
@@ -176,6 +176,7 @@ Winner-Settings:
       commands:
         - 'money give {player} 50k'
         - 'cratesadmin give {player} Legendary 3'
+        - 'level give {player} 12500'
   2:
     display: ' &f{position}º &8- &f{player} &7(&f{kills} &7kills) {rewards}'
     winner-messages:
@@ -192,6 +193,7 @@ Winner-Settings:
       commands:
         - 'money give {player} 35k'
         - 'cratesadmin give {player} Legendary 2'
+        - 'level give {player} 10000'
   3:
     display: ' &f{position}º &8- &f{player} &7(&f{kills} &7kills) {rewards}'
     winner-messages:
@@ -207,3 +209,4 @@ Winner-Settings:
       display: '&2$&a15k'
       commands:
         - 'money give {player} 15k'
+        - 'level give {player} 6500'

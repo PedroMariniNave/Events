@@ -235,16 +235,20 @@ public abstract class Event {
         return eventPhase != EventPhase.INACTIVE;
     }
 
+    public boolean isWaitingPlayers() {
+        return eventPhase == EventPhase.WAITING_PLAYERS;
+    }
+
+    public boolean isWarmup() {
+        return eventPhase == EventPhase.WARMUP;
+    }
+
     public boolean isStarted() {
         return eventPhase == EventPhase.STARTED;
     }
 
     public boolean isFinished() {
         return eventPhase == EventPhase.INACTIVE;
-    }
-
-    public boolean canJoin() {
-        return eventPhase == EventPhase.WAITING_PLAYERS;
     }
 
     public boolean isParticipating(Player player) {
@@ -315,7 +319,7 @@ public abstract class Event {
     }
 
     public void join(Player player) {
-        if (!canJoin()) {
+        if (!isWaitingPlayers()) {
             player.sendMessage(Messages.NOT_STARTED);
             return;
         }

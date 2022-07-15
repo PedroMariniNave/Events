@@ -103,8 +103,8 @@ Messages:
 Scoreboards:
   1:
     display-phase: WAITING_PLAYERS
-    update-time: 5
-    title: ' &c&lSUMO'
+    update-time: 2
+    title: '&c&lSUMO'
     lines:
       - ''
       - ' &c▎ &fJogadores: &7%sumo_players%'
@@ -113,8 +113,8 @@ Scoreboards:
       - '  &cwww.voltzmc.com'
   2:
     display-phase: WARMUP
-    update-time: 20
-    title: ' &c&lSUMO'
+    update-time: 2
+    title: '&c&lSUMO'
     lines:
       - ''
       - ' &c▎ &fJogadores: &7%sumo_players%'
@@ -129,8 +129,8 @@ Scoreboards:
       - '  &cwww.voltzmc.com'
   3:
     display-phase: STARTED
-    update-time: 20
-    title: ' &c&lSUMO'
+    update-time: 2
+    title: '&c&lSUMO'
     lines:
       - ''
       - ' &c▎ &fJogadores: &7%sumo_players%'
@@ -181,6 +181,7 @@ Winner-Settings:
       commands:
         - 'money give {player} 50k'
         - 'cratesadmin give {player} Legendary 3'
+        - 'level give {player} 12500'
   2:
     display: ' &f{position}º &8- &f{player} &7(&f{kills} &7vitórias) {rewards}'
     winner-messages:
@@ -197,6 +198,7 @@ Winner-Settings:
       commands:
         - 'money give {player} 35k'
         - 'cratesadmin give {player} Legendary 2'
+        - 'level give {player} 10000'
   3:
     display: ' &f{position}º &8- &f{player} &7(&f{kills} &7vitórias) {rewards}'
     winner-messages:
@@ -212,3 +214,4 @@ Winner-Settings:
       display: '&2$&a15k'
       commands:
         - 'money give {player} 15k'
+        - 'level give {player} 6500'

@@ -20,9 +20,22 @@ public class PlayerCheckTask extends BukkitRunnable {
 
     @Override
     public void run() {
-        if (player == null || !player.isOnline() || player.getLocation().getBlock().isLiquid()) {
+        if (player == null || !player.isOnline() || !megaSumoEvent.isParticipating(player)) {
             this.cancel();
-            this.eliminatePlayer();
+            return;
+        }
+
+        if (player.getLocation().getBlock().isLiquid()) {
+            if (megaSumoEvent.isStarted()) {
+                this.eliminatePlayer();
+                return;
+            }
+
+            if (megaSumoEvent.isWarmup()) {
+                player.teleport(megaSumoEvent.getArenaLocation());
+            } else if (megaSumoEvent.isWaitingPlayers()) {
+                player.teleport(megaSumoEvent.getJoinLocation());
+            }
         }
     }
 

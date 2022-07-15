@@ -103,8 +103,8 @@ Action-Bars:
 Scoreboards:
   1:
     display-phase: WAITING_PLAYERS
-    update-time: 5
-    title: ' &4&lKILLER'
+    update-time: 2
+    title: '&4&lKILLER'
     lines:
       - ''
       - ' &4▎ &fJogadores: &7%killer_players%'
@@ -113,8 +113,8 @@ Scoreboards:
       - '  &4www.voltzmc.com'
   2:
     display-phase: WARMUP
-    update-time: 5
-    title: ' &4&lKILLER'
+    update-time: 2
+    title: '&4&lKILLER'
     lines:
       - ''
       - ' &4▎ &fJogadores: &7%killer_players%'
@@ -123,8 +123,8 @@ Scoreboards:
       - '  &4www.voltzmc.com'
   3:
     display-phase: STARTED
-    update-time: 20
-    title: ' &4&lKILLER'
+    update-time: 2
+    title: '&4&lKILLER'
     lines:
       - ''
       - ' &4▎ &fJogadores: &7%killer_players%'
@@ -169,6 +169,7 @@ Winner-Settings:
       commands:
         - 'money give {player} 50k'
         - 'cratesadmin give {player} Legendary 3'
+        - 'level give {player} 17500'
   2:
     display: ' &f{position}º &8- &f{player} &7(&f{kills} &7kills) {rewards}'
     winner-messages:
@@ -185,6 +186,7 @@ Winner-Settings:
       commands:
         - 'money give {player} 35k'
         - 'cratesadmin give {player} Legendary 2'
+        - 'level give {player} 15000'
   3:
     display: ' &f{position}º &8- &f{player} &7(&f{kills} &7kills) {rewards}'
     winner-messages:
@@ -201,3 +203,4 @@ Winner-Settings:
       commands:
         - 'money give {player} 15k'
         - 'cratesadmin give {player} Legendary 1'
+        - 'level give {player} 10000'

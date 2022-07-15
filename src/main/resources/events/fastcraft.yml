@@ -114,6 +114,7 @@ Winner-Settings:
       commands:
         - 'money give {player} 50k'
         - 'cratesadmin give {player} Legendary 3'
+        - 'level give {player} 8500'
   2:
     display: ' &f{position}º &8- &f{player} &7(&f{time}&7) {rewards}'
     winner-messages:
@@ -130,6 +131,7 @@ Winner-Settings:
       commands:
         - 'money give {player} 35k'
         - 'cratesadmin give {player} Legendary 2'
+        - 'level give {player} 6500'
   3:
     display: ' &f{position}º &8- &f{player} &7(&f{time}&7) {rewards}'
     winner-messages:
@@ -145,3 +147,4 @@ Winner-Settings:
       display: '&2$&a15k'
       commands:
         - 'money give {player} 15k'
+        - 'level give {player} 3000'

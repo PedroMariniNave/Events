@@ -50,7 +50,7 @@ Inventory:
         - ' &8▶ &7Horários: &f09:00 &8| &f11:00 &8| &f17:15 &8| &f19:30'
         - ''
         - ' &8▶ &7Custo de entrada: &f-/-'
-        - ' &8▶ &7Prêmio: &2$&a100k &7+ tag &c[&l㊋&c]'
+        - ' &8▶ &7Prêmio: &2$&a100k &7+ tag &4[&l㊋&4]'
       slot: 13
     4:
       type: IRON_BOOTS

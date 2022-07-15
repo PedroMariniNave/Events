@@ -8,6 +8,7 @@ Settings:
     after-start: 1
   announces-amount: 5
   announces-delay: 30 # segundos
+  warmup-duration: 15 # segundos
   save-player-inventory: true
   # Se ativado, o plugin irá criar uma task verificando se o jogador caiu no void
   # Essa opção é um adicional caso não queira que o jogador espere levar dano do void
@@ -95,50 +96,45 @@ Messages:
     - ''
     - ' &4&lMega Sumo'
     - ''
-    - ' &4O evento foi cancelado!'
+    - ' &cO evento foi cancelado!'
     - ''
+
+Action-Bars:
+  warmup: '&cLiberando combate em {timer} segundos!'
 
 Scoreboards:
   1:
     display-phase: WAITING_PLAYERS
-    update-time: 5
-    title: ' &4&lMEGA SUMO'
+    update-time: 2
+    title: '&4&lMEGA SUMO'
     lines:
       - ''
-      - ' &4▎ &fJogadores: &7%sumo_players%'
-      - ' &4▎ &fIniciando em: &7%sumo_time%'
+      - ' &4▎ &fJogadores: &7%megasumo_players%'
+      - ' &4▎ &fIniciando em: &7%megasumo_time%'
       - ''
       - '  &4www.voltzmc.com'
   2:
     display-phase: WARMUP
-    update-time: 20
-    title: ' &4&lMEGA SUMO'
+    update-time: 2
+    title: '&4&lMEGA SUMO'
     lines:
       - ''
-      - ' &4▎ &fJogadores: &7%sumo_players%'
-      - ' &4▎ &fVitórias: &7%sumo_kills%'
-      - ''
-      - ' &4▎ &fSelecionando jogadores'
-      - ''
-      - ' &4▎ &f1º &8- &7%sumo_winner:1%'
-      - ' &4▎ &f2º &8- &7%sumo_winner:2%'
-      - ' &4▎ &f3º &8- &7%sumo_winner:3%'
+      - ' &4▎ &fJogadores: &7%megasumo_players%'
+      - ' &4▎ &fLiberando PvP em: &7%megasumo_warmup_time%s'
       - ''
       - '  &4www.voltzmc.com'
   3:
     display-phase: STARTED
-    update-time: 20
-    title: ' &4&lMEGA SUMO'
+    update-time: 2
+    title: '&4&lMEGA SUMO'
     lines:
       - ''
-      - ' &4▎ &fJogadores: &7%sumo_players%'
-      - ' &4▎ &fVitórias: &7%sumo_kills%'
+      - ' &4▎ &fJogadores: &7%megasumo_players%'
+      - ' &4▎ &fKills: &7%megasumo_kills%'
       - ''
-      - ' &4▎ &7%sumo_player1% &fvs &7%sumo_player2%'
-      - ''
-      - ' &4▎ &f1º &8- &7%sumo_winner:1%'
-      - ' &4▎ &f2º &8- &7%sumo_winner:2%'
-      - ' &4▎ &f3º &8- &7%sumo_winner:3%'
+      - ' &4▎ &f1º &8- &7%megasumo_winner:1%'
+      - ' &4▎ &f2º &8- &7%megasumo_winner:2%'
+      - ' &4▎ &f3º &8- &7%megasumo_winner:3%'
       - ''
       - '  &4www.voltzmc.com'
 

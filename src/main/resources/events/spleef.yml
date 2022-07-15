@@ -97,8 +97,8 @@ Messages:
 Scoreboards:
   1:
     display-phase: WAITING_PLAYERS
-    update-time: 5
-    title: ' &b&lSPLEEF'
+    update-time: 2
+    title: '&b&lSPLEEF'
     lines:
       - ''
       - ' &b▎ &fJogadores: &7%spleef_players%'
@@ -107,8 +107,8 @@ Scoreboards:
       - '  &bwww.voltzmc.com'
   2:
     display-phase: STARTED
-    update-time: 10
-    title: ' &b&lSPLEEF'
+    update-time: 2
+    title: '&b&lSPLEEF'
     lines:
       - ''
       - ' &b▎ &fJogadores: &7%spleef_players%'
@@ -149,6 +149,7 @@ Winner-Settings:
       display: '&2$&a35k'
       commands:
         - 'money give {player} 35k'
+        - 'level give {player} 12500'
   2:
     display: ' &f{position}º &8- &f{player} {rewards}'
     winner-messages:
@@ -163,6 +164,7 @@ Winner-Settings:
       display: '&2$&a15k'
       commands:
         - 'money give {player} 15k'
+        - 'level give {player} 10000'
   3:
     display: ' &f{position}º &8- &f{player} {rewards}'
     winner-messages:
@@ -177,3 +179,4 @@ Winner-Settings:
       display: '&2$&a5k'
       commands:
         - 'money give {player} 5k'
+        - 'level give {player} 6500'
