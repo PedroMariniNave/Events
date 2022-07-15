@@ -15,9 +15,14 @@ public class EventData {
     private long startTimestamp = -1;
     private final Map<Integer, WinnerData> winnersData = new HashMap<>(4);
     private final Map<Player, Integer> playerKills = new HashMap<>(16);
+    private final Map<Player, Player> playerLastDamager = new HashMap<>(16);
 
     public WinnerData getWinnerData(int position) {
         return winnersData.get(position);
+    }
+
+    public Player getLastDamager(Player player) {
+        return playerLastDamager.get(player);
     }
 
     public String getFormattedStartTimestamp() {
@@ -48,7 +53,11 @@ public class EventData {
     }
 
     public void setWinnerData(String winnerName, int position, int kills, long winTimestamp) {
-        winnersData.put(position, new WinnerData(winnerName, position, kills, winTimestamp));
+        this.winnersData.put(position, new WinnerData(winnerName, position, kills, winTimestamp));
+    }
+
+    public void setPlayerLastDamager(Player player, Player damager) {
+        this.playerLastDamager.put(player, damager);
     }
 
     public void addPlayerKills(Player player, int kills) {

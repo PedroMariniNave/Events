@@ -41,16 +41,15 @@ public class PlayerCheckTask extends BukkitRunnable {
     }
 
     private void eliminatePlayer() {
+        Player lastDamager = megaSumoEvent.getEventData().getLastDamager(player);
+        if (lastDamager != null) {
+            megaSumoEvent.getEventData().addPlayerKills(lastDamager, 1);
+        }
+
         String title = SpleefEvent.Titles.ELIMINATED[0];
         String subtitle = SpleefEvent.Titles.ELIMINATED[1];
 
         player.sendTitle(title, subtitle);
-
         megaSumoEvent.leave(player, LeaveReason.ELIMINATED);
-
-        Entity lastDamager = player.getLastDamageCause().getEntity();
-        if (!(lastDamager instanceof Player)) return;
-
-        megaSumoEvent.getEventData().addPlayerKills((Player) lastDamager, 1);
     }
 }
