@@ -27,13 +27,12 @@ public class PlayerCheckTask extends BukkitRunnable {
         }
 
         if (player == null || !player.isOnline() || !sumoEvent.isFighting(player) || player.getLocation().getBlock().isLiquid()) {
-            selectWinner();
+            this.cancel();
+            this.selectWinner();
         }
     }
 
     private void selectWinner() {
-        this.cancel();
-
         Player winner = sumoEvent.getPlayer1().equals(player) ? sumoEvent.getPlayer2() : sumoEvent.getPlayer1();
         if (winner == null) return;
 

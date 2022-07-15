@@ -119,6 +119,7 @@ public class FileUtils {
         FASTCRAFT("fastcraft", "events", "events"),
         FIGHT("fight", "events", "events"),
         SUMO("sumo", "events", "events"),
+        MEGA_SUMO("mega_sumo", "events", "events"),
         KILLER("killer", "events", "events"),
         PARKOUR("parkour", "events", "events"),
         RACE("race", "events", "events"),

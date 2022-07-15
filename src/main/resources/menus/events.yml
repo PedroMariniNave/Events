@@ -1,6 +1,6 @@
 Inventory:
   title: "Eventos"
-  size: 36
+  size: 45
   items:
     1:
       type: DIAMOND_BOOTS
@@ -25,7 +25,7 @@ Inventory:
       glow: true
       name: "&cSumo"
       lore:
-        - '&7Derrube os outros jogadores para vencer!'
+        - '&7Derrube seu inimigo para vencer!'
         - ''
         - '&7Abaixo estão as informações'
         - '&7desse evento:'
@@ -37,6 +37,22 @@ Inventory:
         - ' &8▶ &7Prêmio: &2$&a100k &7+ tag &c[&l㊋&c]'
       slot: 12
     3:
+      type: BLAZE_ROD
+      glow: true
+      name: "&4Mega Sumo"
+      lore:
+        - '&7Derrube os outros jogadores para vencer!'
+        - ''
+        - '&7Abaixo estão as informações'
+        - '&7desse evento:'
+        - ''
+        - ' &8▶ &7Dia: &fTodos'
+        - ' &8▶ &7Horários: &f09:00 &8| &f11:00 &8| &f17:15 &8| &f19:30'
+        - ''
+        - ' &8▶ &7Custo de entrada: &f-/-'
+        - ' &8▶ &7Prêmio: &2$&a100k &7+ tag &c[&l㊋&c]'
+      slot: 13
+    4:
       type: IRON_BOOTS
       name: "&eParkour"
       lore:
@@ -50,8 +66,8 @@ Inventory:
         - ''
         - ' &8▶ &7Custo de entrada: &f-/-'
         - ' &8▶ &7Prêmio: &2$&a55k &7+ tag &e[P]'
-      slot: 13
-    4:
+      slot: 14
+    5:
       type: DIAMOND_SWORD
       glow: true
       name: "&5Fight"
@@ -66,8 +82,8 @@ Inventory:
         - ''
         - ' &8▶ &7Custo de entrada: &f-/-'
         - ' &8▶ &7Prêmio: &2$&a100k &7+ tag &5[&l⚔&5]'
-      slot: 14
-    5:
+      slot: 15
+    6:
       type: POTATO_ITEM
       name: "&6Batata-Quente"
       lore:
@@ -83,8 +99,8 @@ Inventory:
         - ''
         - ' &8▶ &7Custo de entrada: &f-/-'
         - ' &8▶ &7Prêmio: &2$&a160k &7+ tag &6[BQ]'
-      slot: 15
-    6:
+      slot: 20
+    7:
       type: DIAMOND_CHESTPLATE
       glow: true
       name: "&4Killer"
@@ -99,8 +115,8 @@ Inventory:
         - ''
         - ' &8▶ &7Custo de entrada: &f-/-'
         - ' &8▶ &7Prêmio: &2$&a100k &7+ tag &4[&l⚔&4]'
-      slot: 20
-    7:
+      slot: 21
+    8:
       type: WORKBENCH
       name: "&6FastCraft"
       lore:
@@ -115,8 +131,8 @@ Inventory:
         - ''
         - ' &8▶ &7Custo de entrada: &f-/-'
         - ' &8▶ &7Prêmio: &2$&a16k &7+ tag &6[FC]'
-      slot: 21
-    8:
+      slot: 22
+    9:
       type: SNOW_BALL
       glow: true
       name: "&9Paintball"
@@ -132,8 +148,8 @@ Inventory:
         - ''
         - ' &8▶ &7Custo de entrada: &f-/-'
         - ' &8▶ &7Prêmio: &2$&a100k &7+ tag &9[P]'
-      slot: 22
-    9:
+      slot: 23
+    10:
       type: IRON_AXE
       glow: true
       name: "&4Mini-Gladiador"
@@ -149,8 +165,8 @@ Inventory:
         - ''
         - ' &8▶ &7Custo de entrada: &f-/-'
         - ' &8▶ &7Prêmio: &2$&a100k &7+ tag &4[MG]'
-      slot: 22
-    10:
+      slot: 24
+    11:
       type: DIAMOND_AXE
       glow: true
       name: "&4Gladiador"
@@ -166,4 +182,4 @@ Inventory:
         - ''
         - ' &8▶ &7Custo de entrada: &f-/-'
         - ' &8▶ &7Prêmio: &2$&a250k &7+ tag &4[G]'
-      slot: 23
+      slot: 31

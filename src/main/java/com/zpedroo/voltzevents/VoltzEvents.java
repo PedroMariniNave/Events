@@ -5,6 +5,7 @@ import com.zpedroo.voltzevents.events.fastcraft.FastCraftEvent;
 import com.zpedroo.voltzevents.events.fight.FightEvent;
 import com.zpedroo.voltzevents.events.hotpotato.HotPotatoEvent;
 import com.zpedroo.voltzevents.events.killer.KillerEvent;
+import com.zpedroo.voltzevents.events.megasumo.MegaSumoEvent;
 import com.zpedroo.voltzevents.events.paintball.PaintballEvent;
 import com.zpedroo.voltzevents.events.parkour.ParkourEvent;
 import com.zpedroo.voltzevents.events.race.RaceEvent;
@@ -88,6 +89,7 @@ public class VoltzEvents extends JavaPlugin {
         new FightEvent(this);
         new KillerEvent(this);
         new SumoEvent(this);
+        new MegaSumoEvent(this);
         new ParkourEvent(this);
         new RaceEvent(this);
         new HotPotatoEvent(this);
