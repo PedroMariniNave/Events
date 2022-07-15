@@ -9,10 +9,9 @@ Inventory:
       lore:
         - '&7Abaixo estão suas informações:'
         - ''
-        - ' &8▶ &7Vitórias: &f{wins}'
         - ' &8▶ &7Participações: &f{participations}'
-        - ' &8▶ &7Taxa de vitórias: &f{win_rate}%'
-      slot: 13
+        - ' &8▶ &7Vitórias: &f{wins} &8({win_rate}%)'
+      slot: 12
     2:
       action: EVENTS
       type: SKULL_ITEM
@@ -23,17 +22,28 @@ Inventory:
         - '&7de eventos e horários!'
       slot: 29
     3:
-      action: TOP
       type: SKULL_ITEM
-      owner: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWNlMjUyOTYzYTUxODhjZWY4ZWRlOWQ4NTIzYmQ5MWQyODRhNzg1YjQxOGIzOWVlYzI5YTkxYWVhMDdjNjFlMiJ9fX0=
+      owner: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDAxYWZlOTczYzU0ODJmZGM3MWU2YWExMDY5ODgzM2M3OWM0MzdmMjEzMDhlYTlhMWEwOTU3NDZlYzI3NGEwZiJ9fX0=
+      name: "&6Informações"
+      lore:
+        - '&7Seja competitivo mas nunca'
+        - '&7deixe de lado a diversão!'
+        - ''
+        - '&7Os &f3 &7melhores jogadores'
+        - '&7dos eventos recebem recompensas'
+        - '&7em moedas e EXP de níveis.'
+      slot: 31
+    4:
+      action: TOP
+      type: ARMOR_STAND
       name: "&6Top Vitórias"
       lore:
         - '&7Clique para ver os jogadores'
         - '&7que mais venceram eventos!'
-      slot: 31
+      slot: 33
 
 Host-Event-Items:
-  slot: 33 # -1 = disabled
+  slot: 14 # -1 = disabled
   unlocked:
     type: SKULL_ITEM
     owner: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzJiYWYwYzU4OWE2YjU4MzUxMWQ4M2MyNjgyNDA4NDJkMzM2NDc3NGVjOWY1NjZkMWZkNGQzNDljZjQyZmIifX19
