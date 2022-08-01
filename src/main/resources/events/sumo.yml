@@ -103,7 +103,6 @@ Messages:
 Scoreboards:
   1:
     display-phase: WAITING_PLAYERS
-    update-time: 2
     title: '&c&lSUMO'
     lines:
       - ''
@@ -113,7 +112,6 @@ Scoreboards:
       - '  &cwww.voltzmc.com'
   2:
     display-phase: WARMUP
-    update-time: 2
     title: '&c&lSUMO'
     lines:
       - ''
@@ -129,7 +127,6 @@ Scoreboards:
       - '  &cwww.voltzmc.com'
   3:
     display-phase: STARTED
-    update-time: 2
     title: '&c&lSUMO'
     lines:
       - ''

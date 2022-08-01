@@ -14,16 +14,16 @@ import com.zpedroo.voltzevents.objects.host.EventHost;
 import com.zpedroo.voltzevents.objects.player.EventData;
 import com.zpedroo.voltzevents.objects.player.EventItems;
 import com.zpedroo.voltzevents.objects.player.PlayerData;
-import com.zpedroo.voltzevents.tasks.AnnounceTask;
-import com.zpedroo.voltzevents.tasks.VoidCheckTask;
-import com.zpedroo.voltzevents.tasks.WarmupTask;
+import com.zpedroo.voltzevents.tasks.event.AnnounceTask;
+import com.zpedroo.voltzevents.tasks.event.VoidCheckTask;
+import com.zpedroo.voltzevents.tasks.event.WarmupTask;
 import com.zpedroo.voltzevents.utils.FileUtils;
 import com.zpedroo.voltzevents.utils.actionbar.ActionBarAPI;
 import com.zpedroo.voltzevents.utils.config.Messages;
 import com.zpedroo.voltzevents.utils.config.Settings;
 import com.zpedroo.voltzevents.utils.formatter.TimeFormatter;
-import com.zpedroo.voltzevents.utils.scoreboard.manager.ScoreboardManager;
-import com.zpedroo.voltzevents.utils.scoreboard.objects.Scoreboard;
+import com.zpedroo.voltzevents.objects.general.ScoreboardInfo;
+import com.zpedroo.voltzevents.utils.scoreboard.ScoreboardUtils;
 import com.zpedroo.voltzevents.utils.storer.ExpStorer;
 import com.zpedroo.voltzevents.utils.storer.InventoryStorer;
 import lombok.Data;
@@ -54,7 +54,7 @@ public abstract class Event {
     private final HashMap<String, List<String>> messages;
     private final Map<Integer, String> winnersPosition;
     private Map<SpecialItem, Integer> specialItems;
-    private final Map<EventPhase, Scoreboard> scoreboards;
+    private final Map<EventPhase, ScoreboardInfo> scoreboards;
     private final Map<Integer, WinnerSettings> winnerSettings;
     private final String winnerTag;
     private final int winnersAmount;
@@ -223,7 +223,7 @@ public abstract class Event {
         });
     }
 
-    public Scoreboard getScoreboard() {
+    public ScoreboardInfo getScoreboard() {
         return scoreboards.get(eventPhase);
     }
 
@@ -397,11 +397,11 @@ public abstract class Event {
     }
 
     public void setScoreboard(Player player) {
-        ScoreboardManager.setScoreboard(player, this);
+        ScoreboardUtils.registerPlayerScoreboard(player, this);
     }
 
     public void removeScoreboard(Player player) {
-        ScoreboardManager.removeScoreboard(player);
+        ScoreboardUtils.removePlayerScoreboard(player);
     }
 
     public void addEventItemsToPlayer(Player player) {

@@ -105,7 +105,6 @@ Action-Bars:
 Scoreboards:
   1:
     display-phase: WAITING_PLAYERS
-    update-time: 2
     title: '&4&lMEGA SUMO'
     lines:
       - ''
@@ -115,7 +114,6 @@ Scoreboards:
       - '  &4www.voltzmc.com'
   2:
     display-phase: WARMUP
-    update-time: 2
     title: '&4&lMEGA SUMO'
     lines:
       - ''
@@ -125,7 +123,6 @@ Scoreboards:
       - '  &4www.voltzmc.com'
   3:
     display-phase: STARTED
-    update-time: 2
     title: '&4&lMEGA SUMO'
     lines:
       - ''

@@ -24,6 +24,7 @@ Settings:
     permission: events.host
     cooldown: 1800 # segundos
   data-update-interval: 600 # segundos
+  scoreboard-update-interval: 2 # ticks
   null-winner: 'Ninguém'
   disable-inventory-interaction: true # Essa opção é ignorada em eventos que o jogador entra com itens próprios
   disable-item-pickup: true # Essa opção é ignorada em eventos que o jogador entra com itens próprios

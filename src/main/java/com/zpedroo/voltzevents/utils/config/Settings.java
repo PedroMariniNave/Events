@@ -54,4 +54,6 @@ public class Settings {
     public static final int HOST_EVENT_COOLDOWN = FileUtils.get().getInt(FileUtils.Files.CONFIG, "Settings.host-event.cooldown");
 
     public static final long DATA_UPDATE_INTERVAL = FileUtils.get().getLong(FileUtils.Files.CONFIG, "Settings.data-update-interval");
+
+    public static final long SCOREBOARD_UPDATE_INTERVAL = FileUtils.get().getLong(FileUtils.Files.CONFIG, "Settings.scoreboard-update-interval");
 }

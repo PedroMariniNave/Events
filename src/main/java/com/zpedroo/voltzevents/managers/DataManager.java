@@ -1,7 +1,5 @@
 package com.zpedroo.voltzevents.managers;
 
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Table;
 import com.zpedroo.voltzevents.enums.EventPhase;
 import com.zpedroo.voltzevents.managers.cache.DataCache;
 import com.zpedroo.voltzevents.mysql.DBConnection;
@@ -15,7 +13,7 @@ import com.zpedroo.voltzevents.types.PvPEvent;
 import com.zpedroo.voltzevents.utils.FileUtils;
 import com.zpedroo.voltzevents.utils.color.Colorize;
 import com.zpedroo.voltzevents.utils.region.CuboidRegion;
-import com.zpedroo.voltzevents.utils.scoreboard.objects.Scoreboard;
+import com.zpedroo.voltzevents.objects.general.ScoreboardInfo;
 import com.zpedroo.voltzevents.utils.serialization.Base64Encoder;
 import com.zpedroo.voltzevents.utils.serialization.LocationSerialization;
 import org.apache.commons.lang.StringUtils;
@@ -25,10 +23,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class DataManager {
 
@@ -158,17 +153,17 @@ public class DataManager {
         return ret;
     }
 
-    public Map<EventPhase, Scoreboard> getScoreboardsFromFile(FileUtils.Files file) {
-        Map<EventPhase, Scoreboard> ret = new HashMap<>(4);
+    public Map<EventPhase, ScoreboardInfo> getScoreboardsFromFile(FileUtils.Files file) {
+        Map<EventPhase, ScoreboardInfo> ret = new HashMap<>(4);
 
         if (FileUtils.get().getFile(file).get().contains("Scoreboards")) {
             for (String str : FileUtils.get().getSection(file, "Scoreboards")) {
                 String title = Colorize.getColored(FileUtils.get().getString(file, "Scoreboards." + str + ".title"));
                 List<String> lines = Colorize.getColored(FileUtils.get().getStringList(file, "Scoreboards." + str + ".lines"));
                 EventPhase eventPhase = EventPhase.valueOf(FileUtils.get().getString(file, "Scoreboards." + str + ".display-phase"));
-                int updateTime = FileUtils.get().getInt(file, "Scoreboards." + str + ".update-time");
 
-                ret.put(eventPhase, new Scoreboard(title, lines, eventPhase, updateTime));
+                Collections.reverse(lines);
+                ret.put(eventPhase, new ScoreboardInfo(title, lines, eventPhase));
             }
         }
 

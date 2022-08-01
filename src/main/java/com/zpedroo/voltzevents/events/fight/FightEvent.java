@@ -8,7 +8,7 @@ import com.zpedroo.voltzevents.managers.CommandManager;
 import com.zpedroo.voltzevents.managers.DataManager;
 import com.zpedroo.voltzevents.managers.ListenerManager;
 import com.zpedroo.voltzevents.objects.player.EventItems;
-import com.zpedroo.voltzevents.tasks.AnnounceTask;
+import com.zpedroo.voltzevents.tasks.event.AnnounceTask;
 import com.zpedroo.voltzevents.types.PvPEvent;
 import com.zpedroo.voltzevents.utils.FileUtils;
 import com.zpedroo.voltzevents.utils.color.Colorize;
