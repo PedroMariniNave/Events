@@ -40,20 +40,17 @@ public class ScoreboardUpdateTask extends BukkitRunnable {
 
     @Override
     public void run() {
-        if (!player.isOnline() || !event.isParticipating(player)) {
+        if (!player.isOnline()) {
             ScoreboardUtils.removePlayerScoreboard(player);
             return;
         }
 
         if (scoreboard == null) {
             createScoreboard();
-            player.setScoreboard(scoreboard);
         }
 
-        Objective objective = getObjective();
-        if (objective == null) return; // other scoreboard, waiting
-
         updateScoreboard();
+        setPlayerScoreboard();
     }
 
     private void updateScoreboard() {
@@ -64,8 +61,8 @@ public class ScoreboardUpdateTask extends BukkitRunnable {
     private void updateTitle() {
         if (scoreboard == null) return;
 
-        Objective objective = getObjective();
-        if (objective == null || objective.getDisplayName().equals(getScoreboardInfo().getTitle())) return;
+        Objective objective = getScoreboardObjective();
+        if (objective.getDisplayName().equals(getScoreboardInfo().getTitle())) return;
 
         objective.setDisplayName(getScoreboardInfo().getTitle());
     }
@@ -73,9 +70,7 @@ public class ScoreboardUpdateTask extends BukkitRunnable {
     private void updateLines() {
         if (scoreboard == null) return;
 
-        Objective objective = getObjective();
-        if (objective == null) return;
-
+        Objective objective = getScoreboardObjective();
         ScoreboardInfo newScoreboardInfo = getScoreboardInfo();
         if (newScoreboardInfo != scoreboardInfo) {
             scoreboardInfo = newScoreboardInfo;
@@ -113,13 +108,23 @@ public class ScoreboardUpdateTask extends BukkitRunnable {
         objective.setDisplayName(getScoreboardInfo().getTitle());
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
     }
+
+    private void setPlayerScoreboard() {
+        if (isSameScoreboard(player.getScoreboard(), scoreboard)) return;
+
+        player.setScoreboard(scoreboard);
+    }
     
     private ScoreboardInfo getScoreboardInfo() {
         return event.getScoreboard();
     }
 
-    private Objective getObjective() {
+    private Objective getScoreboardObjective() {
         return scoreboard.getObjective("EventsScoreboard");
+    }
+
+    private boolean isSameScoreboard(Scoreboard scoreboard, Scoreboard scoreboardToCompare) {
+        return scoreboard.equals(scoreboardToCompare);
     }
 
     public void start() {
